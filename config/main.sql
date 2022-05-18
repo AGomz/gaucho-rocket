@@ -1,7 +1,7 @@
 create database gauchorocket;
 use gauchorocket;
 
-create table login (
+create table Login (
 	id integer unique auto_increment primary key,  
 	-- nickname varchar(35) not null,
 	email varchar(60) not null, 
@@ -78,7 +78,7 @@ create table Equipo (
 	modeloID integer not null,
 	matricula varchar(15),
 	TipoVueloID integer not null,
-	foreign key (modeloID) references modelo(id),
+	foreign key (modeloID) references Modelo(id),
 	foreign key (TipoVueloID) references TipoVuelo(id)
 );
 
@@ -161,7 +161,7 @@ insert into Rol (descripcion) values
 nombre varchar(60) not null,
 	direccion varchar(70)
 */
-insert into centromedico (nombre, direccion) values
+insert into CentroMedico (nombre, direccion) values
 ("Buenos Aires Medical", "Av. Rivadavia 14241"),
 ("Shanghai Medical Clinic", "AE M-01, Rawadat Al Wasl Building"),
 ("Medical Park Ankara Hastanesi", "Kent Koop Mah 1868");
@@ -173,10 +173,10 @@ table NivelVuelo
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
-insert into nivelvuelo (nombre, descripcion) values
+insert into NivelVuelo (nombre, descripcion) values
 ("Nivel 1", "Viajes de orbitales"),
-("Nivel 2", "Viajes de baja aceleración"),
-("Nivel 3", "Vaijes de alta aceleración");
+("Nivel 2", "Viajes de baja aceleraciï¿½n"),
+("Nivel 3", "Vaijes de alta aceleraciï¿½n");
 
 
 /*table Cabina
@@ -218,7 +218,7 @@ table TipoVuelo (
 insert into TipoVuelo (nombre, descripcion) values
 ("Orbitales", "Vuelvos Orbitales"),
 ("Baja aceleracion", "Vuelos hasta 2G"),
-("Alta aceleracion", "Vuelos de más de 2G");
+("Alta aceleracion", "Vuelos de mï¿½s de 2G");
 
 
 /*
@@ -290,7 +290,7 @@ insert into Equipo(nombre, modeloID, matricula, TipoVueloID) values
 2 ("Ejecutivo", "Cabina de tipo Ejecutivo"),
 3 ("Primera", "Primera clase.");
 */
-insert into capacidadcabina (EquipoID, CabinaID, cantidad) values
+insert into CapacidadCabina (EquipoID, CabinaID, cantidad) values
 -- clase aguila
 (1, 1, 200),
 (1, 2, 75),
@@ -413,7 +413,7 @@ create table Destino (
 insert into Destino (nombre, descripcion, IATA) values 
 ("Buenos Aires", "Aeropuerto Espacial Villa Fiorito", "ARFIO"),
 ("Ankara", "Esenboga Space-Port", "TRESB"),
-("ISS", "Estación Internacional", "SSISS"),
+("ISS", "Estaciï¿½n Internacional", "SSISS"),
 ("Orbital Hotel","Hotel orbital Zurich","SSZUR"),
 ("Luna", "Luna", "SSMON"),
 ("Marte", "Planeta rojo", "SSMAR"),
@@ -431,7 +431,7 @@ insert into Destino (nombre, descripcion, IATA) values
 	descripcion varchar(70) not null,
 	precio float
 */
-insert into servicioabordo (nombre, descripcion, precio) values
+insert into ServicioABordo (nombre, descripcion, precio) values
 ("Standard", "Servicio estandar", 0.0),
 ("Gourmet", "Servicio Gourmet", 500.0),
 ("Spa", "Servicio Spa", 950.70);
