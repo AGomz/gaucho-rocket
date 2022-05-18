@@ -118,8 +118,8 @@ create table Tramo (
 	EquipoID integer not null,
 	OrigenID integer not null,
 	DestinoID integer not null,
-	FechaSalida date not null,
-	FechaLlegaga date not null,
+	FechaSalida datetime not null,
+	FechaLlegada datetime not null,
 	ServicioID integer not null,
 	Precio float not null,
 	foreign key (EquipoID) references Equipo(id),
@@ -132,19 +132,19 @@ create table Pago (
 	id integer unique auto_increment primary key,
 	transaccion varchar(51) not null,
 	importe float not null,
-	fecha date not null
+	fecha datetime not null
 );
 
 create table CheckIn (
 	id integer unique auto_increment primary key,
 	codigo varchar(46) not null,
-	fecha date not null
+	fecha datetime not null
 );
 
 create table Reserva (
 	UsuarioID integer not null,
 	TramoID integer not null, 
-	fecha date not null,
+	fecha datetime not null,
 	PagoID integer,
 	CheckInID integer,
 	primary key (UsuarioID, TramoID),
@@ -238,41 +238,43 @@ insert into Equipo(nombre, modeloID, matricula, TipoVueloID) values
 ("Aguila 9", 1, "AA9", 3),
 ("Aguila 13", 1, "AA13", 3),
 ("Aguila 17", 1, "AA17", 3),
-("Aguilucho 8", 1, "BA8", 2),
-("Aguilucho 9", 1, "BA9", 2),
-("Aguilucho 10", 1, "BA10", 2),
-("Aguilucho 11", 1, "BA11", 2),
-("Aguilucho 12", 1, "BA12", 2),
-("Calandria 1", 1, "O1", 1),
-("Calandria 2", 1, "O2", 1),
-("Calandria 6", 1, "O6", 1),
-("Calandria 7", 1, "O7", 1),
-("Canario 13", 1, "BA13", 2),
-("Canario 14", 1, "BA14", 2),
-("Canario 15", 1, "BA15", 2),
-("Canario 16", 1, "BA16", 2),
-("Canario 17", 1, "BA17", 2),
-("Carancho 4", 1, "BA4", 2),
-("Carancho 5", 1, "BA5", 2),
-("Carancho 6", 1, "BA6", 2),
-("Carancho 7", 1, "BA7", 2),
-("Colibri 3", 1, "O3", 1),
-("Colibri 4", 1, "O4", 1),
-("Colibri 5", 1, "O5", 1),
-("Colibri 8", 1, "O8", 1),
-("Condor 2", 1, "AA2", 3),
-("Condor 6", 1, "AA6", 3),
-("Condor 10", 1, "AA10", 3),
-("Condor 14", 1, "AA14", 3),
-("Condor 18", 1, "AA18", 3),
-("Halcon 2", 1, "AA3", 3),
-("Halcon 7", 1, "AA7", 3),
-("Halcon 11", 1, "AA11", 3),
-("Halcon 15", 1, "AA15", 3),
-("Halcon 19", 1, "AA19", 3),
-("Zorzal 1", 1, "BA1", 2),
-("Zorzal 2", 1, "BA3", 2),
-("Zorzal 3", 1, "BA3", 2);
+("Aguilucho 8", 2, "BA8", 2),
+("Aguilucho 9", 2, "BA9", 2),
+("Aguilucho 10", 2, "BA10", 2),
+("Aguilucho 11", 2, "BA11", 2),
+("Aguilucho 12", 2, "BA12", 2),
+("Calandria 1", 3, "O1", 1),
+("Calandria 2", 3, "O2", 1),
+("Calandria 6", 3, "O6", 1),
+("Calandria 7", 3, "O7", 1),
+("Canario 13", 4, "BA13", 2),
+("Canario 14", 4, "BA14", 2),
+("Canario 15", 4, "BA15", 2),
+("Canario 16", 4, "BA16", 2),
+("Canario 17", 4, "BA17", 2),
+("Carancho 4", 5, "BA4", 2),
+("Carancho 5", 5, "BA5", 2),
+("Carancho 6", 5, "BA6", 2),
+("Carancho 7", 5, "BA7", 2),
+("Colibri 3", 6, "O3", 1),
+("Colibri 4", 6, "O4", 1),
+("Colibri 5", 6, "O5", 1),
+("Colibri 8", 6, "O8", 1),
+("Condor 2", 7, "AA2", 3),
+("Condor 6", 7, "AA6", 3),
+("Condor 10", 7, "AA10", 3),
+("Condor 14", 7, "AA14", 3),
+("Condor 18", 7, "AA18", 3),
+("Guanaco 4", 8, "AA4", 1),
+("Guanaco 8", 8, "AA8", 1),
+("Halcon 2", 9, "AA3", 3),
+("Halcon 7", 9, "AA7", 3),
+("Halcon 11", 9, "AA11", 3),
+("Halcon 15", 9, "AA15", 3),
+("Halcon 19", 9, "AA19", 3),
+("Zorzal 1", 10, "BA1", 2),
+("Zorzal 2", 10, "BA3", 2),
+("Zorzal 3", 10, "BA3", 2);
 
 
 
@@ -374,13 +376,10 @@ insert into capacidadcabina (EquipoID, CabinaID, cantidad) values
 (32, 1, 300),
 (32, 2, 10),
 (32, 3, 40),
+-- clase guanaco
+(33,3,100),
+(34,3,100),
 -- clase halcon
-(33, 1, 150),
-(33, 2, 25),
-(33, 3, 25),
-(34, 1, 150),
-(34, 2, 25),
-(34, 3, 25),
 (35, 1, 150),
 (35, 2, 25),
 (35, 3, 25),
@@ -390,13 +389,19 @@ insert into capacidadcabina (EquipoID, CabinaID, cantidad) values
 (37, 1, 150),
 (37, 2, 25),
 (37, 3, 25),
+(38, 1, 150),
+(38, 2, 25),
+(38, 3, 25),
+(39, 1, 150),
+(39, 2, 25),
+(39, 3, 25),
 -- clase zorzal
-(38, 1, 50),
-(38, 2, 80),
-(39, 1, 50),
-(39, 2, 80),
 (40, 1, 50),
-(40, 2, 80);
+(40, 2, 80),
+(41, 1, 50),
+(41, 2, 80),
+(42, 1, 50),
+(42, 2, 80);
 
 /*
 create table Destino (
@@ -438,11 +443,99 @@ create table Tramo (
 	OrigenID integer not null,
 	DestinoID integer not null,
 	FechaSalida date not null,
-	FechaLlegaga date not null,
+	FechaLlegada date not null,
 	ServicioID integer not null,
 	Precio float not null,
 */
-/*
-insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegaga, ServicioID, Precio) values
-(12, 1, 3, "2022-05-18T00:02:00", "2022-05-19T11:10:00", 1, 500);
-*/
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- Tierra / ISS
+(12, 1, 3, "2022-05-18 00:02:00", "2022-05-19 08:10:00", 1, 500),
+(13, 3, 1, "2022-05-18 04:05:00", "2022-05-19 12:10:00", 1, 500),
+(25, 2, 3, "2022-05-18 00:10:00", "2022-05-19 08:10:00", 1, 500),
+(27, 3, 2, "2022-05-18 04:10:00", "2022-05-19 12:20:00", 1, 500),
+(12, 3, 1, "2022-05-18 12:02:00", "2022-05-19 20:10:00", 1, 500),
+(13, 1, 3, "2022-05-18 15:05:00", "2022-05-19 23:10:00", 1, 500),
+(25, 3, 2, "2022-05-18 12:10:00", "2022-05-19 20:10:00", 1, 500),
+(27, 2, 3, "2022-05-18 15:10:00", "2022-05-19 23:20:00", 1, 500),
+-- Tour
+(33, 3, 2, "2022-05-20 12:10:00", "2022-06-25 20:10:00", 1, 500),
+(34, 2, 3, "2022-05-25 15:10:00", "2022-06-30 23:20:00", 1, 500),
+-- ISS / orbital hotel baja aceleracion
+(41, 3, 4, "2022-05-19 06:02:00", "2022-05-19 07:10:00", 1, 500),
+(20, 4, 3, "2022-05-19 06:05:00", "2022-05-19 07:10:00", 1, 500),
+-- ISS / orbital hotel alta aceleracion
+(28, 3, 4, "2022-05-19 07:02:00", "2022-05-19 08:10:00", 1, 500),
+(29, 4, 3, "2022-05-19 08:05:00", "2022-05-19 09:10:00", 1, 500);
+ 
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- Orbital hotel / luna - baja aceleracion
+(41, 4, 5, "2022-05-19 08:00:00", "2022-05-19 23:10:00", 1, 500),
+(20, 5, 4, "2022-05-19 08:00:00", "2022-05-19 23:40:00", 1, 500),
+-- orbital hotel / luna alta aceleracion
+(28, 4, 5, "2022-05-19 08:20:00", "2022-05-19 19:10:00", 1, 500),
+(29, 4, 5, "2022-05-19 08:05:00", "2022-05-19 18:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- luna / marte- baja aceleracion
+(41, 4, 5, "2022-05-20 00:10:00", "2022-05-21 01:10:00", 1, 500),
+(20, 5, 4, "2022-05-20 08:05:00", "2022-05-21 01:40:00", 1, 500),
+-- luna / marte alta aceleracion
+(28, 4, 5, "2022-05-19 20:00:00", "2022-05-20 18:10:00", 1, 500),
+(29, 4, 5, "2022-05-19 19:00:00", "2022-05-20 17:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- ISS - luna baja aceleracion
+(41, 3, 5, "2022-05-20 02:00:00", "2022-05-20 16:10:00", 1, 500),
+(22, 5, 3, "2022-05-20 02:00:00", "2022-05-20 16:40:00", 1, 500),
+-- ISS - luna alta aceleracion
+(30, 3, 5, "2022-05-20 08:00:00", "2022-05-20 18:40:00", 1, 500),
+(31, 3, 3, "2022-05-20 08:00:00", "2022-05-20 18:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- luna / marte - baja aceleracion
+(41, 3, 5, "2022-05-20 17:00:00", "2022-05-21 19:10:00", 1, 500),
+(22, 5, 3, "2022-05-20 17:00:00", "2022-05-21 19:40:00", 1, 500),
+-- luna / marte - alta aceleracion
+(30, 3, 5, "2022-05-21 20:00:00", "2022-05-20 18:40:00", 1, 500),
+(31, 3, 3, "2022-05-21 20:00:00", "2022-05-20 18:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- marte / ganimedes - baja aceleracion
+(41, 3, 5, "2022-05-21 20:00:00", "2022-05-23 19:10:00", 1, 500),
+(22, 5, 3, "2022-05-21 20:00:00", "2022-05-23 19:40:00", 1, 500),
+-- marte /ganimedes - alta aceleracion
+(30, 3, 5, "2022-05-21 20:00:00", "2022-05-23 04:40:00", 1, 500),
+(31, 3, 3, "2022-05-21 20:00:00", "2022-05-23 04:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- ganimedes / europa - baja aceleracion
+(41, 3, 5, "2022-05-23 20:00:00", "2022-05-27 19:10:00", 1, 500),
+(22, 5, 3, "2022-05-23 20:00:00", "2022-05-27 19:40:00", 1, 500),
+-- ganimedes / europa - alta aceleracion
+(30, 3, 5, "2022-05-23 20:00:00", "2022-05-25 08:40:00", 1, 500),
+(31, 3, 3, "2022-05-23 20:00:00", "2022-05-25 08:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- europa / lo- baja aceleracion
+(41, 3, 5, "2022-05-27 20:00:00", "2022-06-01 19:10:00", 1, 500),
+(22, 5, 3, "2022-05-27 20:00:00", "2022-06-01 19:40:00", 1, 500),
+-- europa / lo - alta aceleracion
+(30, 3, 5, "2022-05-25 09:00:00", "2022-05-27 08:40:00", 1, 500),
+(31, 3, 3, "2022-05-25 09:00:00", "2022-05-27 08:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- lo / encedalo - baja aceleracion
+(41, 3, 5, "2022-06-01 20:00:00", "2022-06-04 19:10:00", 1, 500),
+(22, 5, 3, "2022-06-01 20:00:00", "2022-06-04 19:40:00", 1, 500),
+-- lo / encedalo - alta aceleracion
+(30, 3, 5, "2022-05-27 09:00:00", "2022-05-30 10:40:00", 1, 500),
+(31, 3, 3, "2022-05-27 09:00:00", "2022-05-30 10:10:00", 1, 500);
+
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, ServicioID, Precio) values
+-- encedalo / titan - baja aceleracion
+(41, 3, 5, "2022-06-04 20:00:00", "2022-06-07 19:10:00", 1, 500),
+(22, 5, 3, "2022-06-04 20:00:00", "2022-06-07 19:40:00", 1, 500),
+-- encedalo / titan - alta aceleracion
+(30, 3, 5, "2022-05-30 09:00:00", "2022-06-02 10:40:00", 1, 500),
+(31, 3, 3, "2022-05-30 09:00:00", "2022-06-02 10:10:00", 1, 500);
