@@ -5,6 +5,7 @@ class RegisterController
 
     private $userModel;
     private $printer;
+    private $formValidator;
 
     public function __construct($userModel, $printer)
     {
@@ -19,27 +20,28 @@ class RegisterController
 
     public function register()
     {
-        // TODO, Habría que validar que es método POST primero
-        $email = $_POST["email"];
-        $nickname = $_POST["nickname"];
-        $password =  $_POST["password"];
-
-        $user = $this->userModel->getUserByEmail($email);
-
-        if ($email != "" && $nickname != "" && $password != "" &&  empty($user)) {
-
-            // TODO, validar email contra regex, password > 8 caracteres, etc
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-
-            $this->userModel->createNewUser($email, $hash, $nickname);
-
-            header('Location: ../../login');
-            die();
-        } else {
-            echo $this->printer->render(
-                "view/registerView.html",
-                ["error" => "Registro incorrecto"]
-            );
+        // TODO, extraer a método?
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            Redirect::to('/register');
         }
+
+        $nombre = isset($_POST["name"]) ? $_POST["name"] : "";
+        $apellido = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
+        $email = isset($_POST["email"]) ? $_POST["email"] : "";
+        $password =  isset($_POST["password"]) ? $_POST["password"] : "";
+
+        // if ($this->userModel->getUserByEmail($email)) {
+        //     // TODO invalid email
+        // }
+
+        // TODO falta validar
+        if ($nombre != '' && $apellido != ''  && $email != '' && $password != '') {
+
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
+
+            Redirect::to("/login");
+        }
+        Redirect::to("/register");
     }
 }

@@ -12,12 +12,14 @@ class Configuration
 
     public function createLoginController()
     {
+        $this->getRedirect();
         require_once("controller/LoginController.php");
         return new LoginController($this->createUserModel(), $this->createPrinter());
     }
 
     public function createRegisterController()
     {
+        $this->getRedirect();
         require_once("controller/RegisterController.php");
         return new RegisterController($this->createUserModel(), $this->createPrinter());
     }
@@ -35,13 +37,29 @@ class Configuration
     {
         require_once("helpers/Database.php");
         $config = $this->getConfig();
-        return new Database($config["servername"], $config["username"], $config["password"], $config["dbname"]);
+        return new Database(
+            $config["DATABASE"]["servername"],
+            $config["DATABASE"]["username"],
+            $config["DATABASE"]["password"],
+            $config["DATABASE"]["dbname"]
+        );
+    }
+
+    // private function createFormValidator()
+    // {
+    //     require_once("helpers/Validator.php");
+    //     return new FormValidator();
+    // }
+
+    private function getRedirect()
+    {
+        require_once("helpers/Redirect.php");
     }
 
     private  function getConfig()
     {
         if (is_null($this->config))
-            $this->config = parse_ini_file("config/config.ini");
+            $this->config = parse_ini_file("config/config.ini", true);
 
         return  $this->config;
     }
@@ -62,6 +80,10 @@ class Configuration
     {
         require_once('third-party/mustache/src/Mustache/Autoloader.php');
         require_once("helpers/MustachePrinter.php");
-        return new MustachePrinter("view/partials");
+        $config = $this->getConfig();
+        return new MustachePrinter(
+            "view/partials",
+            array('URLS' => $config["URLS"])
+        );
     }
 }

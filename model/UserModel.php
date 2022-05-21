@@ -12,16 +12,23 @@ class UserModel
 
     public function getUserByEmail($email)
     {
-        // Necesito que devuelva un único registro
-        $query = "SELECT * FROM usuario WHERE email = \"$email\"";
+        // Devuelve un único registro o array vacío
+        $query = "SELECT email, password FROM login WHERE email = \"$email\"";
         return $this->database->query($query)[0];
     }
 
-    public function createNewUser($email, $password, $nickname)
+    public function createNewUser($nombre, $apellido, $email, $password)
     {
-        $query = "INSERT INTO usuario(email, password, nickname)
-                    VALUES (\"$email\", \"$password\", \"$nickname\")";
+        // Creo el login
+        $query = "INSERT INTO login(email, password) 
+                    VALUES (\"$email\", \"$password\")";
+        $this->database->insertQuery($query);
+        $IDLogin = $this->database->lastID();
 
-        return $this->database->query($query);
+        // Genero el usuario
+        $query = "INSERT INTO usuario(nombre, apellido, IDLogin)
+                    VALUES (\"$nombre\", \"$apellido\", \"$IDLogin\")";
+
+        return $this->database->insertQuery($query);
     }
 }

@@ -27,4 +27,14 @@ class Database
 
         return mysqli_fetch_all($databaseResult, MYSQLI_ASSOC);
     }
+
+    public function insertQuery($sql)
+    {
+        mysqli_query($this->connection, $sql);
+    }
+
+    public function lastID()
+    {
+        return mysqli_insert_id($this->connection);
+    }
 }

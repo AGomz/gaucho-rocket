@@ -19,23 +19,29 @@ class LoginController
 
     public function login()
     {
-        // TODO, Habría que validar el método POST primero
+        // TODO, extraer a método?
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            Redirect::to('/login');
+        }
         $email = $_POST["email"];
         $password =  $_POST["password"];
+
+        // Harcodeado por que faltan validaciones
+        if ($email == '' || $password == '') {
+            Redirect::to('/login');
+        }
 
         $user = $this->userModel->getUserByEmail($email);
 
         if (sizeof($user) > 0 && $user['email'] == $email && password_verify($password, $user['password'])) {
 
-            $_SESSION['logueado'] = $user['nickname'];
+            $_SESSION['logueado'] = $user['email'];
 
-            // Baja 2 niveles hasta la home
-            header('Location: ../../');
-            die();
+            Redirect::to("/");
         } else {
             echo $this->printer->render(
                 "view/loginView.html",
-                ["error" => "Login incorrecto"]
+                ["error" => 'Credenciales inválidas']
             );
         }
     }
@@ -45,7 +51,6 @@ class LoginController
         session_unset();
         session_destroy();
 
-        header('Location: ./../');
-        die();
+        Redirect::to("/");
     }
 }

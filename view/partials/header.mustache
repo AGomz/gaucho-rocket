@@ -15,7 +15,7 @@
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{URLS.images}}/favicon.ico" type="image/x-icon">
 
   <title>Gaucho Rocket {{ section }}</title>
 
@@ -29,7 +29,7 @@
     <div class="container-fluid">
       <h3>
         <i class="fa-solid fa-rocket"></i>
-        <a class="navbar-brand" href="/">Gaucho Rocket</a>
+        <a class="navbar-brand" href="{{URLS.domain}}">Gaucho Rocket</a>
       </h3>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
         aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
           </li>
         </ul>
         <ul>
-          <a href="/login/logout">
+          <a href="{{URLS.domain}}/login/logout">
             <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
           </a>
         </ul>
@@ -62,12 +62,12 @@
 
         <ul class="navbar-nav mr-auto mb-2 mb-md-2">
           <li>
-            <a href="/login">
+            <a href="{{URLS.domain}}/login">
               <button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-user"></i> Iniciar sesion</button>
             </a>
           </li>
           <li>
-            <a href="/register">
+            <a href="{{URLS.domain}}/register">
               <button class="btn btn-primary btn-sm ms-2">Registrarse</button>
             </a>
           </li>

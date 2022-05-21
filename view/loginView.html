@@ -30,33 +30,32 @@
     <section class="container vh-100 vw-100">
         <div class="row justify-content-center align-items-center h-100">
 
-            <div class="col-md-6 col-lg-4 offset-md-8 bg-light p-3 rounded-3 shadow">
+            <div class="col-md-6 col-lg-4 offset-md-8 bg-light p-3 rounded-3 shadow bg-opacity-75">
                 <div class="text-center">
                     <i class="fa-solid fa-rocket fa-5x"></i>
                     <h1 class="pb-2">Gaucho Rocket </h1>
                     <h4 class="pb-2">Login</h4>
                 </div>
 
-                <form action="login/login" class="p-3" method="POST">
-                    {{#error}}
-                    <div class="alert alert-danger" role="alert">
-                        {{error}}
-                    </div>
-                    {{/error}}
-                    {{^error}}
-                    {{/error}}
+                <form action="{{URLS.domain}}/login/login" class="p-3" method="POST">
                     <!-- Email -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Username"
-                            aria-describedby="basic-addon1">
+                        <input type="text" name="email" class="form-control {{#error}}is-invalid{{/error}}"
+                            placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+                        <div class="invalid-feedback">
+                            {{error}}
+                        </div>
                     </div>
 
                     <!-- Password -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="Contraseña"
-                            aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="password" name="password" class="form-control {{#error}}is-invalid{{/error}}"
+                            placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1">
+                        <div class="invalid-feedback">
+                            {{error}}
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-around align-items-center mb-4">
