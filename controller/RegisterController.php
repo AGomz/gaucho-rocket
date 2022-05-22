@@ -5,7 +5,6 @@ class RegisterController
 
     private $userModel;
     private $printer;
-    private $formValidator;
 
     public function __construct($userModel, $printer)
     {
@@ -13,9 +12,10 @@ class RegisterController
         $this->printer = $printer;
     }
 
-    public function show()
+    public function show($data = [])
     {
-        echo $this->printer->render("view/registerView.html");
+        echo $this->printer->render("view/registerView.html", $data);
+        die();
     }
 
     public function register()
@@ -29,19 +29,41 @@ class RegisterController
         $apellido = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
         $email = isset($_POST["email"]) ? $_POST["email"] : "";
         $password =  isset($_POST["password"]) ? $_POST["password"] : "";
+        $errors = [];
 
-        // if ($this->userModel->getUserByEmail($email)) {
-        //     // TODO invalid email
-        // }
+        $preload = [
+            "name" => $nombre,
+            "lastname" => $apellido,
+            "email" => $email,
+            "password" => $password
+        ];
 
-        // TODO falta validar
-        if ($nombre != '' && $apellido != ''  && $email != '' && $password != '') {
+        // Validar datos
+        $errors['nameError'] = $nombre == "" ? 'El nombre no puede estar vacío' : null;
+        $errors['lastnameError'] = $apellido == "" ? 'El apellido no puede estar vacío' : null;
+        $errors['emailError'] = !filter_var($email, FILTER_VALIDATE_EMAIL) ? 'El formato de email no es válido' : null;
+        $errors['passwordError'] = strlen($password) < 6  ? 'La contraseña debe tener al menos 6 caracteres' : null;
 
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-            $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
-
-            Redirect::to("/login");
+        // Limpia los errores null
+        foreach ($errors as $key => $value) {
+            if (!$value) {
+                unset($errors[$key]);
+            }
         }
-        Redirect::to("/register");
+
+        // Verificar que la cuenta no existe
+        if (sizeof($this->userModel->getUserByEmail($email)) > 0) {
+            $errors['emailError'] = 'El email ya se encuentra registrado';
+        }
+
+        if ($errors) {
+            $data = array_merge($errors, $preload);
+            $this->show($data);
+        }
+
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
+
+        Redirect::to("/login");
     }
 }

@@ -12,9 +12,9 @@ class LoginController
         $this->printer = $printer;
     }
 
-    public function show()
+    public function show($data = [])
     {
-        echo $this->printer->render("view/loginView.html");
+        echo $this->printer->render("view/loginView.html", $data);
     }
 
     public function login()
@@ -23,26 +23,25 @@ class LoginController
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             Redirect::to('/login');
         }
-        $email = $_POST["email"];
-        $password =  $_POST["password"];
 
-        // Harcodeado por que faltan validaciones
-        if ($email == '' || $password == '') {
-            Redirect::to('/login');
-        }
+        $email = isset($_POST["email"]) ? $_POST["email"] : "";
+        $password =  isset($_POST["password"]) ? $_POST["password"] : "";
+
+        $preload = [
+            "email" => $email,
+            "password" => $password
+        ];
 
         $user = $this->userModel->getUserByEmail($email);
 
-        if (sizeof($user) > 0 && $user['email'] == $email && password_verify($password, $user['password'])) {
+        if (sizeof($user) > 0 && $user[0]['email'] == $email && password_verify($password, $user[0]['password'])) {
 
-            $_SESSION['logueado'] = $user['email'];
+            $_SESSION['logueado'] = $user[0]['email'];
 
             Redirect::to("/");
         } else {
-            echo $this->printer->render(
-                "view/loginView.html",
-                ["error" => 'Credenciales inválidas']
-            );
+            $data = array_merge($preload, ["error" => 'Credenciales inválidas']);
+            $this->show($data);
         }
     }
 

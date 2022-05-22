@@ -45,12 +45,6 @@ class Configuration
         );
     }
 
-    // private function createFormValidator()
-    // {
-    //     require_once("helpers/Validator.php");
-    //     return new FormValidator();
-    // }
-
     private function getRedirect()
     {
         require_once("helpers/Redirect.php");
