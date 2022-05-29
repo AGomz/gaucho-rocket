@@ -14,7 +14,7 @@
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="shortcut icon" href="{{URLS.images}}/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{URLS.img}}/favicon.ico" type="image/x-icon">
 
   <title>Gaucho Rocket {{ section }}</title>
 
@@ -23,43 +23,46 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top bg-opacity-75 border-bottom shadow-sm"
+  <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top bg-opacity-75 border-bottom shadow-sm"
     aria-label="Fourth navbar example">
     <div class="container-fluid">
-      <h3>
-        <i class="fa-solid fa-rocket"></i>
-        <a class="navbar-brand" href="{{URLS.domain_name}}">Gaucho Rocket</a>
-      </h3>
+      <h4>
+        <i class="fa-solid fa-rocket align-middle"></i>
+        <a class="navbar-brand" href="{{URLS.domain_name}}"> Gaucho Rocket</a>
+      </h4>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
         aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Ejemplo de IF con mustache  -->
-      {{#session}}
-      <b>Bienvenido, {{session}}</b>
+      <!-- Menu usuario logueado/admin/invitado  -->
+      {{#SESSION}}
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="">Reservas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <a class="nav-link" href="#">Perfil</a>
           </li>
         </ul>
-        <ul>
-          <a href="{{URLS.domain_name}}/login/logout">
-            <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
-          </a>
+        <ul class="navbar-nav mb-2 mb-md-0">
+          <div>
+            <span class="small text-muted">
+              {{SESSION.user.email}}
+            </span>
+            {{#SESSION.user.isAdmin}}
+            <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-user-gear"></i> Panel</button>
+            {{/SESSION.user.isAdmin}}
+            <a href="{{URLS.domain_name}}/login/logout">
+              <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
+            </a>
+            <!-- Si es el ADMIN se muestra menu especial -->
+          </div>
         </ul>
-        {{/session}}
-        {{^session}}
-        <b>NO ESTÁS LOGUEADO</b>
-
-        <ul class="navbar-nav mr-auto mb-2 mb-md-2">
+        {{/SESSION}}
+        {{^SESSION}}
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
           <li>
             <a href="{{URLS.domain_name}}/login">
               <button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-user"></i> Iniciar sesion</button>
@@ -71,8 +74,13 @@
             </a>
           </li>
         </ul>
-        {{/session}}
+        {{/SESSION}}
 
       </div>
     </div>
   </nav>
+
+  <!-- Muestra si hay algún mensaje en la session -->
+  {{#message_alert}}
+  {{message}}
+  {{/message_alert}}

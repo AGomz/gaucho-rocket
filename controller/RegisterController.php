@@ -5,11 +5,13 @@ class RegisterController
 
     private $userModel;
     private $printer;
+    private $mailer;
 
-    public function __construct($userModel, $printer)
+    public function __construct($userModel, $printer, $mailer)
     {
         $this->userModel = $userModel;
         $this->printer = $printer;
+        $this->mailer = $mailer;
     }
 
     public function show($data = [])
@@ -20,10 +22,7 @@ class RegisterController
 
     public function register()
     {
-        // TODO, extraer a método?
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            Redirect::to('/register');
-        }
+        Redirect::ifMethodIsNotPOST('/register');
 
         $nombre = isset($_POST["name"]) ? $_POST["name"] : "";
         $apellido = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
@@ -61,9 +60,49 @@ class RegisterController
             $this->show($data);
         }
 
+        // Se registra al usuario en la db
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
 
+        // Le mando el mail
+        $this->sendRegisterEmail($email, $nombre, $apellido);
+
         Redirect::to("/login");
+    }
+
+    // Manda un mail cuando se registra el usuario
+    private function sendRegisterEmail($email, $nombre, $apellido)
+    {
+        //Content
+        $mailData = array(
+            "mail" => $email,
+            "nombre" => $nombre,
+            "apellido" => $apellido
+        );
+
+        // Ejemplo de imagen en el body del emial
+        // $mail->AddEmbeddedImage("rocks.png", "my-attach", "rocks.png");
+        // $mail->Body = 'Embedded Image: <img alt="PHPMailer" src="cid:my-attach"> Here is an image!';
+
+        //Recipients
+        $this->mailer->addAddress($email, "$nombre $apellido");     //Add a recipient
+        // Asunto
+        $this->mailer->Subject = 'Bienvenido a Gaucho Rocket!!!!';
+        // Img para el body del mail
+        $this->mailer->AddEmbeddedImage(
+            "./public/img/register-mail-image.jpg",
+            "img"
+        );
+        // Body html del mail
+        $mailHTML = $this->printer->render("view/registerMailview.html", $mailData);
+        $this->mailer->Body = $mailHTML;
+
+        if ($this->mailer->send()) {
+            // Mensaje enviado ok
+            $_SESSION['message'] = 'Registro exitoso, se ha enviado un nuevo correo electrónico';
+        } else {
+            echo 'Error al enviar el correo';
+            die();
+        };
     }
 }

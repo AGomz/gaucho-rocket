@@ -27,7 +27,7 @@ create table NivelVuelo (
 
 
 create table Usuario (
-	id integer unique primary key,
+	id integer unique auto_increment primary key,  
 	nombre varchar(35) not null,
 	apellido varchar(45) not null, 
 	IDLogin integer not null,

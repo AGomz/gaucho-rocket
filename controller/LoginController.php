@@ -19,14 +19,13 @@ class LoginController
 
     public function login()
     {
-        // TODO, extraer a método?
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            Redirect::to('/login');
-        }
+        Redirect::ifMethodIsNotPOST('/login');
 
         $email = isset($_POST["email"]) ? $_POST["email"] : "";
         $password =  isset($_POST["password"]) ? $_POST["password"] : "";
 
+        // Datos precargados por el cliente por si tengo
+        // que marcale un error en los datos
         $preload = [
             "email" => $email,
             "password" => $password
@@ -36,7 +35,15 @@ class LoginController
 
         if (sizeof($user) > 0 && $user[0]['email'] == $email && password_verify($password, $user[0]['password'])) {
 
-            $_SESSION['logueado'] = $user[0]['email'];
+            // Se asigna id de usuario a la sesion
+            // Luego desde el <<userModel>> con el Id de usuario accedemos a cualquier dato
+            $_SESSION['user'] = array(
+                "id" => $user[0]['id'],
+                "email" => $user[0]['email'],
+                "isAdmin" => $this->userModel->getRolByUserId($user[0]['id']) == 'Administrador'
+            );
+
+            $_SESSION['message'] = "Bienvenido nuevamente $email";
 
             Redirect::to("/");
         } else {

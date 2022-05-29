@@ -21,7 +21,7 @@ class Configuration
     {
         $this->getRedirect();
         require_once("controller/RegisterController.php");
-        return new RegisterController($this->createUserModel(), $this->createPrinter());
+        return new RegisterController($this->createUserModel(), $this->createPrinter(), $this->getPHPMailer());
     }
 
     // Modelos
@@ -58,6 +58,13 @@ class Configuration
         return  $this->config;
     }
 
+    private function getPHPMailer()
+    {
+        $config = $this->getConfig();
+        require_once("helpers/PHPMailer.php");
+        return $mail;
+    }
+
     // private function getLogger()
     // {
     //     require_once("helpers/Logger.php");
@@ -77,7 +84,29 @@ class Configuration
         $config = $this->getConfig();
         return new MustachePrinter(
             "view/partials",
-            array('URLS' => $config["URLS"])
+            // Constantes y funciones para usar en cualquier vista
+            array(
+                // Rutas de url del config.ini
+                'URLS' => $config["URLS"],
+                // Sirve para acceder a mensajes globales en la sesion, por unica vez
+                // Ej, cuando el usuario se loguea en el controller del logueo
+                // Le genera $_SESSION['message'] = 'Login exitoso' y muestra en la proxima pagina
+                // Todos los alert se muestran desde el header por única vez. Luego se 
+                // destruye la variable para que no se vuelva a mostrar. 
+                'message_alert' => function () {
+                    if (isset($_SESSION['message'])) {
+                        $message = $_SESSION['message'];
+                        unset($_SESSION['message']);
+                        return "<div class='alert alert-success m-2' role='alert'>" .
+                            $message .
+                            "</div>";
+                    }
+                    return "";
+                },
+                // Se le pasa a las plantillas la variable de session para verificar
+                // los datos del usuario
+                'SESSION' => $_SESSION
+            )
         );
     }
 }
