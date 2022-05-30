@@ -1,0 +1,26 @@
+{{>header}}
+
+<div class="container my-5 pt-3">
+    <h3 class="text-center">Resultado de la búsqueda</h3>
+</div>
+{{#datos}}
+<div class="card border-info my-5 w-50 mx-auto">
+    <div class="card-header">
+        <!--<h6>Tipo de viaje</h6>-->
+        <!--<img src="{{URLS.img}}/favicon.ico" >-->
+        <i class="fas fa-rocket"></i>
+    </div>
+    <div class="card-body">
+        <h6 class="card-title">Descripción</h6>
+        <p class="card-text">Salida: {{salida}} - {{origen}} <br>
+                            Llegada: {{llegada}} - {{destino}}<br>
+                            Tipo: {{tipoVuelo}} - {{nivelVuelo}}<br>
+        </p>
+        <span class="font-weight-bold">Cabina {{cabina}}</span> <br>
+        <span>Servicio {{servicio}}</span>
+        <div class="text-end"><a href="#" class="btn btn-info">Reservar</a></div>
+    </div>
+</div>
+{{/datos}}
+
+{{>footer}}
