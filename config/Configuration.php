@@ -24,12 +24,26 @@ class Configuration
         return new RegisterController($this->createUserModel(), $this->createPrinter(), $this->getPHPMailer());
     }
 
+    public function createSearchController()
+    {
+        $this->getRedirect();
+        require_once("controller/SearchController.php");
+        return new SearchController($this->createSearchModel(), $this->createPrinter());
+    }
+
     // Modelos
     private  function createUserModel()
     {
         require_once("model/UserModel.php");
         $database = $this->getDatabase();
         return new UserModel($database);
+    }
+
+    private  function createSearchModel()
+    {
+        require_once("model/SearchModel.php");
+        $database = $this->getDatabase();
+        return new SearchModel($database);
     }
 
     // Helpers
