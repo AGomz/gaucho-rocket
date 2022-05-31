@@ -63,4 +63,21 @@ class SearchModel
 
         return $this->database->query($query);
     }
+
+    public function getDatosSuborbital($origen){
+        $query = "SELECT DISTINCT dd.nombre AS origen, d.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
+		sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
+        FROM destino d JOIN
+        tramo t ON d.id=t.DestinoID JOIN
+        destino dd ON dd.id=t.OrigenID JOIN
+        servicioabordo sb ON  t.servicioID=sb.id JOIN
+        equipo e ON sb.id=e.id JOIN
+        capacidadcabina cap ON e.id=cap.CabinaID JOIN
+        cabina c ON cap.CabinaID=c.id JOIN
+        tipovuelo tv ON c.id=tv.id JOIN
+        nivelvuelo nv ON tv.id=nv.id
+        WHERE dd.id=$origen AND d.id=$origen AND t.FechaSalida BETWEEN CURDATE() AND CURDATE() + INTERVAL 30 DAY";
+
+        return $this->database->query($query);
+    }
 }

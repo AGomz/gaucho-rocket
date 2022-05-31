@@ -29,12 +29,16 @@ class SearchController
             $datos = $this->searchModel->getDatosPor($origen, $destino);
             //$data = ["datos" => $datos];
         }
-        if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="Ida"){
+        if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="ida"){
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
             //$data = ["datos" => $datos];
         }
-        if($origen && $tipoViaje=="Tour"){
+        if($origen && $tipoViaje=="tour"){
             $datos = $this->searchModel->getDatosTour($origen);
+            //$data = ["datos" => $datos];
+        }
+        if($origen && $tipoViaje=="suborbital"){
+            $datos = $this->searchModel->getDatosSuborbital($origen);
             //$data = ["datos" => $datos];
         }
 
