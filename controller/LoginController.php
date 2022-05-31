@@ -38,9 +38,10 @@ class LoginController
             // Se asigna id de usuario a la sesion
             // Luego desde el <<userModel>> con el Id de usuario accedemos a cualquier dato
             $_SESSION['user'] = array(
-                "id" => $user[0]['id'],
+                "id" => $this->userModel->getUserIDByEmail($email),
                 "email" => $user[0]['email'],
-                "isAdmin" => $this->userModel->getRolByUserId($user[0]['id']) == 'Administrador'
+                "IsCliente" => $this->userModel->esClienteByEmail($user[0]['email']) == 1,
+                "isAdmin" => $this->userModel->esAdminByEmail($user[0]['email']) == 1
             );
 
             $_SESSION['message'] = "Bienvenido nuevamente $email";
