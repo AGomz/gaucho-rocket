@@ -40,8 +40,8 @@ class LoginController
             $_SESSION['user'] = array(
                 "id" => $this->userModel->getUserIDByEmail($email),
                 "email" => $user[0]['email'],
-                "IsCliente" => $this->userModel->esClienteByEmail($user[0]['email']) == 1,
-                "isAdmin" => $this->userModel->esAdminByEmail($user[0]['email']) == 1
+                //"IsCliente" => $this->userModel->esClienteByEmail($user[0]['email']) == 1,
+                //"isAdmin" => $this->userModel->esAdminByEmail($user[0]['email']) == 1
             );
 
             $_SESSION['message'] = "Bienvenido nuevamente $email";
