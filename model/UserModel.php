@@ -13,9 +13,22 @@ class UserModel
     public function getUserByEmail($email)
     {
         // Devuelve un único registro o array vacío
-        $query = "SELECT id, email, password FROM login WHERE email = \"$email\"";
+        $query = "SELECT email, password FROM login WHERE email = \"$email\"";
         return $this->database->query($query);
     }
+
+    public function getUserIDByEmail($email)
+    {
+        // Devuelve un único registro o array vacío
+        $query = "SELECT u.id
+                    FROM login l
+                    INNER JOIN usuario u 
+                    ON u.IDLogin = l.id 
+                    WHERE l.email =  \"$email\"";
+        return $this->database->query($query);
+    }
+
+
 
     public function getRolByUserID($id)
     {
@@ -27,12 +40,28 @@ class UserModel
 
     public function esCliente($id)
     {
-        return $this->getNivelDeVueloByUserID($id) === 'Cliente';
+        $query =    "SELECT count(*)
+                    FROM usuario u 
+                    INNER JOIN usuariorol u2 
+                    ON u2.UsuarioID = u.id
+                    INNER JOIN login l 
+                    ON u.IDLogin = l.id
+                    WHERE l.email =  \"$id\"
+                    AND u2.RolID = 1;";
+        return $this->database->query($query) === 1;
     }
 
     public function esAdmin($id)
     {
-        return $this->getNivelDeVueloByUserID($id) === 'Administrador';
+        $query =    "SELECT count(*)
+                    FROM usuario u 
+                    INNER JOIN usuariorol u2 
+                    ON u2.UsuarioID = u.id
+                    INNER JOIN login l 
+                    ON u.IDLogin = l.id
+                    WHERE l.email =  \"$id\"
+                    AND u2.RolID = 2;";
+        return $this->database->query($query) === 1;
     }
 
     private function getNivelDeVueloByUserID($id)
