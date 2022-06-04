@@ -17,6 +17,11 @@
             text-align: center;
         }
 
+        .text-red {
+            color: lightcoral;
+            font-weight: 600;
+        }
+
         button {
             font-weight: bold;
             font-size: 1.3em;
@@ -46,9 +51,18 @@
         <img class="img-responsive text-center" alt="Ilustracion guacho rocket" src="cid:img">
         <br>
         <br>
-        <a href="http://google.com">
+        <p>Tu cuenta ya está activada</p>
+        <p>
+            Te hemos agendado un turno médico en <span class="text-red">{{turnoMedico.nombre}}</span>.
+        </p>
+        <p>
+            Debes presentarte el día <span class="text-red">{{turnoMedico.fecha}}.</span>
+            en <span class="text-red">{{turnoMedico.direccion}}</span>
+        </p>
+        <p>Tu nivel de vuelo asignado es: <b>{{turnoMedico.nivelVuelo}}</b></p>
+        <!-- <a href="http://google.com">
             <button>Activar cuenta</button>
-        </a>
+        </a> -->
     </div>
 
 </body>

@@ -16,7 +16,8 @@ create table Rol (
 create table CentroMedico (
 	id integer unique auto_increment primary key,  
 	nombre varchar(60) not null,
-	direccion varchar(70) not null
+	direccion varchar(70) not null,
+	TurnosDiarios int not null
 );
 
 create table NivelVuelo (
@@ -161,10 +162,10 @@ insert into Rol (descripcion) values
 nombre varchar(60) not null,
 	direccion varchar(70)
 */
-insert into CentroMedico (nombre, direccion) values
-("Buenos Aires Medical", "Av. Rivadavia 14241"),
-("Shanghai Medical Clinic", "AE M-01, Rawadat Al Wasl Building"),
-("Medical Park Ankara Hastanesi", "Kent Koop Mah 1868");
+insert into CentroMedico (nombre, direccion, turnosDiarios) values
+("Buenos Aires Medical", "Av. Rivadavia 14241", 300),
+("Shanghai Medical Clinic", "AE M-01, Rawadat Al Wasl Building", 210),
+("Medical Park Ankara Hastanesi", "Kent Koop Mah 1868", 200);
 
 
 /*

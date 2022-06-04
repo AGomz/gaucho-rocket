@@ -4,12 +4,14 @@ class RegisterController
 {
 
     private $userModel;
+    private $turnoMedicoModel;
     private $printer;
     private $mailer;
 
-    public function __construct($userModel, $printer, $mailer)
+    public function __construct($userModel, $turnoMedicoModel, $printer, $mailer)
     {
         $this->userModel = $userModel;
+        $this->turnoMedicoModel = $turnoMedicoModel;
         $this->printer = $printer;
         $this->mailer = $mailer;
     }
@@ -62,22 +64,27 @@ class RegisterController
 
         // Se registra al usuario en la db
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
+        $userID = $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
 
-        // Le mando el mail
-        $this->sendRegisterEmail($email, $nombre, $apellido);
+        // Le asignamos el turno medico
+        $datosTurnoMedico = $this->generateTurnoMedico($userID);
+
+        // Le mandamos el mail
+        $this->sendRegisterEmail($email, $nombre, $apellido, $datosTurnoMedico);
+
 
         Redirect::to("/login");
     }
 
     // Manda un mail cuando se registra el usuario
-    private function sendRegisterEmail($email, $nombre, $apellido)
+    private function sendRegisterEmail($email, $nombre, $apellido, $datosTurnoMedico)
     {
         //Content
         $mailData = array(
             "mail" => $email,
             "nombre" => $nombre,
-            "apellido" => $apellido
+            "apellido" => $apellido,
+            "turnoMedico" => $datosTurnoMedico
         );
 
         // Ejemplo de imagen en el body del emial
@@ -94,7 +101,7 @@ class RegisterController
             "img"
         );
         // Body html del mail
-        $mailHTML = $this->printer->render("view/registerMailview.html", $mailData);
+        $mailHTML = $this->printer->render("view/registerMailView.html", $mailData);
         $this->mailer->Body = $mailHTML;
 
         if ($this->mailer->send()) {
@@ -104,5 +111,48 @@ class RegisterController
             echo 'Error al enviar el correo';
             die();
         };
+    }
+
+    // Genera el turno medico en el centro que se encuentre disponible
+    // a partir de 1 día despúes de la fecha de registro
+    // devuelve un array con el nombre del centromedico y la fecha
+    private function generateTurnoMedico($usuarioId)
+    {
+        $date = new DateTime(); // Fecha hoy
+        $date->add(new DateInterval('P1D')); // P1D means a period of 1 day
+        $turnoAgendado = false;
+        $datosTurnoMedico = [];
+        $centrosId = array(1, 2, 3);
+
+        while (!$turnoAgendado) {
+            shuffle($centrosId);
+            // Itera sobre los 3 centros medicos
+            foreach ($centrosId as $centroMedicoId) {
+                if ($this->turnoMedicoModel->hayTurnoDisponible($date->format('Y-m-d'), $centroMedicoId)) {
+                    // Hay disponibilidad
+                    $turnoAgendado = true;
+
+                    $centroMedico = $this->turnoMedicoModel->getCentroMedicoById($centroMedicoId);
+                    $datosTurnoMedico['nombre'] = $centroMedico['nombre'];
+                    $datosTurnoMedico['direccion'] = $centroMedico['direccion'];
+                    $datosTurnoMedico['fecha'] = $date->format('Y-m-d');
+
+                    $this->turnoMedicoModel->agendarTurnoMedico(
+                        $usuarioId,
+                        $centroMedicoId,
+                        $date->format('Y-m-d')
+                    );
+                    // Asigna aleatoriamente el nivel de vuelo
+                    $datosTurnoMedico['nivelVuelo'] = $this->turnoMedicoModel->asignarNivelDeVuelo($usuarioId);
+
+                    if ($turnoAgendado) {
+                        break;
+                    }
+                }
+            }
+            // Si no hay disponibilidad, vuelve a verificar al día siguiente
+            $date->add(new DateInterval('P1D')); // P1D means a period of 1 day
+        }
+        return $datosTurnoMedico;
     }
 }
