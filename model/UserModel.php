@@ -91,7 +91,8 @@ class UserModel
         $IDUsuario = $this->database->lastID();
         $query = "INSERT INTO UsuarioRol (UsuarioID, RolID) 
                     VALUES (\"$IDUsuario\", \"1\")";
+        $this->database->insertQuery($query);
 
-        return $this->database->insertQuery($query);
+        return $IDUsuario;
     }
 }

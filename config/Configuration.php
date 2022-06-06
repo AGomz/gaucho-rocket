@@ -21,7 +21,7 @@ class Configuration
     {
         $this->getRedirect();
         require_once("controller/RegisterController.php");
-        return new RegisterController($this->createUserModel(), $this->createPrinter(), $this->getPHPMailer());
+        return new RegisterController($this->createUserModel(), $this->createTurnoMedicoModel(), $this->createPrinter(), $this->getPHPMailer());
     }
 
     public function createSearchController()
@@ -51,6 +51,13 @@ class Configuration
         require_once("model/SearchModel.php");
         $database = $this->getDatabase();
         return new SearchModel($database);
+    }
+
+    private function createTurnoMedicoModel()
+    {
+        require_once("model/TurnoMedicoModel.php");
+        $database = $this->getDatabase();
+        return new TurnoMedicoModel($database);
     }
 
     private function createReservasModel()
