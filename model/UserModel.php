@@ -13,7 +13,7 @@ class UserModel
     public function getUserByEmail($email)
     {
         // Devuelve un único registro o array vacío
-        $query = "SELECT email, password FROM login WHERE email = \"$email\"";
+        $query = "SELECT email, password FROM Login WHERE email = \"$email\"";
         return $this->database->query($query);
     }
 
@@ -21,8 +21,8 @@ class UserModel
     {
         // Devuelve un único registro o array vacío
         $query = "SELECT u.id
-                    FROM login l
-                    INNER JOIN usuario u 
+                    FROM Login l
+                    INNER JOIN Usuario u 
                     ON u.IDLogin = l.id 
                     WHERE l.email =  \"$email\"";
         return $this->database->query($query);
@@ -76,20 +76,20 @@ class UserModel
     {
         // TODO debería ir todo en una Transaction, por si falla alguna query?
         // Creo el login
-        $query = "INSERT INTO login(email, password) 
+        $query = "INSERT INTO Login(email, password) 
                     VALUES (\"$email\", \"$password\")";
         $this->database->insertQuery($query);
         $IDLogin = $this->database->lastID();
 
         // Genero el usuario
-        $query = "INSERT INTO usuario(nombre, apellido, IDLogin)
+        $query = "INSERT INTO Usuario(nombre, apellido, IDLogin)
                     VALUES (\"$nombre\", \"$apellido\", \"$IDLogin\")";
         $this->database->insertQuery($query);
 
         // Le doy el rol de cliente
         // El rol esta harcodeado, se debería traer del modelo de rol?
         $IDUsuario = $this->database->lastID();
-        $query = "INSERT INTO usuariorol (UsuarioID, RolID) 
+        $query = "INSERT INTO UsuarioRol (UsuarioID, RolID) 
                     VALUES (\"$IDUsuario\", \"1\")";
 
         return $this->database->insertQuery($query);
