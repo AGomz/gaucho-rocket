@@ -12,71 +12,71 @@ class SearchModel
     }
 
     public function getDatosPor($origen, $destino){
-        $query = "SELECT DISTINCT dd.nombre AS origen, d.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
-        sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
-        FROM Destino d JOIN
-        Tramo t ON d.id=t.DestinoID JOIN
-        Destino dd ON dd.id=t.OrigenID JOIN
-        ServicioABordo sb ON  t.servicioID=sb.id JOIN
-        Equipo e ON sb.id=e.id JOIN
-        CapacidadCabina cap ON e.id=cap.CabinaID JOIN
-        Cabina c ON cap.CabinaID=c.id JOIN
-        TipoVuelo tv ON c.id=tv.id JOIN
-        NivelVuelo nv ON tv.id=nv.id
-        where d.id=$destino AND dd.id=$origen AND
-        t.FechaSalida BETWEEN CURDATE() AND CURDATE() + INTERVAL 30 DAY;";
+        $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
+        sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        from destino d join
+        tramo t on d.id=t.destinoid join
+        destino dd on dd.id=t.origenid join
+        servicioabordo sb on  t.servicioid=sb.id join
+        equipo e on sb.id=e.id join
+        capacidadcabina cap on e.id=cap.cabinaid join
+        cabina c on cap.cabinaid=c.id join
+        tipovuelo tv on c.id=tv.id join
+        nivelvuelo nv on tv.id=nv.id
+        where d.id=$destino and dd.id=$origen and
+        t.fechasalida between curdate() and curdate() + interval 30 day;";
 
         return $this->database->query($query);
     }
 
     public function getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio){
-        $query = "SELECT DISTINCT dd.nombre AS origen, d.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
-		sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
-        FROM Destino d JOIN
-        Tramo t ON d.id=t.DestinoID JOIN
-        Destino dd ON dd.id=t.OrigenID JOIN
-        ServicioABordo sb ON  t.servicioID=sb.id JOIN
-        Equipo e ON sb.id=e.id JOIN
-        CapacidadCabina cap ON e.id=cap.CabinaID JOIN
-        Cabina c ON cap.CabinaID=c.id JOIN
-        TipoVuelo tv ON c.id=tv.id JOIN
-        NivelVuelo nv ON tv.id=nv.id
-        WHERE dd.id=$origen AND d.id=$destino AND DATE(t.fechaSalida)= \"$fecha\"
-        AND c.id=$cabina AND sb.id=$servicio AND nv.id=$nivelPasajero";
+        $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
+		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        from destino d join
+        tramo t on d.id=t.destinoid join
+        destino dd on dd.id=t.origenid join
+        servicioabordo sb on  t.servicioid=sb.id join
+        equipo e on sb.id=e.id join
+        capacidadcabina cap on e.id=cap.cabinaid join
+        cabina c on cap.cabinaid=c.id join
+        tipovuelo tv on c.id=tv.id join
+        nivelvuelo nv on tv.id=nv.id
+        where dd.id=$origen and d.id=$destino and date(t.fechasalida)= \"$fecha\"
+        and c.id=$cabina and sb.id=$servicio and nv.id=$nivelPasajero";
 
         return $this->database->query($query);
     }
 
     public function getDatosTour($origen){
-        $query = "SELECT DISTINCT dd.nombre AS origen, d.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
-		sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
-        FROM Destino d JOIN
-        Tramo t ON d.id=t.DestinoID JOIN
-        Destino dd ON dd.id=t.OrigenID JOIN
-        ServicioABordo sb ON  t.servicioID=sb.id JOIN
-        Equipo e ON sb.id=e.id JOIN
-        CapacidadCabina cap ON e.id=cap.CabinaID JOIN
-        Cabina c ON cap.CabinaID=c.id JOIN
-        TipoVuelo tv ON c.id=tv.id JOIN
-        NivelVuelo nv ON tv.id=nv.id
-        WHERE dd.id=$origen AND d.id=$origen AND t.FechaSalida BETWEEN CURDATE() AND CURDATE() + INTERVAL 30 DAY";
+        $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
+		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        from destino d join
+        tramo t on d.id=t.destinoid join
+        destino dd on dd.id=t.origenid join
+        servicioabordo sb on  t.servicioid=sb.id join
+        equipo e on sb.id=e.id join
+        capacidadcabina cap on e.id=cap.cabinaid join
+        cabina c on cap.cabinaid=c.id join
+        tipovuelo tv on c.id=tv.id join
+        nivelvuelo nv on tv.id=nv.id
+        where dd.id=$origen and d.id=$origen and t.fechasalida between curdate() and curdate() + interval 30 day";
 
         return $this->database->query($query);
     }
 
     public function getDatosSuborbital($origen){
-        $query = "SELECT DISTINCT dd.nombre AS origen, d.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
-		sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
-        FROM Destino d JOIN
-        Tramo t ON d.id=t.DestinoID JOIN
-        Destino dd ON dd.id=t.OrigenID JOIN
-        ServicioABordo sb ON  t.servicioID=sb.id JOIN
-        Equipo e ON sb.id=e.id JOIN
-        CapacidadCabina cap ON e.id=cap.CabinaID JOIN
-        Cabina c ON cap.CabinaID=c.id JOIN
-        TipoVuelo tv ON c.id=tv.id JOIN
-        NivelVuelo nv ON tv.id=nv.id
-        WHERE dd.id=$origen AND d.id=$origen AND t.FechaSalida BETWEEN CURDATE() AND CURDATE() + INTERVAL 30 DAY";
+        $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
+		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        from destino d join
+        tramo t on d.id=t.destinoid join
+        destino dd on dd.id=t.origenid join
+        servicioabordo sb on  t.servicioid=sb.id join
+        equipo e on sb.id=e.id join
+        capacidadcabina cap on e.id=cap.cabinaid join
+        cabina c on cap.cabinaid=c.id join
+        tipovuelo tv on c.id=tv.id join
+        nivelvuelo nv on tv.id=nv.id
+        where dd.id=$origen and d.id=$origen and t.fechasalida between curdate() and curdate() + interval 30 day";
 
         return $this->database->query($query);
     }

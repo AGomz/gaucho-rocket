@@ -13,18 +13,18 @@ class UserModel
     public function getUserByEmail($email)
     {
         // Devuelve un único registro o array vacío
-        $query = "SELECT email, password FROM Login WHERE email = \"$email\"";
+        $query = "select email, password from login where email = \"$email\"";
         return $this->database->query($query);
     }
 
     public function getUserIDByEmail($email)
     {
         // Devuelve un único registro o array vacío
-        $query = "SELECT u.id
-                    FROM Login l
-                    INNER JOIN Usuario u 
-                    ON u.IDLogin = l.id 
-                    WHERE l.email =  \"$email\"";
+        $query = "select u.id
+                    from login l
+                    inner join usuario u 
+                    on u.idlogin = l.id 
+                    where l.email =  \"$email\"";
         return $this->database->query($query);
     }
 
@@ -32,43 +32,43 @@ class UserModel
 
     public function getRolByUserID($id)
     {
-        $query = "SELECT descripcion 
-                  FROM usuariorol u INNER JOIN rol r ON u.RolID = r.id 
-                  WHERE u.UsuarioID = \"$id\"";
+        $query = "select descripcion 
+                  from usuariorol u inner join rol r on u.rolid = r.id 
+                  where u.usuarioid = \"$id\"";
         return $this->database->query($query)[0]['descripcion'];
     }
 
     public function esCliente($id)
     {
-        $query =    "SELECT count(*)
-                    FROM usuario u 
-                    INNER JOIN usuariorol u2 
-                    ON u2.UsuarioID = u.id
-                    INNER JOIN login l 
-                    ON u.IDLogin = l.id
-                    WHERE l.email =  \"$id\"
-                    AND u2.RolID = 1;";
+        $query =    "select count(*)
+                    from usuario u 
+                    inner join usuariorol u2 
+                    on u2.usuarioid = u.id
+                    inner join login l 
+                    on u.idlogin = l.id
+                    where l.email =  \"$id\"
+                    and u2.rolid = 1;";
         return $this->database->query($query) === 1;
     }
 
     public function esAdmin($id)
     {
-        $query =    "SELECT count(*)
-                    FROM usuario u 
-                    INNER JOIN usuariorol u2 
-                    ON u2.UsuarioID = u.id
-                    INNER JOIN login l 
-                    ON u.IDLogin = l.id
-                    WHERE l.email =  \"$id\"
-                    AND u2.RolID = 2;";
+        $query =    "select count(*)
+                    from usuario u 
+                    inner join usuariorol u2 
+                    on u2.usuarioid = u.id
+                    inner join login l 
+                    on u.idlogin = l.id
+                    where l.email =  \"$id\"
+                    and u2.rolid = 2;";
         return $this->database->query($query) === 1;
     }
 
     private function getNivelDeVueloByUserID($id)
     {
-        $query = "SELECT n.nombre 
-                  FROM nivelvuelo n INNER JOIN usario u ON  n.id = u.IDNivelDeVuelo
-                  WHERE n.id = \"$id\"";
+        $query = "select n.nombre 
+                  from nivelvuelo n inner join usario u on  n.id = u.idniveldevuelo
+                  where n.id = \"$id\"";
         return $this->database->query($query);
     }
 
@@ -76,21 +76,21 @@ class UserModel
     {
         // TODO debería ir todo en una Transaction, por si falla alguna query?
         // Creo el login
-        $query = "INSERT INTO Login(email, password) 
-                    VALUES (\"$email\", \"$password\")";
+        $query = "insert into login(email, password) 
+                    values (\"$email\", \"$password\")";
         $this->database->insertQuery($query);
         $IDLogin = $this->database->lastID();
 
         // Genero el usuario
-        $query = "INSERT INTO Usuario(nombre, apellido, IDLogin)
-                    VALUES (\"$nombre\", \"$apellido\", \"$IDLogin\")";
+        $query = "insert into usuario(nombre, apellido, idlogin)
+                    values (\"$nombre\", \"$apellido\", \"$IDLogin\")";
         $this->database->insertQuery($query);
 
         // Le doy el rol de cliente
         // El rol esta harcodeado, se debería traer del modelo de rol?
         $IDUsuario = $this->database->lastID();
-        $query = "INSERT INTO UsuarioRol (UsuarioID, RolID) 
-                    VALUES (\"$IDUsuario\", \"1\")";
+        $query = "insert into usuariorol (usuarioid, rolid) 
+                    values (\"$IDUsuario\", \"1\")";
         $this->database->insertQuery($query);
 
         return $IDUsuario;

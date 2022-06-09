@@ -12,28 +12,28 @@ class TurnoMedicoModel
 
     public function getCentroMedicoById($id)
     {
-        $query = "SELECT nombre, direccion, TurnosDiarios FROM CentroMedico WHERE id = ${id}";
+        $query = "select nombre, direccion, turnosdiarios from centromedico where id = ${id}";
         return $this->database->query($query)[0];
     }
 
     public function hayTurnoDisponible($fecha, $centroMedicoId)
     {
         // Devuelve si hay lugar en el $centroMedicoId en la $fecha
-        $maximosTurnosPorDia = $this->getCentroMedicoById($centroMedicoId)['TurnosDiarios'];
+        $maximosTurnosPorDia = $this->getCentroMedicoById($centroMedicoId)['turnosdiarios'];
 
-        $query = "SELECT COUNT(*) AS CantidadTurnos 
-            FROM TurnoMedico t
-            JOIN CentroMedico c ON t.CentroMedicoID = c.id
-            WHERE c.id = ${centroMedicoId} AND t.fecha = '${fecha}'";
+        $query = "select count(*) as cantidadturnos 
+            from turnomedico t
+            join centromedico c on t.centromedicoid = c.id
+            where c.id = ${$centroMedicoId} and t.fecha = '${fecha}'";
 
-        return $this->database->query($query)[0]['CantidadTurnos'] < $maximosTurnosPorDia;
+        return $this->database->query($query)[0]['cantidadturnos'] < $maximosTurnosPorDia;
     }
 
     // Agenda turno medico y devuelve nivel de vuelo
     public function agendarTurnoMedico($usuarioId, $centroId, $fecha)
     {
-        $query = "INSERT INTO TurnoMedico (UsuarioID, CentroMedicoID, fecha)
-                    VALUES (${usuarioId}, ${centroId}, '${fecha}')";
+        $query = "insert into turnomedico (usuarioid, centromedicoid, fecha)
+                    values (${usuarioId}, ${centroId}, '${fecha}')";
 
         // Asigna turno medico
         $this->database->insertQuery($query);
@@ -43,7 +43,7 @@ class TurnoMedicoModel
     {
         // Simula generar nivel de vuelo random
         $nivelVuelo = rand(1, 3);
-        $query = "UPDATE Usuario SET IDNivelVuelo = ${nivelVuelo} WHERE id = ${usuarioId}";
+        $query = "update usuario set idnivelvuelo = ${$nivelVuelo} where id = ${usuarioId}";
         $this->database->insertQuery($query);
         return $nivelVuelo;
     }

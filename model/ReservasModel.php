@@ -11,19 +11,19 @@ class ReservasModel
     }
 
     public function getReservas($userId) {
-        $query = "SELECT DISTINCT dd.nombre AS origen, dno.nombre AS destino, t.FechaSalida AS salida, t.FechaLlegada AS llegada,
-        sb.nombre AS servicio, c.nombre AS cabina, t.precio AS precio, tv.nombre AS tipoVuelo, nv.nombre AS nivelVuelo
-        FROM Reserva r JOIN
-        Tramo t ON r.TramoID=t.id JOIN
-        Destino dd ON dd.id=t.OrigenID JOIN
-        Destino dno ON dno.id=t.DestinoID JOIN
-        ServicioABordo sb ON t.servicioID=sb.id JOIN
-        Equipo e ON sb.id=e.id JOIN
-        CapacidadCabina cap ON e.id=cap.CabinaID JOIN
-        Cabina c ON cap.CabinaID=c.id JOIN
-        TipoVuelo tv ON c.id=tv.id JOIN
-        NivelVuelo nv ON tv.id=nv.id
-        where r.UsuarioID=$userId";
+        $query = "select distinct dd.nombre as origen, dno.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
+        sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        from reserva r join
+        tramo t on r.tramoid=t.id join
+        destino dd on dd.id=t.origenid join
+        destino dno on dno.id=t.destinoid join
+        servicioabordo sb on t.servicioid=sb.id join
+        equipo e on sb.id=e.id join
+        capacidadcabina cap on e.id=cap.cabinaid join
+        cabina c on cap.cabinaid=c.id join
+        tipovuelo tv on c.id=tv.id join
+        nivelvuelo nv on tv.id=nv.id
+        where r.usuarioid=$userId";
 
         return $this->database->query($query);
     }
