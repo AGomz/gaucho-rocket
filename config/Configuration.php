@@ -38,6 +38,13 @@ class Configuration
         return new ReservasController($this->createReservasModel(), $this->createPrinter());
     }
 
+    public function createPaymentController()
+    {
+        $this->getRedirect();
+        require_once("controller/PaymentController.php");
+        return new PaymentController($this->createPaymentModel(), $this->createPrinter());
+    }
+
     // Modelos
     private function createUserModel()
     {
@@ -65,6 +72,13 @@ class Configuration
         require_once("model/ReservasModel.php");
         $database = $this->getDatabase();
         return new ReservasModel($database);
+    }
+
+    private function createPaymentModel()
+    {
+        require_once("model/PaymentModel.php");
+        $database = $this->getDatabase();
+        return new PaymentModel($database);
     }
 
     // Helpers

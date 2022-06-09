@@ -14,12 +14,16 @@ class ReservasController
 
     public function show($data = [])
     {
-        $array = $_SESSION['user']["id"];
-        $userId = $array[0]['id'];
+        if (isset($_SESSION['user'])) {
+            $array = $_SESSION['user']["id"];
+            $userId = $array[0]['id'];
 
-        $listadDeReservas = $this->reservasModel->getReservas($userId);
-        $datos = ["proxVuelos" => $listadDeReservas];
+            $listadDeReservas = $this->reservasModel->getReservas($userId);
+            $datos = ["proxVuelos" => $listadDeReservas];
 
-        echo $this->printer->render("view/reservasView.html", $datos);
+            echo $this->printer->render("view/reservasView.html", $datos);
+        } else {
+            Redirect::to("/");
+        }
     }
 }

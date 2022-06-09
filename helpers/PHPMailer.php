@@ -20,6 +20,15 @@ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->Host = "smtp.gmail.com";
 $mail->Port = 465; // or 587
 
+// Sin esto no envía el correo
+$mail->SMTPOptions = [
+    'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    ]
+];
+
 // Contrasenia para aplicacion de google
 // Se genera con desde la verificaion de 2 pasos de contrasenia
 // y contrasenias de aplicaciones
