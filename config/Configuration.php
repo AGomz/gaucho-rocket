@@ -21,7 +21,13 @@ class Configuration
     {
         $this->getRedirect();
         require_once("controller/RegisterController.php");
-        return new RegisterController($this->createUserModel(), $this->createTurnoMedicoModel(), $this->createPrinter(), $this->getPHPMailer());
+        return new RegisterController(
+            $this->createUserModel(),
+            $this->createTurnoMedicoModel(),
+            $this->createPrinter(),
+            $this->getPHPMailer(),
+            $this->getLogger()
+        );
     }
 
     public function createSearchController()
@@ -90,7 +96,8 @@ class Configuration
             $config["DATABASE"]["servername"],
             $config["DATABASE"]["username"],
             $config["DATABASE"]["password"],
-            $config["DATABASE"]["dbname"]
+            $config["DATABASE"]["dbname"],
+            $this->getLogger()
         );
     }
 
@@ -111,14 +118,14 @@ class Configuration
     {
         $config = $this->getConfig();
         require_once("helpers/PHPMailer.php");
-        return $mail;
+        return new Mailer($config['MAIL_SETTINGS']['email'], $config['MAIL_SETTINGS']['password']);
     }
 
-    // private function getLogger()
-    // {
-    //     require_once("helpers/Logger.php");
-    //     return new Logger();
-    // }
+    private function getLogger()
+    {
+        require_once("helpers/Logger.php");
+        return new Logger();
+    }
 
     public function createRouter($defaultController, $defaultAction)
     {

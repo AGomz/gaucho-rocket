@@ -7,34 +7,67 @@ require './third-party/PHPMailer/src/PHPMailer.php';
 require './third-party/PHPMailer/src/Exception.php';
 require './third-party/PHPMailer/src/SMTP.php';
 
-// Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
-
 // Configuracion con SMTP de gmail
 // cuenta gmail del sitio para correos salientes
 // usuario: "guachorocketArg@gmail.com"
 // password: "grupo_10_pbII_2022"
-$mail->IsSMTP(); // habilita SMTP
-$mail->SMTPAuth = true; // auth habilitada
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-$mail->Host = "smtp.gmail.com";
-$mail->Port = 465; // or 587
 
-// Sin esto no envía el correo
-$mail->SMTPOptions = [
-    'ssl' => [
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-    ]
-];
+class Mailer
+{
+    private $mail;
 
-// Contrasenia para aplicacion de google
-// Se genera con desde la verificaion de 2 pasos de contrasenia
-// y contrasenias de aplicaciones
-$mail->Username = $config['MAIL_SETTINGS']['email'];
-$mail->Password = $config['MAIL_SETTINGS']['password'];
+    public function __construct($username, $password)
+    {
+        $this->mail = new PHPMailer(true);
 
-// Configuraciones del mail a enviar
-$mail->SetFrom("gauchorocketArg@gmail.com");
-$mail->isHTML(true);
+        $this->mail->isSMTP(true);
+        $this->mail->SMTPAuth = true; // auth habilitada
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $this->mail->Host = "smtp.gmail.com";
+        $this->mail->Port = 465; // or 587
+
+        // Sin esto no envía el correo
+        $this->mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+
+        $this->mail->Username = $username;
+        $this->mail->Password = $password;
+
+        // Configuraciones del mail a enviar
+        $this->mail->SetFrom("gauchorocketArg@gmail.com");
+        $this->mail->isHTML(true);
+    }
+
+    public function agregarDestinatario($email, $fullName = '')
+    {
+        $this->mail->addAddress($email, $fullName);
+    }
+
+    public function agregarAsunto($subject)
+    {
+        $this->mail->Subject = $subject;
+    }
+
+    public function agregarImagen($path, $identifier)
+    {
+        $this->mail->AddEmbeddedImage(
+            $path,
+            $identifier
+        );
+    }
+
+    public function agregarBody($body)
+    {
+        $this->mail->Body = $body;
+    }
+
+    public function enviar()
+    {
+        return $this->mail->send();
+    }
+}

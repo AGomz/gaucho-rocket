@@ -74,24 +74,20 @@ class UserModel
 
     public function createNewUser($nombre, $apellido, $email, $password)
     {
-        // TODO debería ir todo en una Transaction, por si falla alguna query?
-        // Creo el login
-        $query = "insert into login(email, password) 
-                    values (\"$email\", \"$password\")";
-        $this->database->insertQuery($query);
+        $query = "INSERT INTO Login(email, password) 
+                    VALUES (?, ?)";
+        $this->database->preparedQuery($query, [$email, $password], 'ss');
         $IDLogin = $this->database->lastID();
 
         // Genero el usuario
-        $query = "insert into usuario(nombre, apellido, idlogin)
-                    values (\"$nombre\", \"$apellido\", \"$IDLogin\")";
-        $this->database->insertQuery($query);
+        $query = "INSERT INTO Usuario(nombre, apellido, IDLogin)
+                    VALUES (?, ?, ?)";
+        $this->database->preparedQuery($query, [$nombre, $apellido, $IDLogin], 'ssi');
 
-        // Le doy el rol de cliente
-        // El rol esta harcodeado, se debería traer del modelo de rol?
         $IDUsuario = $this->database->lastID();
-        $query = "insert into usuariorol (usuarioid, rolid) 
-                    values (\"$IDUsuario\", \"1\")";
-        $this->database->insertQuery($query);
+        $query = "INSERT INTO UsuarioRol (UsuarioID, RolID) 
+                    VALUES (?, \"1\")";
+        $this->database->preparedQuery($query, [$IDUsuario], 'i');
 
         return $IDUsuario;
     }

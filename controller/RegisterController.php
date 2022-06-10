@@ -8,12 +8,13 @@ class RegisterController
     private $printer;
     private $mailer;
 
-    public function __construct($userModel, $turnoMedicoModel, $printer, $mailer)
+    public function __construct($userModel, $turnoMedicoModel, $printer, $mailer, $logger)
     {
         $this->userModel = $userModel;
         $this->turnoMedicoModel = $turnoMedicoModel;
         $this->printer = $printer;
         $this->mailer = $mailer;
+        $this->logger = $logger;
     }
 
     public function show($data = [])
@@ -67,7 +68,7 @@ class RegisterController
         $userID = $this->userModel->createNewUser($nombre, $apellido, $email, $hash);
 
         // Le asignamos el turno medico
-        $datosTurnoMedico = $this->generateTurnoMedico($userID);
+        $datosTurnoMedico = $this->turnoMedicoModel->generateTurnoMedico($userID);
 
         // Le mandamos el mail
         $this->sendRegisterEmail($email, $nombre, $apellido, $datosTurnoMedico);
@@ -79,7 +80,6 @@ class RegisterController
     // Manda un mail cuando se registra el usuario
     private function sendRegisterEmail($email, $nombre, $apellido, $datosTurnoMedico)
     {
-        //Content
         $mailData = array(
             "mail" => $email,
             "nombre" => $nombre,
@@ -87,72 +87,22 @@ class RegisterController
             "turnoMedico" => $datosTurnoMedico
         );
 
-        // Ejemplo de imagen en el body del emial
-        // $mail->AddEmbeddedImage("rocks.png", "my-attach", "rocks.png");
-        // $mail->Body = 'Embedded Image: <img alt="PHPMailer" src="cid:my-attach"> Here is an image!';
-
-        //Recipients
-        $this->mailer->addAddress($email, "$nombre $apellido");     //Add a recipient
-        // Asunto
-        $this->mailer->Subject = 'Bienvenido a Gaucho Rocket!!!!';
-        // Img para el body del mail
-        $this->mailer->AddEmbeddedImage(
+        $this->mailer->agregarDestinatario($email, "$nombre $apellido");
+        $this->mailer->agregarAsunto('Bienvenido a Gaucho Rocket!!!!');
+        $this->mailer->agregarImagen(
             "./public/img/register-mail-image.jpg",
             "img"
         );
-        // Body html del mail
-        $mailHTML = $this->printer->render("view/registerMailView.html", $mailData);
-        $this->mailer->Body = $mailHTML;
+        $this->mailer->agregarBody($this->printer->render("view/registerMailView.html", $mailData));
 
-        if ($this->mailer->send()) {
-            // Mensaje enviado ok
+        if ($this->mailer->enviar()) {
             $_SESSION['message'] = 'Registro exitoso, se ha enviado un nuevo correo electrónico';
         } else {
+            // TODO Redirect a la pagina de error
             echo 'Error al enviar el correo';
             die();
         };
-    }
 
-    // Genera el turno medico en el centro que se encuentre disponible
-    // a partir de 1 día despúes de la fecha de registro
-    // devuelve un array con el nombre del centromedico y la fecha
-    private function generateTurnoMedico($usuarioId)
-    {
-        $date = new DateTime(); // Fecha hoy
-        $date->add(new DateInterval('P1D')); // P1D means a period of 1 day
-        $turnoAgendado = false;
-        $datosTurnoMedico = [];
-        $centrosId = array(1, 2, 3);
-
-        while (!$turnoAgendado) {
-            shuffle($centrosId);
-            // Itera sobre los 3 centros medicos
-            foreach ($centrosId as $centroMedicoId) {
-                if ($this->turnoMedicoModel->hayTurnoDisponible($date->format('Y-m-d'), $centroMedicoId)) {
-                    // Hay disponibilidad
-                    $turnoAgendado = true;
-
-                    $centroMedico = $this->turnoMedicoModel->getCentroMedicoById($centroMedicoId);
-                    $datosTurnoMedico['nombre'] = $centroMedico['nombre'];
-                    $datosTurnoMedico['direccion'] = $centroMedico['direccion'];
-                    $datosTurnoMedico['fecha'] = $date->format('Y-m-d');
-
-                    $this->turnoMedicoModel->agendarTurnoMedico(
-                        $usuarioId,
-                        $centroMedicoId,
-                        $date->format('Y-m-d')
-                    );
-                    // Asigna aleatoriamente el nivel de vuelo
-                    $datosTurnoMedico['nivelVuelo'] = $this->turnoMedicoModel->asignarNivelDeVuelo($usuarioId);
-
-                    if ($turnoAgendado) {
-                        break;
-                    }
-                }
-            }
-            // Si no hay disponibilidad, vuelve a verificar al día siguiente
-            $date->add(new DateInterval('P1D')); // P1D means a period of 1 day
-        }
-        return $datosTurnoMedico;
+        $this->logger->info("$email se ha registrado");
     }
 }

@@ -10,7 +10,8 @@ class ReservasModel
         $this->database = $database;
     }
 
-    public function getReservas($userId) {
+    public function getReservas($userId)
+    {
         $query = "select distinct dd.nombre as origen, dno.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
         sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
         from reserva r join
@@ -23,7 +24,7 @@ class ReservasModel
         cabina c on cap.cabinaid=c.id join
         tipovuelo tv on c.id=tv.id join
         nivelvuelo nv on tv.id=nv.id
-        where r.usuarioid=$userId";
+        where r.usuarioid=${userId}";
 
         return $this->database->query($query);
     }
