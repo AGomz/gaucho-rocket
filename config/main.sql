@@ -121,12 +121,10 @@ create table tramo (
 	destinoid integer not null,
 	fechasalida datetime not null,
 	fechallegada datetime not null,
-	servicioid integer not null,
 	precio float not null,
 	foreign key (equipoid) references equipo(id),
 	foreign key (origenid) references destino(id),
-	foreign key (destinoid) references destino(id),
-	foreign key (servicioid) references servicioabordo(id)
+	foreign key (destinoid) references destino(id)
 );
 
 create table pago (
@@ -148,9 +146,14 @@ create table reserva (
 	fecha datetime not null,
 	pagoid integer,
 	checkinid integer,
+	servicioid integer not null,
+	listaespera boolean,
+	tipocabina integer,
 	primary key (usuarioid, tramoid),
 	foreign key (usuarioid) references usuario(id),
-	foreign key (tramoid) references tramo(id)
+	foreign key (tramoid) references tramo(id),
+	foreign key (servicioid) references servicioabordo(id),
+	foreign key (tipoCabina) references cabina(id)
 );
 
 insert into rol (descripcion) values
@@ -449,6 +452,7 @@ create table tramo (
 	precio float not null,
 */
 
+/*
 insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, servicioid, precio) values
 -- Tierra / ISS
 (12, 1, 3, "2022-05-18 00:02:00", "2022-05-19 08:10:00", 1, 500),
@@ -540,3 +544,4 @@ insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, ser
 -- encedalo / titan - alta aceleracion
 (30, 3, 5, "2022-05-30 09:00:00", "2022-06-02 10:40:00", 1, 500),
 (31, 3, 3, "2022-05-30 09:00:00", "2022-06-02 10:10:00", 1, 500);
+*/
