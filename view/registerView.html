@@ -42,8 +42,8 @@
                     <div class="input-group mb-3 ">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                         <input type="text" name="name" class="form-control {{#nameError}}is-invalid{{/nameError}}"
-                            placeholder="Nombre" aria-label="Nombre
-                            aria-describedby=" basic-addon1" value="{{name}}">
+                            placeholder="Nombre" aria-label="Nombre"
+                            aria-describedby="basic-addon1" value="{{name}}">
                         <div class="invalid-feedback">
                             {{nameError}}
                         </div>
@@ -53,7 +53,7 @@
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                         <input type="text" name="lastname"
                             class="form-control {{#lastnameError}}is-invalid{{/lastnameError}}" placeholder="Apellido"
-                            aria-label="Apellido
+                            aria-label="Apellido"
                             aria-describedby=" basic-addon1" value="{{lastname}}">
                         <div class="invalid-feedback">
                             {{lastnameError}}
@@ -92,6 +92,5 @@
         </div>
 
     </section>
-</body>
 
-</html>
+    {{>footer}}

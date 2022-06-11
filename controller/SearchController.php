@@ -25,33 +25,32 @@ class SearchController
         $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
 
+       /* $preload = [
+           "tipoDeViaje" => $tipoViaje
+        ];*/
+
         if($origen && $destino){
             $datos = $this->searchModel->getDatosPor($origen, $destino);
-            //$data = ["datos" => $datos];
         }
         if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="ida"){
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
-            //$data = ["datos" => $datos];
         }
         if($origen && $tipoViaje=="tour"){
             $datos = $this->searchModel->getDatosTour($origen);
-            //$data = ["datos" => $datos];
         }
         if($origen && $tipoViaje=="suborbital"){
             $datos = $this->searchModel->getDatosSuborbital($origen);
-            //$data = ["datos" => $datos];
         }
 
-        $data = ["datos" => $datos];
+        if(sizeof($datos) > 0){
+            $result = ["datos" => $datos];
+            $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.']);
+
+        }else{
+            $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
+        }
+
         $this->show($data);
 
-        /*if(sizeof($datos) > 0){
-            $data = ["datos" => $datos];
-            $this->show($data);
-        }else{
-            echo "No se encontraron vuelos disponibles";
-        }*/
-
-        //var_dump($tipoViaje);
     }
 }
