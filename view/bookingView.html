@@ -1,0 +1,25 @@
+{{>header}}
+
+<div class="container my-5 pt-3">
+    <h3 class="text-center">Resumen de la reserva</h3>
+</div>
+
+<div class="container w75 mx-auto py-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Desde: {{origen}} - {{salida}}</li>
+        <li class="list-group-item">Hasta: destino - llegada</li>
+        <li class="list-group-item">Duración estimada: </li>
+        <li class="list-group-item">
+            <span class="font-weight-bold">Cabina {{cabina}}</span>
+            <span>Servicio {{servicio}}</span>
+        </li>
+        <li class="list-group-item">Tipo: {{tipoVuelo}} - {{nivelVuelo}}</li>
+    </ul>
+
+    <div class="text-end">
+        <a href="{{URLS.domain_name}}/payment" class="btn btn-dark">Pagar</a>
+    </div>
+</div>
+
+
+{{>footer}}

@@ -43,7 +43,7 @@ class SearchController
         }
 
         if(sizeof($datos) > 0){
-            $result = ["datos" => $datos];
+            $result = ["datos" => $datos]; // $data
             $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.']);
 
         }else{
