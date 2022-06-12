@@ -2189,7 +2189,6 @@ SET	@fecha = "2022-10-09 08:00:00";
 -- Calandria 6
 SET @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
 SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
 INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / BA
@@ -2205,4 +2204,3 @@ SET @fechaLlegada1 = date_add(@fecha, INTERVAL 35 DAY );
 INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / BA
 (@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-

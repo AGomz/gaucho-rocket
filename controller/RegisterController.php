@@ -19,6 +19,9 @@ class RegisterController
 
     public function show($data = [])
     {
+        if ( isset($_SESSION['user']["email"]) && $_SESSION['user'] != "" ){
+            Redirect::to('/home');
+        }
         echo $this->printer->render("view/registerView.html", $data);
         die();
     }

@@ -72,6 +72,17 @@ class UserModel
         return $this->database->query($query);
     }
 
+    private function getNivelDeVueloByEmail($email)
+    {
+        $query =        "select n.nombre 
+                        from nivelvuelo n 
+                        inner join usuario u
+                        on  n.id = u.idnivelvuelo
+                        inner join login l 
+                        on u.idlogin = l.id 
+                        where l.email = \"$email\"";
+        return $this->database->query($query);
+    }
     public function createNewUser($nombre, $apellido, $email, $password)
     {
         $query = "INSERT INTO Login(email, password) 

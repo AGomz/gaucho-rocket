@@ -14,11 +14,18 @@ class LoginController
 
     public function show($data = [])
     {
+
+        if ( isset($_SESSION['user']["email"]) && $_SESSION['user'] != "" ){
+            Redirect::to('/home');
+        }
+
         echo $this->printer->render("view/loginView.html", $data);
     }
 
     public function login()
     {
+
+
         Redirect::ifMethodIsNotPOST('/login');
 
         $email = isset($_POST["email"]) ? $_POST["email"] : "";
