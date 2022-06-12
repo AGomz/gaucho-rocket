@@ -141,6 +141,7 @@ create table checkin (
 );
 
 create table reserva (
+	id integer primary key auto_increment,
 	usuarioid integer not null,
 	tramoid integer not null,
 	fecha datetime not null,
@@ -148,8 +149,8 @@ create table reserva (
 	checkinid integer,
 	servicioid integer not null,
 	listaespera boolean,
-	tipocabina integer,
-	primary key (usuarioid, tramoid),
+	tipocabina integer not null,
+	-- primary key (usuarioid, tramoid),
 	foreign key (usuarioid) references usuario(id),
 	foreign key (tramoid) references tramo(id),
 	foreign key (servicioid) references servicioabordo(id),

@@ -2204,3 +2204,33 @@ SET @fechaLlegada1 = date_add(@fecha, INTERVAL 35 DAY );
 INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / BA
 (@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+
+-- datos para reservas: usuario
+insert into login (email, password) values 
+("email1@mail.com", md5("123456")),
+("email2@mail.com", md5("123456")),
+("email3@mail.com", md5("123456"));
+
+insert into usuario (nombre, apellido, idlogin, idnivelvuelo, activado) values
+("usuario1", "usuario1", 1, 1, true),
+("usuario2", "usuario2", 2, 2, true),
+("usuario3", "usuario3", 3, 3, true);
+
+-- guanaco a capacidad 1
+update capacidadcabina 
+set capacidadcabina.cantidad = 2
+where equipoid = 33;
+update capacidadcabina 
+set capacidadcabina.cantidad = 1
+where equipoid = 34;
+
+insert into reserva (usuarioid, tramoid, fecha, servicioid, tipocabina) values
+(2, 49, "2022-09-03 20:00:00", 2, 3), 
+(2, 50, "2022-09-03 20:00:00", 2, 3), 
+(2, 51, "2022-09-03 20:00:00", 2, 3), 
+(2, 52, "2022-09-03 20:00:00", 2, 3), 
+(2, 53, "2022-09-03 20:00:00", 2, 3), 
+(2, 54, "2022-09-03 20:00:00", 2, 3), 
+(2, 55, "2022-09-03 20:00:00", 2, 3), 
+(2, 56, "2022-09-03 20:00:00", 2, 3), 
+(2, 382, "2022-09-03 20:00:00", 2, 3);

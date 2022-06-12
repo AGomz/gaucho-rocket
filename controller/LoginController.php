@@ -15,7 +15,7 @@ class LoginController
     public function show($data = [])
     {
 
-        if ( isset($_SESSION['user']["email"]) && $_SESSION['user'] != "" ){
+        if ( isset($_SESSION['user']["email"]) && $_SESSION['user']["email"] != "" ){
             Redirect::to('/home');
         }
 
