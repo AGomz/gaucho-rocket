@@ -12,19 +12,16 @@ class SearchModel
     }
 
     public function getDatosPor($origen, $destino){
-        $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
-        sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
+        $query = "select distinct dd.nombre as origen, 
+                d.nombre as destino,
+                t.fechasalida as salida, 
+                t.fechallegada as llegada,
+                dd.id as idOrigen,
+                d.id as idDestino
         from destino d join
         tramo t on d.id=t.destinoid join
-        destino dd on dd.id=t.origenid join
-        servicioabordo sb on  t.servicioid=sb.id join
-        equipo e on sb.id=e.id join
-        capacidadcabina cap on e.id=cap.cabinaid join
-        cabina c on cap.cabinaid=c.id join
-        tipovuelo tv on c.id=tv.id join
-        nivelvuelo nv on tv.id=nv.id
-        where d.id=$destino and dd.id=$origen and
-        t.fechasalida between curdate() and curdate() + interval 30 day;";
+        destino dd on dd.id=t.origenid
+        where d.id=$destino and dd.id=$origen";
 
         return $this->database->query($query);
     }
