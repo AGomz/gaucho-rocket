@@ -11,7 +11,9 @@ class PaymentController {
         $this->paymentPrinter = $paymentPrinter;
     }
 
-    public function show($data = []) {
+    public function show($data = [])
+    {
+        SessionManager::checkIfSessionIsNotValid();
         echo $this->paymentPrinter->render("view/paymentView.html", $data);
     }
 }

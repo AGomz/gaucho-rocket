@@ -19,9 +19,7 @@ class RegisterController
 
     public function show($data = [])
     {
-        if ( isset($_SESSION['user']["email"]) && $_SESSION['user'] != "" ){
-            Redirect::to('/home');
-        }
+        SessionManager::checkIfSessionIsValid();
         echo $this->printer->render("view/registerView.html", $data);
         die();
     }
@@ -99,7 +97,7 @@ class RegisterController
         $this->mailer->agregarBody($this->printer->render("view/registerMailView.html", $mailData));
 
         if ($this->mailer->enviar()) {
-            $_SESSION['message'] = 'Registro exitoso, se ha enviado un nuevo correo electrónico';
+            SessionManager::setMessageAlert('Registro exitoso, se ha enviado un nuevo correo electrónico');
         } else {
             // TODO Redirect a la pagina de error
             echo 'Error al enviar el correo';

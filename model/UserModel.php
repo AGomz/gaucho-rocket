@@ -85,18 +85,18 @@ class UserModel
     }
     public function createNewUser($nombre, $apellido, $email, $password)
     {
-        $query = "INSERT INTO Login(email, password) 
+        $query = "INSERT INTO login(email, password) 
                     VALUES (?, ?)";
         $this->database->preparedQuery($query, [$email, $password], 'ss');
         $IDLogin = $this->database->lastID();
 
         // Genero el usuario
-        $query = "INSERT INTO Usuario(nombre, apellido, IDLogin)
+        $query = "INSERT INTO usuario(nombre, apellido, IDLogin)
                     VALUES (?, ?, ?)";
         $this->database->preparedQuery($query, [$nombre, $apellido, $IDLogin], 'ssi');
 
         $IDUsuario = $this->database->lastID();
-        $query = "INSERT INTO UsuarioRol (UsuarioID, RolID) 
+        $query = "INSERT INTO usuariorol (UsuarioID, RolID) 
                     VALUES (?, \"1\")";
         $this->database->preparedQuery($query, [$IDUsuario], 'i');
 

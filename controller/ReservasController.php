@@ -14,20 +14,18 @@ class ReservasController
 
     public function show($data = [])
     {
-        if (isset($_SESSION['user'])) {
-            $array = $_SESSION['user']["id"];
-            $userId = $array[0]['id'];
+        SessionManager::checkIfSessionIsValid();
 
-            $listadDeReservas = $this->reservasModel->getReservas($userId);
-            $datos = ["proxVuelos" => $listadDeReservas];
+        $userId = SessionManager::getUserId();
+        $listadDeReservas = $this->reservasModel->getReservas($userId);
+        $datos = ["proxVuelos" => $listadDeReservas];
 
-            echo $this->printer->render("view/reservasView.html", $datos);
-        } else {
-            Redirect::to("/");
-        }
+        echo $this->printer->render("view/reservasView.html", $datos);
     }
 
-    public function reservar(){
+    public function reservar()
+    {
+        SessionManager::checkIfSessionIsValid("/login");
 
         $idOrigen = isset($_POST["origenId"]) ? $_POST["origenId"] : "";
         $idDestino = isset($_POST["destinoId"]) ? $_POST["destinoId"] : "";
@@ -35,28 +33,20 @@ class ReservasController
         $salida = isset($_POST["salida"]) ? $_POST["salida"] : "";
         $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
 
-        if (isset($_SESSION['user'])) {
-            $array = $_SESSION['user']["id"];
-            $userId = $array[0]['id'];
+        $userId = SessionManager::getUserId();
 
-            /*REVISAR
-            if($idOrigen && $idDestino){
-                $datos = $this->searchModel->getDatosPor($idOrigen, $idDestino);
-            }
-
-            $data = ["datos" => $datos];*/
-
-            $data = ["origenId" => $idOrigen,
-                    "destinoId"  => $idDestino,
-                    "salida" => $salida,
-                    "origen" => $origen];
-
-            echo $this->printer->render("view/bookingView.html", $data);
-
-            //var_dump($idOrigen);
-            //Redirect::to("/");
-        }else{
-            Redirect::to("/login");
+        /*REVISAR
+        if($idOrigen && $idDestino){
+            $datos = $this->searchModel->getDatosPor($idOrigen, $idDestino);
         }
+
+        $data = ["datos" => $datos];*/
+
+        $data = ["origenId" => $idOrigen,
+            "destinoId"  => $idDestino,
+            "salida" => $salida,
+            "origen" => $origen];
+
+        echo $this->printer->render("view/bookingView.html", $data);
     }
 }

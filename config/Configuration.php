@@ -1,4 +1,6 @@
 <?php
+include_once("helpers/SessionManager.php");
+
 class Configuration
 {
     private $config;
@@ -32,21 +34,18 @@ class Configuration
 
     public function createSearchController()
     {
-        $this->getRedirect();
         require_once("controller/SearchController.php");
         return new SearchController($this->createSearchModel(), $this->createPrinter());
     }
 
     public function createReservasController()
     {
-        $this->getRedirect();
         require_once("controller/ReservasController.php");
         return new ReservasController($this->createReservasModel(), $this->createPrinter());
     }
 
     public function createPaymentController()
     {
-        $this->getRedirect();
         require_once("controller/PaymentController.php");
         return new PaymentController($this->createPaymentModel(), $this->createPrinter());
     }
@@ -88,7 +87,7 @@ class Configuration
     }
 
     // Helpers
-    private  function getDatabase()
+    private function getDatabase()
     {
         require_once("helpers/Database.php");
         $config = $this->getConfig();
@@ -106,7 +105,7 @@ class Configuration
         require_once("helpers/Redirect.php");
     }
 
-    private  function getConfig()
+    private function getConfig()
     {
         if (is_null($this->config))
             $this->config = parse_ini_file("config/config.ini", true);
@@ -149,16 +148,7 @@ class Configuration
                 // Le genera $_SESSION['message'] = 'Login exitoso' y muestra en la proxima pagina
                 // Todos los alert se muestran desde el header por única vez. Luego se 
                 // destruye la variable para que no se vuelva a mostrar. 
-                'message_alert' => function () {
-                    if (isset($_SESSION['message'])) {
-                        $message = $_SESSION['message'];
-                        unset($_SESSION['message']);
-                        return "<div class='alert alert-success m-2' role='alert'>" .
-                            $message .
-                            "</div>";
-                    }
-                    return "";
-                },
+                'message_alert' => SessionManager::getMessageAlert(),
                 // Se le pasa a las plantillas la variable de session para verificar
                 // los datos del usuario
                 'SESSION' => $_SESSION
