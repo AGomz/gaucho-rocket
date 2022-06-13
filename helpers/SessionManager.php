@@ -6,14 +6,14 @@ class SessionManager
 {
     public static function checkIfSessionIsNotValid($relativeRoute = "/home")
     {
-        if (!isset($_SESSION['user']["email"]) || $_SESSION['user'] == "" ){
+        if (!isset($_SESSION['user']["email"]) || $_SESSION['user']["email"] == "" ) {
             Redirect::to($relativeRoute);
         }
     }
 
     public static function checkIfSessionIsValid($relativeRoute = "/home")
     {
-        if (isset($_SESSION['user']["email"]) && $_SESSION['user'] != "" ){
+        if (isset($_SESSION['user']["email"]) && $_SESSION['user']["email"] != "" ) {
             Redirect::to($relativeRoute);
         }
     }
