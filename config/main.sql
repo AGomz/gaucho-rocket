@@ -83,12 +83,12 @@ create table equipo (
 	foreign key (tipovueloid) references tipovuelo(id)
 );
 
-create table nivelvuelotipovuelo (
+create table equiponivelvuelo(
 	nivelvueloid integer,
-	tipovueloid integer,
-	primary key (nivelvueloid, tipovueloid),
+	equipoid integer,
+	primary key (nivelvueloid, equipoid),
 	foreign key (nivelvueloid) references nivelvuelo(id),
-	foreign key (tipovueloid) references tipovuelo(id)
+	foreign key (equipoid) references equipo(id)
 );
 
 create table capacidadcabina(
@@ -141,6 +141,7 @@ create table checkin (
 );
 
 create table reserva (
+	id integer primary key auto_increment,
 	usuarioid integer not null,
 	tramoid integer not null,
 	fecha datetime not null,
@@ -148,8 +149,8 @@ create table reserva (
 	checkinid integer,
 	servicioid integer not null,
 	listaespera boolean,
-	tipocabina integer,
-	primary key (usuarioid, tramoid),
+	tipocabina integer not null,
+	-- primary key (usuarioid, tramoid),
 	foreign key (usuarioid) references usuario(id),
 	foreign key (tramoid) references tramo(id),
 	foreign key (servicioid) references servicioabordo(id),
@@ -179,8 +180,8 @@ table nivelvuelo
 */
 insert into nivelvuelo (nombre, descripcion) values
 ("Nivel 1", "Viajes de orbitales"),
-("Nivel 2", "Viajes de baja aceleraciï¿½n"),
-("Nivel 3", "Vaijes de alta aceleraciï¿½n");
+("Nivel 2", "Viajes de baja aceleración"),
+("Nivel 3", "Vaijes de alta aceleración");
 
 
 /*table cabina
@@ -222,7 +223,7 @@ table tipovuelo (
 insert into tipovuelo (nombre, descripcion) values
 ("Orbitales", "Vuelvos Orbitales"),
 ("Baja aceleracion", "Vuelos hasta 2G"),
-("Alta aceleracion", "Vuelos de mï¿½s de 2G");
+("Alta aceleracion", "Vuelos de más de 2G");
 
 
 /*
@@ -279,6 +280,101 @@ insert into equipo(nombre, modeloid, matricula, tipovueloid) values
 ("Zorzal 1", 10, "BA1", 2),
 ("Zorzal 2", 10, "BA3", 2),
 ("Zorzal 3", 10, "BA3", 2);
+/*
+create table equiponivelvuelo(
+	nivelvueloid integer,
+	equipoid integer,
+	primary key (nivelvueloid, equipoid),
+	foreign key (nivelvueloid) references nivelvuelo(id),
+	foreign key (equipoid) references equipo(id)
+*/
+insert into equiponivelvuelo (equipoid, nivelvueloid) values
+(1, 2), 
+(1, 3), 
+(2, 2), 
+(2, 3),  
+(3, 2), 
+(3, 3), 
+(4, 2), 
+(4, 3), 
+(5, 2), 
+(5, 3),
+(6, 2), 
+(6, 3), 
+(7, 2), 
+(7, 3), 
+(8, 2), 
+(8, 3), 
+(9, 2), 
+(9, 3), 
+(10, 2), 
+(10, 3), 
+(11, 1), 
+(11, 2), 
+(11, 3), 
+(12, 1), 
+(12, 2), 
+(12, 3), 
+(13, 1), 
+(13, 2), 
+(13, 3), 
+(14, 1), 
+(14, 2), 
+(14, 3), 
+(15, 2), 
+(15, 3), 
+(16, 2), 
+(16, 3),  
+(17, 2), 
+(17, 3), 
+(18, 2), 
+(18, 3), 
+(19, 2), 
+(19, 3),
+(20, 2), 
+(20, 3),  
+(21, 2), 
+(21, 3), 
+(22, 2), 
+(22, 3), 
+(23, 2), 
+(23, 3),
+(24, 1), 
+(24, 2), 
+(24, 3), 
+(25, 1), 
+(25, 2), 
+(25, 3), 
+(26, 1), 
+(26, 2), 
+(26, 3), 
+(27, 1), 
+(27, 2), 
+(27, 3), 
+(28, 2), 
+(28, 3), 
+(29, 2), 
+(29, 3),  
+(30, 2), 
+(30, 3),
+(31, 2), 
+(31, 3), 
+(32, 2), 
+(32, 3),  
+(33, 3), 
+(34, 3),
+(35, 3),  
+(36, 3), 
+(37, 3),
+(38, 3),  
+(39, 3), 
+(40, 2), 
+(40, 3),
+(41, 2), 
+(41, 3),
+(42, 2), 
+(42, 3);
+
 
 
 
@@ -406,6 +502,8 @@ insert into capacidadcabina (equipoid, cabinaid, cantidad) values
 (41, 2, 80),
 (42, 1, 50),
 (42, 2, 80);
+
+
 
 /*
 create table destino (
