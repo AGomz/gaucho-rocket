@@ -11,20 +11,67 @@ class SearchModel
         $this->database = $database;
     }
 
-    public function getDatosPor($origen, $destino){
-        $query = "select distinct dd.nombre as origen, 
-                d.nombre as destino,
-                t.fechasalida as salida, 
-                t.fechallegada as llegada,
-                dd.id as idOrigen,
-                d.id as idDestino
-        from destino d join
-        tramo t on d.id=t.destinoid join
-        destino dd on dd.id=t.origenid
-        where d.id=$destino and dd.id=$origen";
+        public function getDatosPor($origen, $destino){
 
-        return $this->database->query($query);
+            $query = "select distinct dd.nombre as origen, 
+                    d.nombre as destino,
+                    t.fechasalida as salida, 
+                    t.fechallegada as llegada,
+                    dd.id as idOrigen,
+                    d.id as idDestino
+            from destino d join
+            tramo t on d.id=t.destinoid join
+            destino dd on dd.id=t.origenid
+            where d.id=$destino or dd.id=$origen and t.fechasalida between curdate() and curdate() + interval 30 day";
+        
+
+            
+            return $this->database->query($query);
+        }
+
+        public function getTramoOrigen($origen, $fecha){
+            $query = "select t.id as tramoIdOrigen, t.equipoid as idEquipo, t.fechasalida as salida, dd.nombre as origen
+            from tramo t join
+            destino dd on dd.id=t.origenid
+            where t.origenid = $origen ";
+
+            if($fecha != ""){
+                $query = $query."and t.fechasalida={$fecha};";
+            }
+            return  $this->database->query($query);
+        }
+
+    public function getTramoDestino($destino, $equipo, $fecha){
+        $query = "select t.id as tramoIdDestino, t.equipoid, t.fechasalida as llegada, d.nombre as destino
+            from tramo t join
+            destino d on d.id=t.destinoid
+            where d.id = $destino and t.equipoid = $equipo and t.fechasalida > {$fecha} limit 1";
+
+        return  $this->database->query($query);
     }
+
+    public function getTramoCompleto($origen, $destino,$fecha){
+        $resultado = [];
+        $salidas = $this->getTramoOrigen($origen, $fecha);
+
+        foreach ($salidas as $tramo){
+           /* var_dump($tramo);
+            echo "<br>";
+            var_dump($destino);
+            echo "<br>";
+            var_dump( $tramo['salida']);
+            echo "<br>";*/
+           $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida']);
+
+            /*var_dump($llegadas);
+            die();*/
+
+          $resultado[] = array_merge($tramo, $llegadas);
+        }
+
+        return $resultado;
+    }
+
 
     public function getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio){
         $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,

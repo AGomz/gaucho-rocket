@@ -29,8 +29,9 @@ class SearchController
            "tipoDeViaje" => $tipoViaje
         ];*/
 
-        if($origen && $destino){
-            $datos = $this->searchModel->getDatosPor($origen, $destino);
+        if($origen && $destino && $tipoViaje=="ida"){
+            $datos = $this->searchModel->getTramoCompleto($origen, $destino,$fecha);
+            //$datos = $this->searchModel->getDatosPor($origen, $destino);
         }
         if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="ida"){
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
