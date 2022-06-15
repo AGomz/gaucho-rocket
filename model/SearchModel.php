@@ -23,29 +23,41 @@ class SearchModel
             tramo t on d.id=t.destinoid join
             destino dd on dd.id=t.origenid
             where d.id=$destino or dd.id=$origen and t.fechasalida between curdate() and curdate() + interval 30 day";
-        
 
-            
             return $this->database->query($query);
         }
 
         public function getTramoOrigen($origen, $fecha){
-            $query = "select t.id as tramoIdOrigen, t.equipoid as idEquipo, t.fechasalida as salida, dd.nombre as origen
-            from tramo t join
-            destino dd on dd.id=t.origenid
-            where t.origenid = $origen ";
+            $query = "select t.id as tramoIdOrigen, 
+                    t.equipoid as idEquipo, 
+                    t.fechasalida as salida, 
+                    dd.nombre as origen
+                    from tramo t 
+                    join destino dd 
+                    on dd.id=t.origenid
+                    where t.origenid = $origen ";
+
 
             if($fecha != ""){
-                $query = $query."and t.fechasalida={$fecha};";
+                $query = $query." and t.fechasalida > \"{$fecha};\" ";
             }
+            $query = $query." order by t.fechasalida asc";
+
             return  $this->database->query($query);
         }
 
     public function getTramoDestino($destino, $equipo, $fecha){
-        $query = "select t.id as tramoIdDestino, t.equipoid, t.fechasalida as llegada, d.nombre as destino
-            from tramo t join
-            destino d on d.id=t.destinoid
-            where d.id = $destino and t.equipoid = $equipo and t.fechasalida > {$fecha} limit 1";
+        $query =    "select t.id as tramoIdDestino, 
+                    t.equipoid, 
+                    t.fechallegada as llegada, 
+                    d.nombre as destino
+                    from tramo t 
+                    join destino d 
+                    on d.id=t.destinoid
+                    where d.id = $destino 
+                    and t.equipoid = $equipo 
+                    and t.fechallegada > \"{$fecha}\" 
+                    order by t.fechallegada limit 1";
 
         return  $this->database->query($query);
     }
@@ -55,18 +67,18 @@ class SearchModel
         $salidas = $this->getTramoOrigen($origen, $fecha);
 
         foreach ($salidas as $tramo){
-           /* var_dump($tramo);
+            /*var_dump($tramo);
             echo "<br>";
             var_dump($destino);
             echo "<br>";
             var_dump( $tramo['salida']);
             echo "<br>";*/
            $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida']);
+            if(count($llegadas) > 0 ){
+                //asigno
+                $resultado[] = array_merge($tramo, $llegadas[0]);
+            }
 
-            /*var_dump($llegadas);
-            die();*/
-
-          $resultado[] = array_merge($tramo, $llegadas);
         }
 
         return $resultado;

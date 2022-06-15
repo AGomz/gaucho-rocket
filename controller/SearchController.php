@@ -30,7 +30,7 @@ class SearchController
         ];*/
 
         if($origen && $destino && $tipoViaje=="ida"){
-            $datos = $this->searchModel->getTramoCompleto($origen, $destino,$fecha);
+            $datos = $this->searchModel->getTramoCompleto($origen, $destino, $fecha);
             //$datos = $this->searchModel->getDatosPor($origen, $destino);
         }
         if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="ida"){
