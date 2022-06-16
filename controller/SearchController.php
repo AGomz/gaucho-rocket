@@ -5,7 +5,8 @@ class SearchController
     private $printer;
     private $searchModel;
 
-    public function __construct($searchModel, $printer){
+    public function __construct($searchModel, $printer)
+    {
         $this->searchModel = $searchModel;
         $this->printer = $printer;
     }
@@ -25,33 +26,31 @@ class SearchController
         $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
 
-       /* $preload = [
+        /* $preload = [
            "tipoDeViaje" => $tipoViaje
         ];*/
 
-        if($origen && $destino && $tipoViaje=="ida"){
-            $datos = $this->searchModel->getTramoCompleto($origen, $destino,$fecha);
+        if ($origen && $destino && $tipoViaje == "ida") {
+            $datos = $this->searchModel->getTramoCompleto($origen, $destino, $fecha);
             //$datos = $this->searchModel->getDatosPor($origen, $destino);
         }
-        if($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje=="ida"){
+        if ($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje == "ida") {
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
         }
-        if($origen && $tipoViaje=="tour"){
+        if ($origen && $tipoViaje == "tour") {
             $datos = $this->searchModel->getDatosTour($origen);
         }
-        if($origen && $tipoViaje=="suborbital"){
+        if ($origen && $tipoViaje == "suborbital") {
             $datos = $this->searchModel->getDatosSuborbital($origen);
         }
 
-        if(sizeof($datos) > 0){
+        if (sizeof($datos) > 0) {
             $result = ["datos" => $datos]; // $data
             $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.']);
-
-        }else{
+        } else {
             $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
         }
 
         $this->show($data);
-
     }
 }
