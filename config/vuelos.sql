@@ -1,2209 +1,2209 @@
-USE gauchorocket;
+use gauchorocket;
 
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-03 08:00:00";
--- Zorzal 1
-SET @equipo = 40;
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-03 08:00:00";
+-- zorzal 1
+set @equipo = 40;
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
--- circuito 2 AK  baja aceleracion
--- Carancho 4 
-SET @equipo = 20;
+-- circuito 2 ak  baja aceleracion
+-- carancho 4
+set @equipo = 20;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
--- Circuito 2 AK baja aceleracion
-SET	@fecha = "2022-10-03 09:00:00";
--- Canario 13 
-SET @equipo = 15;
+-- circuito 2 ak baja aceleracion
+set	@fecha = "2022-10-03 09:00:00";
+-- canario 13
+set @equipo = 15;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA ALTA  aceleracion 
-SET	@fecha = "2022-10-03 15:00:00";
--- Halcon 2
-SET @equipo = 35;
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 5 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 16 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 38 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 48 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 79 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 80 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 81 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 84 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
--- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-03 20:00:00";
--- Guanaco 4 
-SET @equipo = 33;
+
+-- circuito 1 ba alta  aceleracion
+set	@fecha = "2022-10-03 15:00:00";
+-- halcon 2
+set @equipo = 35;
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 5 hour );
+set @fechasalida3 = date_add(@fecha, interval 6 hour );
+set @fechallegada3 = date_add(@fecha, interval 15 hour );
+set @fechasalida4 = date_add(@fecha, interval 16 hour );
+set @fechallegada4 = date_add(@fecha, interval 38 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 48 hour );
+set @fechallegada1 = date_add(@fecha, interval 70 hour );
+set @fechasalida2 = date_add(@fecha, interval 71 hour);
+set @fechallegada2 = date_add(@fecha, interval 78 hour );
+set @fechasalida3 = date_add(@fecha, interval 79 hour );
+set @fechallegada3 = date_add(@fecha, interval 80 hour );
+set @fechasalida4 = date_add(@fecha, interval 81 hour );
+set @fechallegada4 = date_add(@fecha, interval 84 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
+-- luna / orbital hotel
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
+
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-03 20:00:00";
+-- guanaco 4
+set @equipo = 33;
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
--- circuito 2 AK  ALTA aceleracion
-SET	@fecha = "2022-10-03 20:00:00";
--- Condor 2 
-SET @equipo = 28;
+-- circuito 2 ak  alta aceleracion
+set	@fecha = "2022-10-03 20:00:00";
+-- condor 2
+set @equipo = 28;
 
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 14 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 37 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 38 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 104 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 105 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 190 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 191 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 242 HOUR );
+-- tramo largo alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 14 hour );
+set @fechasalida3 = date_add(@fecha, interval 15 hour );
+set @fechallegada3 = date_add(@fecha, interval 37 hour );
+set @fechasalida4 = date_add(@fecha, interval 38 hour );
+set @fechallegada4 = date_add(@fecha, interval 70 hour );
+set @fechasalida5 = date_add(@fecha, interval 71 hour);
+set @fechallegada5 = date_add(@fecha, interval 104 hour );
+set @fechasalida6 = date_add(@fecha, interval 105 hour );
+set @fechallegada6 = date_add(@fecha, interval 140 hour );
+set @fechasalida7 = date_add(@fecha, interval 140 hour );
+set @fechallegada7 = date_add(@fecha, interval 190 hour );
+set @fechasalida8 = date_add(@fecha, interval 191 hour );
+set @fechallegada8 = date_add(@fecha, interval 242 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 300 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 352 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 353 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 403 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 439 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 440 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 473 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 474 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 506 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 507 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 529 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 530 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 540 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 541 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 544 HOUR );
+-- tramo largo alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 300 hour );
+set @fechallegada1 = date_add(@fecha, interval 352 hour );
+set @fechasalida2 = date_add(@fecha, interval 353 hour);
+set @fechallegada2 = date_add(@fecha, interval 403 hour );
+set @fechasalida3 = date_add(@fecha, interval 404 hour );
+set @fechallegada3 = date_add(@fecha, interval 439 hour );
+set @fechasalida4 = date_add(@fecha, interval 440 hour );
+set @fechallegada4 = date_add(@fecha, interval 473 hour );
+set @fechasalida5 = date_add(@fecha, interval 474 hour);
+set @fechallegada5 = date_add(@fecha, interval 506 hour );
+set @fechasalida6 = date_add(@fecha, interval 507 hour );
+set @fechallegada6 = date_add(@fecha, interval 529 hour );
+set @fechasalida7 = date_add(@fecha, interval 530 hour );
+set @fechallegada7 = date_add(@fecha, interval 540 hour );
+set @fechasalida8 = date_add(@fecha, interval 541 hour );
+set @fechallegada8 = date_add(@fecha, interval 544 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA ALTA  aceleracion 
-SET	@fecha = "2022-10-03 21:00:00";
--- Halcon 7
-SET @equipo = 36;
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 5 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 16 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 38 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 48 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 79 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 80 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 81 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 84 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
+
+
+-- circuito 1 ba alta  aceleracion
+set	@fecha = "2022-10-03 21:00:00";
+-- halcon 7
+set @equipo = 36;
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 5 hour );
+set @fechasalida3 = date_add(@fecha, interval 6 hour );
+set @fechallegada3 = date_add(@fecha, interval 15 hour );
+set @fechasalida4 = date_add(@fecha, interval 16 hour );
+set @fechallegada4 = date_add(@fecha, interval 38 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 48 hour );
+set @fechallegada1 = date_add(@fecha, interval 70 hour );
+set @fechasalida2 = date_add(@fecha, interval 71 hour);
+set @fechallegada2 = date_add(@fecha, interval 78 hour );
+set @fechasalida3 = date_add(@fecha, interval 79 hour );
+set @fechallegada3 = date_add(@fecha, interval 80 hour );
+set @fechasalida4 = date_add(@fecha, interval 81 hour );
+set @fechallegada4 = date_add(@fecha, interval 84 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-03 08:00:00";
--- Calandria 1
-SET @equipo = 11;
+-- suborbital ba
+set	@fecha = "2022-10-03 08:00:00";
+-- calandria 1
+set @equipo = 11;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-03 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
+-- suborbital ak
+set	@fecha = "2022-10-03 08:00:00";
+-- colobri 3
+set @equipo = 24;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-03 09:00:00";
--- Calandria 2
-SET @equipo = 12;
+-- suborbital ba
+set	@fecha = "2022-10-03 09:00:00";
+-- calandria 2
+set @equipo = 12;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-03 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
+-- suborbital ak
+set	@fecha = "2022-10-03 09:00:00";
+-- colobri 4
+set @equipo = 25;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
 
--- suborbital BA
-SET	@fecha = "2022-10-03 12:00:00";
--- Calandria 6
-SET @equipo = 13;
+-- suborbital ba
+set	@fecha = "2022-10-03 12:00:00";
+-- calandria 6
+set @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
 
--- circuito 2 AK  baja aceleracion
-SET	@fecha = "2022-10-04 08:00:00";
--- Carancho 5
-SET @equipo = 21;
+-- circuito 2 ak  baja aceleracion
+set	@fecha = "2022-10-04 08:00:00";
+-- carancho 5
+set @equipo = 21;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-04 09:00:00";
--- Canario 14
-SET @equipo = 16;
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-04 09:00:00";
+-- canario 14
+set @equipo = 16;
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
 
--- circuito 1 BA ALTA  aceleracion 
-SET	@fecha = "2022-10-04 09:00:00";
--- Halcon 11
-SET @equipo = 36;
+-- circuito 1 ba alta  aceleracion
+set	@fecha = "2022-10-04 09:00:00";
+-- halcon 11
+set @equipo = 36;
 
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 5 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 16 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 38 HOUR );
+-- tramo corto alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 5 hour );
+set @fechasalida3 = date_add(@fecha, interval 6 hour );
+set @fechallegada3 = date_add(@fecha, interval 15 hour );
+set @fechasalida4 = date_add(@fecha, interval 16 hour );
+set @fechallegada4 = date_add(@fecha, interval 38 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 48 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 79 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 80 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 81 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 84 HOUR );
+-- tramo corto alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 48 hour );
+set @fechallegada1 = date_add(@fecha, interval 70 hour );
+set @fechasalida2 = date_add(@fecha, interval 71 hour);
+set @fechallegada2 = date_add(@fecha, interval 78 hour );
+set @fechasalida3 = date_add(@fecha, interval 79 hour );
+set @fechallegada3 = date_add(@fecha, interval 80 hour );
+set @fechasalida4 = date_add(@fecha, interval 81 hour );
+set @fechallegada4 = date_add(@fecha, interval 84 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
--- circuito 2 AK  baja aceleracion
-SET	@fecha = "2022-10-04 09:00:00";
--- Zorzal 2 
-SET @equipo = 41;
+-- circuito 2 ak  baja aceleracion
+set	@fecha = "2022-10-04 09:00:00";
+-- zorzal 2
+set @equipo = 41;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-04 15:00:00";
--- Aguilucho 8 
-SET @equipo = 6;
-
--- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
--- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
-
--- circuito 2 AK  ALTA aceleracion
-SET	@fecha = "2022-10-04 18:00:00";
--- Condor 6
-SET @equipo = 29;
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 14 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 37 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 38 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 104 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 105 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 190 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 191 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 242 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
--- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 300 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 352 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 353 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 403 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 439 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 440 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 473 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 474 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 506 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 507 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 529 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 530 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 540 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 541 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 544 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
-
--- suborbital BA
-SET	@fecha = "2022-10-04 08:00:00";
--- Calandria 1
-SET @equipo = 11;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital AK
-SET	@fecha = "2022-10-04 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital BA
-SET	@fecha = "2022-10-04 09:00:00";
--- Calandria 2
-SET @equipo = 12;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital AK
-SET	@fecha = "2022-10-04 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
-
-
--- suborbital BA
-SET	@fecha = "2022-10-04 12:00:00";
--- Calandria 6
-SET @equipo = 13;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
-
-
-
-
--- circuito 2 AK  baja aceleracion
-SET	@fecha = "2022-10-05 08:00:00";
--- Carancho 4 
-SET @equipo = 20;
-
--- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
--- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
-
--- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-05 09:00:00";
--- Zorzal 1
-SET @equipo = 17;
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-04 15:00:00";
+-- aguilucho 8
+set @equipo = 6;
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
+-- circuito 2 ak  alta aceleracion
+set	@fecha = "2022-10-04 18:00:00";
+-- condor 6
+set @equipo = 29;
 
+-- tramo largo alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 14 hour );
+set @fechasalida3 = date_add(@fecha, interval 15 hour );
+set @fechallegada3 = date_add(@fecha, interval 37 hour );
+set @fechasalida4 = date_add(@fecha, interval 38 hour );
+set @fechallegada4 = date_add(@fecha, interval 70 hour );
+set @fechasalida5 = date_add(@fecha, interval 71 hour);
+set @fechallegada5 = date_add(@fecha, interval 104 hour );
+set @fechasalida6 = date_add(@fecha, interval 105 hour );
+set @fechallegada6 = date_add(@fecha, interval 140 hour );
+set @fechasalida7 = date_add(@fecha, interval 140 hour );
+set @fechallegada7 = date_add(@fecha, interval 190 hour );
+set @fechasalida8 = date_add(@fecha, interval 191 hour );
+set @fechallegada8 = date_add(@fecha, interval 242 hour );
 
--- circuito 2 BA ALTA aceleracion
-SET	@fecha = "2022-10-05 09:00:00";
--- Halcon 15
-SET @equipo = 38;
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 14 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 37 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 38 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 104 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 105 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 190 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 191 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 242 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 300 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 352 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 353 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 403 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 439 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 440 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 473 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 474 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 506 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 507 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 529 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 530 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 540 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 541 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 544 HOUR );
+-- tramo largo alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 300 hour );
+set @fechallegada1 = date_add(@fecha, interval 352 hour );
+set @fechasalida2 = date_add(@fecha, interval 353 hour);
+set @fechallegada2 = date_add(@fecha, interval 403 hour );
+set @fechasalida3 = date_add(@fecha, interval 404 hour );
+set @fechallegada3 = date_add(@fecha, interval 439 hour );
+set @fechasalida4 = date_add(@fecha, interval 440 hour );
+set @fechallegada4 = date_add(@fecha, interval 473 hour );
+set @fechasalida5 = date_add(@fecha, interval 474 hour);
+set @fechallegada5 = date_add(@fecha, interval 506 hour );
+set @fechasalida6 = date_add(@fecha, interval 507 hour );
+set @fechallegada6 = date_add(@fecha, interval 529 hour );
+set @fechasalida7 = date_add(@fecha, interval 530 hour );
+set @fechallegada7 = date_add(@fecha, interval 540 hour );
+set @fechasalida8 = date_add(@fecha, interval 541 hour );
+set @fechallegada8 = date_add(@fecha, interval 544 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
--- Circuito 2 AK baja aceleracion
-SET	@fecha = "2022-10-05 09:00:00";
--- Zorzal 
-SET @equipo = 42;
+
+-- suborbital ba
+set	@fecha = "2022-10-04 08:00:00";
+-- calandria 1
+set @equipo = 11;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ak
+set	@fecha = "2022-10-04 08:00:00";
+-- colobri 3
+set @equipo = 24;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ba
+set	@fecha = "2022-10-04 09:00:00";
+-- calandria 2
+set @equipo = 12;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ak
+set	@fecha = "2022-10-04 09:00:00";
+-- colobri 4
+set @equipo = 25;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
+
+
+-- suborbital ba
+set	@fecha = "2022-10-04 12:00:00";
+-- calandria 6
+set @equipo = 13;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
+
+
+
+
+
+-- circuito 2 ak  baja aceleracion
+set	@fecha = "2022-10-05 08:00:00";
+-- carancho 4
+set @equipo = 20;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-05 15:00:00";
--- Aguilucho 9
-SET @equipo = 7;
-
--- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
--- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
--- circuito 1 AK baja aceleracion 
-SET	@fecha = "2022-10-05 18:00:00";
--- Aguilucho 8
-SET @equipo = 10;
 
--- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-05 09:00:00";
+-- zorzal 1
+set @equipo = 17;
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
 
--- Circuito 2 BA baja aceleracion
-SET	@fecha = "2022-10-05 22:00:00";
--- Canario 16
-SET @equipo = 18;
 
--- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+-- circuito 2 ba alta aceleracion
+set	@fecha = "2022-10-05 09:00:00";
+-- halcon 15
+set @equipo = 38;
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+-- tramo largo alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 14 hour );
+set @fechasalida3 = date_add(@fecha, interval 15 hour );
+set @fechallegada3 = date_add(@fecha, interval 37 hour );
+set @fechasalida4 = date_add(@fecha, interval 38 hour );
+set @fechallegada4 = date_add(@fecha, interval 70 hour );
+set @fechasalida5 = date_add(@fecha, interval 71 hour);
+set @fechallegada5 = date_add(@fecha, interval 104 hour );
+set @fechasalida6 = date_add(@fecha, interval 105 hour );
+set @fechallegada6 = date_add(@fecha, interval 140 hour );
+set @fechasalida7 = date_add(@fecha, interval 140 hour );
+set @fechallegada7 = date_add(@fecha, interval 190 hour );
+set @fechasalida8 = date_add(@fecha, interval 191 hour );
+set @fechallegada8 = date_add(@fecha, interval 242 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
--- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+-- tramo largo alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 300 hour );
+set @fechallegada1 = date_add(@fecha, interval 352 hour );
+set @fechasalida2 = date_add(@fecha, interval 353 hour);
+set @fechallegada2 = date_add(@fecha, interval 403 hour );
+set @fechasalida3 = date_add(@fecha, interval 404 hour );
+set @fechallegada3 = date_add(@fecha, interval 439 hour );
+set @fechasalida4 = date_add(@fecha, interval 440 hour );
+set @fechallegada4 = date_add(@fecha, interval 473 hour );
+set @fechasalida5 = date_add(@fecha, interval 474 hour);
+set @fechallegada5 = date_add(@fecha, interval 506 hour );
+set @fechasalida6 = date_add(@fecha, interval 507 hour );
+set @fechallegada6 = date_add(@fecha, interval 529 hour );
+set @fechasalida7 = date_add(@fecha, interval 530 hour );
+set @fechallegada7 = date_add(@fecha, interval 540 hour );
+set @fechasalida8 = date_add(@fecha, interval 541 hour );
+set @fechallegada8 = date_add(@fecha, interval 544 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 1, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida8, @fechallegada8, 100);
 
 
-
--- suborbital BA
-SET	@fecha = "2022-10-05 08:00:00";
--- Calandria 1
-SET @equipo = 11;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital AK
-SET	@fecha = "2022-10-05 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital BA
-SET	@fecha = "2022-10-05 09:00:00";
--- Calandria 2
-SET @equipo = 12;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
--- suborbital AK
-SET	@fecha = "2022-10-05 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
-
-
--- suborbital BA
-SET	@fecha = "2022-10-05 12:00:00";
--- Calandria 6
-SET @equipo = 13;
--- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
-
-
--- circuito 2 AK  baja aceleracion
-SET	@fecha = "2022-10-06 08:00:00";
--- Canario 17
-SET @equipo = 19;
+-- circuito 2 ak baja aceleracion
+set	@fecha = "2022-10-05 09:00:00";
+-- zorzal
+set @equipo = 42;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
--- circuito 2 AK  ALTA aceleracion
-SET	@fecha = "2022-10-06 09:00:00";
--- Aguila 1
-SET @equipo = 1;
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 14 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 37 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 38 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 104 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 105 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 190 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 191 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 242 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
--- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 300 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 352 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 353 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 403 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 439 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 440 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 473 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 474 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 506 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 507 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 529 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 530 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 540 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 541 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 544 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-06 15:00:00";
--- Condor 10
-SET @equipo = 30;
--- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-05 15:00:00";
+-- aguilucho 9
+set @equipo = 7;
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
+-- circuito 1 ak baja aceleracion
+set	@fecha = "2022-10-05 18:00:00";
+-- aguilucho 8
+set @equipo = 10;
 
--- circuito 1 BA ALTA  aceleracion 
-SET	@fecha = "2022-10-06 20:00:00";
--- Halcon 19
-SET @equipo = 39;
+-- tramo corto baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 5 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 16 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 38 HOUR );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+-- tramo corto baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 48 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 79 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 80 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 81 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 84 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida4, @fechallegada4, 100);
 
 
--- Circuito 2 AK baja aceleracion
-SET	@fecha = "2022-10-06 21:00:00";
--- Condor 14
-SET @equipo = 31;
+-- circuito 2 ba baja aceleracion
+set	@fecha = "2022-10-05 22:00:00";
+-- canario 16
+set @equipo = 18;
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 19 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 20 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 46 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 47 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 95 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 96 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 146 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 147 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 198 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 200 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 270 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 272 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 342 HOUR );
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
 -- tramo largo baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 400 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 405 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 419 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 420 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 446 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 447 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 495 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 496 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 546 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 547 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 598 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 600 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 670 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 672 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 742 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 1, @fechasalida8, @fechallegada8, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-06 08:00:00";
--- Calandria 1
-SET @equipo = 11;
+
+
+-- suborbital ba
+set	@fecha = "2022-10-05 08:00:00";
+-- calandria 1
+set @equipo = 11;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-06 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
+-- suborbital ak
+set	@fecha = "2022-10-05 08:00:00";
+-- colobri 3
+set @equipo = 24;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-06 09:00:00";
--- Calandria 2
-SET @equipo = 12;
+-- suborbital ba
+set	@fecha = "2022-10-05 09:00:00";
+-- calandria 2
+set @equipo = 12;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-06 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
+-- suborbital ak
+set	@fecha = "2022-10-05 09:00:00";
+-- colobri 4
+set @equipo = 25;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
 
--- suborbital BA
-SET	@fecha = "2022-10-06 12:00:00";
--- Calandria 6
-SET @equipo = 13;
+-- suborbital ba
+set	@fecha = "2022-10-05 12:00:00";
+-- calandria 6
+set @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
 
+-- circuito 2 ak  baja aceleracion
+set	@fecha = "2022-10-06 08:00:00";
+-- canario 17
+set @equipo = 19;
 
+-- tramo largo baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
 
--- circuito 2 AK  ALTA aceleracion
-SET	@fecha = "2022-10-07 09:00:00";
--- Aguila 5
-SET @equipo = 2;
-
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 14 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 37 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 38 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 104 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 105 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 140 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 190 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 191 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 242 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / luna 
-(@equipo, 3, 5, @fechaSalida2, @fechaLlegada2, 250),
--- luna / marte 
-(@equipo, 5, 6, @fechaSalida3, @fechaLlegada3, 350),
--- marte / ganimedes 
-(@equipo, 6, 7, @fechaSalida4, @fechaLlegada4, 350),
--- ganimedes / europa 
-(@equipo, 7, 8, @fechaSalida5, @fechaLlegada5, 300),
--- europa / lo 
-(@equipo, 8, 9, @fechaSalida6, @fechaLlegada6, 300),
--- lo / encendalo 
-(@equipo, 9, 10, @fechaSalida7, @fechaLlegada7, 300),
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
 -- encendalo / titan
-(@equipo, 10, 11, @fechaSalida8, @fechaLlegada8, 300);
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
--- tramo largo ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 300 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 352 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 353 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 403 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 404 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 439 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 440 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 473 HOUR );
-SET @fechaSalida5 = date_add(@fecha, INTERVAL 474 HOUR);
-SET @fechaLlegada5 = date_add(@fecha, INTERVAL 506 HOUR );
-SET @fechaSalida6 = date_add(@fecha, INTERVAL 507 HOUR );
-SET @fechaLlegada6 = date_add(@fecha, INTERVAL 529 HOUR );
-SET @fechaSalida7 = date_add(@fecha, INTERVAL 530 HOUR );
-SET @fechaLlegada7 = date_add(@fecha, INTERVAL 540 HOUR );
-SET @fechaSalida8 = date_add(@fecha, INTERVAL 541 HOUR );
-SET @fechaLlegada8 = date_add(@fecha, INTERVAL 544 HOUR );
+-- tramo largo baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- titan / encendalo
-(@equipo, 11, 10, @fechaSalida1, @fechaLlegada1, 300),
--- encendalo / lo 
-(@equipo, 10, 9, @fechaSalida2, @fechaLlegada2, 300),
--- lo / europa 
-(@equipo, 9, 8, @fechaSalida3, @fechaLlegada3, 300),
--- europa / ganimedes 
-(@equipo, 8, 7, @fechaSalida4, @fechaLlegada4, 300),
--- ganimedes / marte 
-(@equipo, 7, 6, @fechaSalida5, @fechaLlegada5, 350),
--- marte / luna 
-(@equipo, 5, 4, @fechaSalida6, @fechaLlegada6, 350),
--- luna / ISS 
-(@equipo, 4, 3, @fechaSalida7, @fechaLlegada7, 250),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida8, @fechaLlegada8, 100);
-
-
--- circuito 1 BA ALTA  aceleracion 
-SET	@fecha = "2022-10-07 15:00:00";
--- Condor 18 
-SET @equipo = 32;
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 3 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 4 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 5 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 15 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 16 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 38 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto ALTA aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 48 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 70 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 71 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 79 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 80 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 81 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 84 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
--- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
--- circuito 1 BA baja aceleracion 
-SET	@fecha = "2022-10-07 15:00:00";
--- Aguilucho 11
-SET @equipo = 9;
--- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+-- circuito 2 ak  alta aceleracion
+set	@fecha = "2022-10-06 09:00:00";
+-- aguila 1
+set @equipo = 1;
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(@equipo, 1, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
+-- tramo largo alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 14 hour );
+set @fechasalida3 = date_add(@fecha, interval 15 hour );
+set @fechallegada3 = date_add(@fecha, interval 37 hour );
+set @fechasalida4 = date_add(@fecha, interval 38 hour );
+set @fechallegada4 = date_add(@fecha, interval 70 hour );
+set @fechasalida5 = date_add(@fecha, interval 71 hour);
+set @fechallegada5 = date_add(@fecha, interval 104 hour );
+set @fechasalida6 = date_add(@fecha, interval 105 hour );
+set @fechallegada6 = date_add(@fecha, interval 140 hour );
+set @fechasalida7 = date_add(@fecha, interval 140 hour );
+set @fechallegada7 = date_add(@fecha, interval 190 hour );
+set @fechasalida8 = date_add(@fecha, interval 191 hour );
+set @fechallegada8 = date_add(@fecha, interval 242 hour );
 
--- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
+-- encendalo / titan
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- tramo largo alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 300 hour );
+set @fechallegada1 = date_add(@fecha, interval 352 hour );
+set @fechasalida2 = date_add(@fecha, interval 353 hour);
+set @fechallegada2 = date_add(@fecha, interval 403 hour );
+set @fechasalida3 = date_add(@fecha, interval 404 hour );
+set @fechallegada3 = date_add(@fecha, interval 439 hour );
+set @fechasalida4 = date_add(@fecha, interval 440 hour );
+set @fechallegada4 = date_add(@fecha, interval 473 hour );
+set @fechasalida5 = date_add(@fecha, interval 474 hour);
+set @fechallegada5 = date_add(@fecha, interval 506 hour );
+set @fechasalida6 = date_add(@fecha, interval 507 hour );
+set @fechallegada6 = date_add(@fecha, interval 529 hour );
+set @fechasalida7 = date_add(@fecha, interval 530 hour );
+set @fechallegada7 = date_add(@fecha, interval 540 hour );
+set @fechasalida8 = date_add(@fecha, interval 541 hour );
+set @fechallegada8 = date_add(@fecha, interval 544 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- titan / encendalo
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
--- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / BA
-(@equipo, 3, 1, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
 
 
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-06 15:00:00";
+-- condor 10
+set @equipo = 30;
+-- tramo corto baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
 
--- circuito 1 AK baja aceleracion 
-SET	@fecha = "2022-10-07 18:00:00";
--- Aguilucho 12
-SET @equipo = 10;
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
 
 -- tramo corto baja aceleracion
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 4 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 5 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 6 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 7 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 23 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 24 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 50 HOUR );
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / ISS
-(@equipo, 2, 3, @fechaSalida1, @fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(@equipo, 3, 4, @fechaSalida2, @fechaLlegada2, 150),
--- Orbital hotel / luna -
-(@equipo, 4, 5, @fechaSalida3, @fechaLlegada3, 250),
--- luna / marte- 
-(@equipo, 5, 6, @fechaSalida4, @fechaLlegada4, 300);
-
--- tramo corto baja aceleracion
-SET @fechaSalida1 = date_add(@fecha, INTERVAL 72 HOUR );
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 78 HOUR );
-SET @fechaSalida2 = date_add(@fecha, INTERVAL 80 HOUR);
-SET @fechaLlegada2 = date_add(@fecha, INTERVAL 96 HOUR );
-SET @fechaSalida3 = date_add(@fecha, INTERVAL 97 HOUR );
-SET @fechaLlegada3 = date_add(@fecha, INTERVAL 98 HOUR );
-SET @fechaSalida4 = date_add(@fecha, INTERVAL 99 HOUR );
-SET @fechaLlegada4 = date_add(@fecha, INTERVAL 104 HOUR );
-
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
 -- marte / luna
-(@equipo, 6, 5, @fechaSalida1, @fechaLlegada1, 300),
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
 -- luna / orbital hotel
-(@equipo, 5, 4, @fechaSalida2, @fechaLlegada2, 250),
--- orbital hotel / ISS
-(@equipo, 4, 3, @fechaSalida3, @fechaLlegada3, 150),
--- ISS / AK
-(@equipo, 3, 2, @fechaSalida4, @fechaLlegada4, 100);
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-07 08:00:00";
--- Calandria 1
-SET @equipo = 11;
+
+-- circuito 1 ba alta  aceleracion
+set	@fecha = "2022-10-06 20:00:00";
+-- halcon 19
+set @equipo = 39;
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 5 hour );
+set @fechasalida3 = date_add(@fecha, interval 6 hour );
+set @fechallegada3 = date_add(@fecha, interval 15 hour );
+set @fechasalida4 = date_add(@fecha, interval 16 hour );
+set @fechallegada4 = date_add(@fecha, interval 38 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 48 hour );
+set @fechallegada1 = date_add(@fecha, interval 70 hour );
+set @fechasalida2 = date_add(@fecha, interval 71 hour);
+set @fechallegada2 = date_add(@fecha, interval 78 hour );
+set @fechasalida3 = date_add(@fecha, interval 79 hour );
+set @fechallegada3 = date_add(@fecha, interval 80 hour );
+set @fechasalida4 = date_add(@fecha, interval 81 hour );
+set @fechallegada4 = date_add(@fecha, interval 84 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
+-- luna / orbital hotel
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
+
+
+-- circuito 2 ak baja aceleracion
+set	@fecha = "2022-10-06 21:00:00";
+-- condor 14
+set @equipo = 31;
+
+-- tramo largo baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 19 hour );
+set @fechasalida3 = date_add(@fecha, interval 20 hour );
+set @fechallegada3 = date_add(@fecha, interval 46 hour );
+set @fechasalida4 = date_add(@fecha, interval 47 hour );
+set @fechallegada4 = date_add(@fecha, interval 95 hour );
+set @fechasalida5 = date_add(@fecha, interval 96 hour);
+set @fechallegada5 = date_add(@fecha, interval 146 hour );
+set @fechasalida6 = date_add(@fecha, interval 147 hour );
+set @fechallegada6 = date_add(@fecha, interval 198 hour );
+set @fechasalida7 = date_add(@fecha, interval 200 hour );
+set @fechallegada7 = date_add(@fecha, interval 270 hour );
+set @fechasalida8 = date_add(@fecha, interval 272 hour );
+set @fechallegada8 = date_add(@fecha, interval 342 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
+-- encendalo / titan
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
+
+-- tramo largo baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 400 hour );
+set @fechallegada1 = date_add(@fecha, interval 404 hour );
+set @fechasalida2 = date_add(@fecha, interval 405 hour);
+set @fechallegada2 = date_add(@fecha, interval 419 hour );
+set @fechasalida3 = date_add(@fecha, interval 420 hour );
+set @fechallegada3 = date_add(@fecha, interval 446 hour );
+set @fechasalida4 = date_add(@fecha, interval 447 hour );
+set @fechallegada4 = date_add(@fecha, interval 495 hour );
+set @fechasalida5 = date_add(@fecha, interval 496 hour);
+set @fechallegada5 = date_add(@fecha, interval 546 hour );
+set @fechasalida6 = date_add(@fecha, interval 547 hour );
+set @fechallegada6 = date_add(@fecha, interval 598 hour );
+set @fechasalida7 = date_add(@fecha, interval 600 hour );
+set @fechallegada7 = date_add(@fecha, interval 670 hour );
+set @fechasalida8 = date_add(@fecha, interval 672 hour );
+set @fechallegada8 = date_add(@fecha, interval 742 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- titan / encendalo
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
+
+-- suborbital ba
+set	@fecha = "2022-10-06 08:00:00";
+-- calandria 1
+set @equipo = 11;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-07 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
+-- suborbital ak
+set	@fecha = "2022-10-06 08:00:00";
+-- colobri 3
+set @equipo = 24;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-07 09:00:00";
--- Colibri 5 
-SET @equipo = 26;
+-- suborbital ba
+set	@fecha = "2022-10-06 09:00:00";
+-- calandria 2
+set @equipo = 12;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-07 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
+-- suborbital ak
+set	@fecha = "2022-10-06 09:00:00";
+-- colobri 4
+set @equipo = 25;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-07 12:00:00";
--- Calandria 6
-SET @equipo = 13;
+
+-- suborbital ba
+set	@fecha = "2022-10-06 12:00:00";
+-- calandria 6
+set @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- SABADO 
 
--- suborbital AK
-SET	@fecha = "2022-10-08 08:00:00";
--- Calandria 2 
-SET @equipo = 12;
+
+
+-- circuito 2 ak  alta aceleracion
+set	@fecha = "2022-10-07 09:00:00";
+-- aguila 5
+set @equipo = 2;
+
+-- tramo largo alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 14 hour );
+set @fechasalida3 = date_add(@fecha, interval 15 hour );
+set @fechallegada3 = date_add(@fecha, interval 37 hour );
+set @fechasalida4 = date_add(@fecha, interval 38 hour );
+set @fechallegada4 = date_add(@fecha, interval 70 hour );
+set @fechasalida5 = date_add(@fecha, interval 71 hour);
+set @fechallegada5 = date_add(@fecha, interval 104 hour );
+set @fechasalida6 = date_add(@fecha, interval 105 hour );
+set @fechallegada6 = date_add(@fecha, interval 140 hour );
+set @fechasalida7 = date_add(@fecha, interval 140 hour );
+set @fechallegada7 = date_add(@fecha, interval 190 hour );
+set @fechasalida8 = date_add(@fecha, interval 191 hour );
+set @fechallegada8 = date_add(@fecha, interval 242 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / luna
+(@equipo, 3, 5, @fechasalida2, @fechallegada2, 250),
+-- luna / marte
+(@equipo, 5, 6, @fechasalida3, @fechallegada3, 350),
+-- marte / ganimedes
+(@equipo, 6, 7, @fechasalida4, @fechallegada4, 350),
+-- ganimedes / europa
+(@equipo, 7, 8, @fechasalida5, @fechallegada5, 300),
+-- europa / lo
+(@equipo, 8, 9, @fechasalida6, @fechallegada6, 300),
+-- lo / encendalo
+(@equipo, 9, 10, @fechasalida7, @fechallegada7, 300),
+-- encendalo / titan
+(@equipo, 10, 11, @fechasalida8, @fechallegada8, 300);
+
+-- tramo largo alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 300 hour );
+set @fechallegada1 = date_add(@fecha, interval 352 hour );
+set @fechasalida2 = date_add(@fecha, interval 353 hour);
+set @fechallegada2 = date_add(@fecha, interval 403 hour );
+set @fechasalida3 = date_add(@fecha, interval 404 hour );
+set @fechallegada3 = date_add(@fecha, interval 439 hour );
+set @fechasalida4 = date_add(@fecha, interval 440 hour );
+set @fechallegada4 = date_add(@fecha, interval 473 hour );
+set @fechasalida5 = date_add(@fecha, interval 474 hour);
+set @fechallegada5 = date_add(@fecha, interval 506 hour );
+set @fechasalida6 = date_add(@fecha, interval 507 hour );
+set @fechallegada6 = date_add(@fecha, interval 529 hour );
+set @fechasalida7 = date_add(@fecha, interval 530 hour );
+set @fechallegada7 = date_add(@fecha, interval 540 hour );
+set @fechasalida8 = date_add(@fecha, interval 541 hour );
+set @fechallegada8 = date_add(@fecha, interval 544 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- titan / encendalo
+(@equipo, 11, 10, @fechasalida1, @fechallegada1, 300),
+-- encendalo / lo
+(@equipo, 10, 9, @fechasalida2, @fechallegada2, 300),
+-- lo / europa
+(@equipo, 9, 8, @fechasalida3, @fechallegada3, 300),
+-- europa / ganimedes
+(@equipo, 8, 7, @fechasalida4, @fechallegada4, 300),
+-- ganimedes / marte
+(@equipo, 7, 6, @fechasalida5, @fechallegada5, 350),
+-- marte / luna
+(@equipo, 5, 4, @fechasalida6, @fechallegada6, 350),
+-- luna / iss
+(@equipo, 4, 3, @fechasalida7, @fechallegada7, 250),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida8, @fechallegada8, 100);
+
+
+-- circuito 1 ba alta  aceleracion
+set	@fecha = "2022-10-07 15:00:00";
+-- condor 18
+set @equipo = 32;
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 3 hour );
+set @fechasalida2 = date_add(@fecha, interval 4 hour);
+set @fechallegada2 = date_add(@fecha, interval 5 hour );
+set @fechasalida3 = date_add(@fecha, interval 6 hour );
+set @fechallegada3 = date_add(@fecha, interval 15 hour );
+set @fechasalida4 = date_add(@fecha, interval 16 hour );
+set @fechallegada4 = date_add(@fecha, interval 38 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto alta aceleracion
+set @fechasalida1 = date_add(@fecha, interval 48 hour );
+set @fechallegada1 = date_add(@fecha, interval 70 hour );
+set @fechasalida2 = date_add(@fecha, interval 71 hour);
+set @fechallegada2 = date_add(@fecha, interval 78 hour );
+set @fechasalida3 = date_add(@fecha, interval 79 hour );
+set @fechallegada3 = date_add(@fecha, interval 80 hour );
+set @fechasalida4 = date_add(@fecha, interval 81 hour );
+set @fechallegada4 = date_add(@fecha, interval 84 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
+-- luna / orbital hotel
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
+
+
+-- circuito 1 ba baja aceleracion
+set	@fecha = "2022-10-07 15:00:00";
+-- aguilucho 11
+set @equipo = 9;
+-- tramo corto baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / iss
+(@equipo, 1, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
+-- luna / orbital hotel
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ba
+(@equipo, 3, 1, @fechasalida4, @fechallegada4, 100);
+
+
+
+-- circuito 1 ak baja aceleracion
+set	@fecha = "2022-10-07 18:00:00";
+-- aguilucho 12
+set @equipo = 10;
+
+-- tramo corto baja aceleracion
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 4 hour );
+set @fechasalida2 = date_add(@fecha, interval 5 hour);
+set @fechallegada2 = date_add(@fecha, interval 6 hour );
+set @fechasalida3 = date_add(@fecha, interval 7 hour );
+set @fechallegada3 = date_add(@fecha, interval 23 hour );
+set @fechasalida4 = date_add(@fecha, interval 24 hour );
+set @fechallegada4 = date_add(@fecha, interval 50 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / iss
+(@equipo, 2, 3, @fechasalida1, @fechallegada1, 100),
+-- iss / orbital hotel
+(@equipo, 3, 4, @fechasalida2, @fechallegada2, 150),
+-- orbital hotel / luna -
+(@equipo, 4, 5, @fechasalida3, @fechallegada3, 250),
+-- luna / marte-
+(@equipo, 5, 6, @fechasalida4, @fechallegada4, 300);
+
+-- tramo corto baja aceleracion
+set @fechasalida1 = date_add(@fecha, interval 72 hour );
+set @fechallegada1 = date_add(@fecha, interval 78 hour );
+set @fechasalida2 = date_add(@fecha, interval 80 hour);
+set @fechallegada2 = date_add(@fecha, interval 96 hour );
+set @fechasalida3 = date_add(@fecha, interval 97 hour );
+set @fechallegada3 = date_add(@fecha, interval 98 hour );
+set @fechasalida4 = date_add(@fecha, interval 99 hour );
+set @fechallegada4 = date_add(@fecha, interval 104 hour );
+
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- marte / luna
+(@equipo, 6, 5, @fechasalida1, @fechallegada1, 300),
+-- luna / orbital hotel
+(@equipo, 5, 4, @fechasalida2, @fechallegada2, 250),
+-- orbital hotel / iss
+(@equipo, 4, 3, @fechasalida3, @fechallegada3, 150),
+-- iss / ak
+(@equipo, 3, 2, @fechasalida4, @fechallegada4, 100);
+
+-- suborbital ba
+set	@fecha = "2022-10-07 08:00:00";
+-- calandria 1
+set @equipo = 11;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-07 08:00:00";
--- Colobri 3 
-SET @equipo = 24;
+-- suborbital ak
+set	@fecha = "2022-10-07 08:00:00";
+-- colobri 3
+set @equipo = 24;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-08 09:00:00";
--- Colobri 4 
-SET @equipo = 25;
+-- suborbital ba
+set	@fecha = "2022-10-07 09:00:00";
+-- colibri 5
+set @equipo = 26;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-08 12:00:00";
--- Calandria 1
-SET @equipo = 11;
+-- suborbital ak
+set	@fecha = "2022-10-07 09:00:00";
+-- colobri 4
+set @equipo = 25;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-08 08:00:00";
--- Calandria 6
-SET @equipo = 13;
+-- suborbital ba
+set	@fecha = "2022-10-07 12:00:00";
+-- calandria 6
+set @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-08 08:00:00";
--- Colibri 5 
-SET @equipo = 26;
+-- sabado
+
+-- suborbital ak
+set	@fecha = "2022-10-08 08:00:00";
+-- calandria 2
+set @equipo = 12;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-08 09:00:00";
--- Colibri 8
-SET @equipo = 27;
+-- suborbital ak
+set	@fecha = "2022-10-07 08:00:00";
+-- colobri 3
+set @equipo = 24;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- DOMINGO 
--- suborbital AK
-SET	@fecha = "2022-10-09 09:00:00";
--- Colobri 3 
-SET @equipo = 24;
+-- suborbital ak
+set	@fecha = "2022-10-08 09:00:00";
+-- colobri 4
+set @equipo = 25;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-09 12:00:00";
--- Calandria 1
-SET @equipo = 11;
+-- suborbital ba
+set	@fecha = "2022-10-08 12:00:00";
+-- calandria 1
+set @equipo = 11;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-08 09:00:00";
--- Calandria 7
-SET @equipo = 14;
+-- suborbital ba
+set	@fecha = "2022-10-08 08:00:00";
+-- calandria 6
+set @equipo = 13;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital AK
-SET	@fecha = "2022-10-09 08:00:00";
--- Colobri 4 
-SET @equipo = 25;
+-- suborbital ba
+set	@fecha = "2022-10-08 08:00:00";
+-- colibri 5
+set @equipo = 26;
 -- tramo suboribtal
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- AK / AK
-(@equipo, 2, 2, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
--- suborbital BA
-SET	@fecha = "2022-10-09 08:00:00";
--- Calandria 6
-SET @equipo = 13;
+-- suborbital ba
+set	@fecha = "2022-10-08 09:00:00";
+-- colibri 8
+set @equipo = 27;
 -- tramo suboribtal
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 8 HOUR );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
+
+-- domingo
+-- suborbital ak
+set	@fecha = "2022-10-09 09:00:00";
+-- colobri 3
+set @equipo = 24;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ba
+set	@fecha = "2022-10-09 12:00:00";
+-- calandria 1
+set @equipo = 11;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ak
+set	@fecha = "2022-10-08 09:00:00";
+-- calandria 7
+set @equipo = 14;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ak
+set	@fecha = "2022-10-09 08:00:00";
+-- colobri 4
+set @equipo = 25;
+-- tramo suboribtal
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ak / ak
+(@equipo, 2, 2, @fechasalida1, @fechallegada1, 100);
+
+-- suborbital ba
+set	@fecha = "2022-10-09 08:00:00";
+-- calandria 6
+set @equipo = 13;
+-- tramo suboribtal
+set @fechallegada1 = date_add(@fecha, interval 8 hour );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
 
--- TOUR 
-SET	@fecha = "2022-10-09 07:00:00";
--- Guanao 8 
-SET @equipo = 34;
-SET @fechaSalida1 = @fecha;
-SET @fechaLlegada1 = date_add(@fecha, INTERVAL 35 DAY );
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / BA
-(@equipo, 1, 1, @fechaSalida1, @fechaLlegada1, 100);
+-- tour
+set	@fecha = "2022-10-09 07:00:00";
+-- guanao 8
+set @equipo = 34;
+set @fechasalida1 = @fecha;
+set @fechallegada1 = date_add(@fecha, interval 35 day );
+insert into tramo (equipoid, origenid, destinoid, fechasalida, fechallegada, precio) values
+-- ba / ba
+(@equipo, 1, 1, @fechasalida1, @fechallegada1, 100);
 
 -- datos para reservas: usuario
 insert into login (email, password) values 
