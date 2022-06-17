@@ -2224,13 +2224,17 @@ update capacidadcabina
 set capacidadcabina.cantidad = 1
 where equipoid = 34;
 
-insert into reserva (usuarioid, tramoid, fecha, servicioid, tipocabina) values
-(2, 49, "2022-09-03 20:00:00", 2, 3), 
-(2, 50, "2022-09-03 20:00:00", 2, 3), 
-(2, 51, "2022-09-03 20:00:00", 2, 3), 
-(2, 52, "2022-09-03 20:00:00", 2, 3), 
-(2, 53, "2022-09-03 20:00:00", 2, 3), 
-(2, 54, "2022-09-03 20:00:00", 2, 3), 
-(2, 55, "2022-09-03 20:00:00", 2, 3), 
-(2, 56, "2022-09-03 20:00:00", 2, 3), 
-(2, 382, "2022-09-03 20:00:00", 2, 3);
+insert into reserva (usuarioid, fecha, servicioid, tipocabina) values
+(2, "2022-09-03 20:00:00", 2, 3), 
+(2, "2022-09-03 20:00:00", 2, 3);
+
+insert into reservatramo (reservaid, tramoid) values
+(1, 49),
+(1, 50),
+(1, 51),
+(1, 52),
+(1, 53),
+(1, 54),
+(1, 55),
+(1, 56),
+(2, 382);

@@ -12,10 +12,12 @@
         <h6 class="card-title">Descripción</h6>
         <!--/reservasView.html-->
         <form action="{{URLS.domain_name}}/reservas/reservar" method="POST">
-            <input type="hidden" name="origenId" value="{{idOrigen}}"/>
-            <input type="hidden" name="destinoId" value="{{idDestino}}"/>
-            <input type="hidden" name="salida" value="{{salida}}"/>
+            <input type="hidden" name="origenId" value="{{tramoIdOrigen}}"/>
             <input type="hidden" name="origen" value="{{origen}}"/>
+            <input type="hidden" name="origen" value="{{idEquipo}}"/>
+            <input type="hidden" name="destinoId" value="{{tramoIdDestino}}"/>
+            <input type="hidden" name="salida" value="{{destino}}"/>
+
 
             <p class="card-text">Salida: {{salida}} - {{origen}} <br>
                 Llegada: {{llegada}} - {{destino}}<br>
