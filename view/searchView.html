@@ -1,7 +1,7 @@
 {{>header}}
 
 <div class="container my-5 pt-3">
-    <h3 class="text-center">Resultado de la búsqueda</h3>
+    <h3 class="text-center">Resultado de la búsqueda: {{cantidadDeVuelos}}</h3>
 </div>
 {{#datos}}
 <div class="card border-dark my-5 w-50 mx-auto">
@@ -19,9 +19,9 @@
             <input type="hidden" name="salida" value="{{destino}}"/>
 
 
-            <p class="card-text">Salida: {{salida}} - {{origen}} <br>
-                Llegada: {{llegada}} - {{destino}}<br>
-               <!-- Tipo: {{tipoVuelo}} - {{nivelVuelo}}<br>-->
+            <p class="card-text">Salida: {{salida}} - {{origen}} / TramoId: {{tramoIdOrigen}} <br>
+                Llegada: {{llegada}} - {{destino}} / TramoId: {{tramoIdDestino}}<br>
+                <!-- Tipo: {{tipoVuelo}} - {{nivelVuelo}}<br>-->
             </p>
             <!--<span class="font-weight-bold">Cabina {{cabina}}</span> <br>
             <span>Servicio {{servicio}}</span>-->
@@ -30,7 +30,7 @@
                 <button type="submit" class="btn btn-info">Reservar</button>
             </div>
         </form>
-           <!-- <a href="{{URLS.domain_name}}/reservas/reservar" class="btn btn-info">Reservar</a>-->
+        <!-- <a href="{{URLS.domain_name}}/reservas/reservar" class="btn btn-info">Reservar</a>-->
     </div>
 </div>
 {{/datos}}

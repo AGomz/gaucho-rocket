@@ -11,9 +11,10 @@ class SearchModel
         $this->database = $database;
     }
 
-        public function getDatosPor($origen, $destino){
+    public function getDatosPor($origen, $destino)
+    {
 
-            $query = "select distinct dd.nombre as origen, 
+        $query = "select distinct dd.nombre as origen, 
                     d.nombre as destino,
                     t.fechasalida as salida, 
                     t.fechallegada as llegada,
@@ -24,11 +25,12 @@ class SearchModel
             destino dd on dd.id=t.origenid
             where d.id=$destino or dd.id=$origen and t.fechasalida between curdate() and curdate() + interval 30 day";
 
-            return $this->database->query($query);
-        }
+        return $this->database->query($query);
+    }
 
-        public function getTramoOrigen($origen, $fecha){
-            $query = "select t.id as tramoIdOrigen, 
+    public function getTramoOrigen($origen, $fecha)
+    {
+        $query = "select t.id as tramoIdOrigen, 
                     t.equipoid as idEquipo, 
                     t.fechasalida as salida, 
                     dd.nombre as origen
@@ -38,15 +40,16 @@ class SearchModel
                     where t.origenid = $origen ";
 
 
-            if($fecha != ""){
-                $query = $query." and t.fechasalida > \"{$fecha};\" ";
-            }
-            $query = $query." order by t.fechasalida asc";
-
-            return  $this->database->query($query);
+        if ($fecha != "") {
+            $query = $query . " and t.fechasalida > \"{$fecha};\" ";
         }
+        $query = $query . " order by t.fechasalida asc";
 
-    public function getTramoDestino($destino, $equipo, $fecha){
+        return  $this->database->query($query);
+    }
+
+    public function getTramoDestino($destino, $equipo, $fecha, $tramoIdOrigen)
+    {
         $query =    "select t.id as tramoIdDestino, 
                     t.equipoid, 
                     t.fechallegada as llegada, 
@@ -56,36 +59,45 @@ class SearchModel
                     on d.id=t.destinoid
                     where d.id = $destino 
                     and t.equipoid = $equipo 
-                    and t.fechallegada > \"{$fecha}\" 
-                    order by t.fechallegada limit 1";
+                    and t.fechallegada >= \"{$fecha}\" 
+                    /* tramos consecutivos deben ser menor al maximo total de tramos del circuito */
+                    and ABS(t.id - $tramoIdOrigen) <= 11
+                    order by t.id, t.fechallegada limit 1";
 
         return  $this->database->query($query);
     }
 
-    public function getTramoCompleto($origen, $destino,$fecha){
+    public function getTramoCompleto($origen, $destino, $fecha)
+    {
         $resultado = [];
         $salidas = $this->getTramoOrigen($origen, $fecha);
 
-        foreach ($salidas as $tramo){
+        foreach ($salidas as $tramo) {
             /*var_dump($tramo);
             echo "<br>";
             var_dump($destino);
             echo "<br>";
             var_dump( $tramo['salida']);
             echo "<br>";*/
-           $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida']);
-            if(count($llegadas) > 0 ){
+            $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida'], $tramo['tramoIdOrigen']);
+            /*
+            * No permito las busquedas entre $origen == $destino
+            * Así elimina vuelos suborbital y tour y evita que el cliente
+            * compre un vuelo con reccorido completo de ida y vuelta
+            * por todo el circuito
+            */
+            if (count($llegadas) > 0 && $origen != $destino) {
                 //asigno
                 $resultado[] = array_merge($tramo, $llegadas[0]);
             }
-
         }
 
         return $resultado;
     }
 
 
-    public function getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio){
+    public function getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio)
+    {
         $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
 		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
         from destino d join
@@ -103,7 +115,8 @@ class SearchModel
         return $this->database->query($query);
     }
 
-    public function getDatosTour($origen){
+    public function getDatosTour($origen)
+    {
         $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
 		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
         from destino d join
@@ -120,7 +133,8 @@ class SearchModel
         return $this->database->query($query);
     }
 
-    public function getDatosSuborbital($origen){
+    public function getDatosSuborbital($origen)
+    {
         $query = "select distinct dd.nombre as origen, d.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
 		sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo
         from destino d join
