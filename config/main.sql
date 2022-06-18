@@ -143,7 +143,6 @@ create table checkin (
 create table reserva (
 	id integer primary key auto_increment,
 	usuarioid integer not null,
-	tramoid integer not null,
 	fecha datetime not null,
 	pagoid integer,
 	checkinid integer,
@@ -152,9 +151,16 @@ create table reserva (
 	tipocabina integer not null,
 	-- primary key (usuarioid, tramoid),
 	foreign key (usuarioid) references usuario(id),
-	foreign key (tramoid) references tramo(id),
 	foreign key (servicioid) references servicioabordo(id),
 	foreign key (tipoCabina) references cabina(id)
+);
+
+create table reservatramo (
+	reservaid integer not null,
+	tramoid integer not null,
+	primary key (reservaid, tramoid),
+	foreign key (reservaid) references reserva(id),
+	foreign key (tramoid) references tramo(id)
 );
 
 insert into rol (descripcion) values
