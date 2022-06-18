@@ -64,11 +64,11 @@ class UserModel
         return $this->database->query($query) === 1;
     }
 
-    private function getNivelDeVueloByUserID($id)
+    public function getNivelDeVueloByUserID($id)
     {
-        $query = "select n.nombre 
-                  from nivelvuelo n inner join usario u on  n.id = u.idniveldevuelo
-                  where n.id = \"$id\"";
+        $query = "select n.id 
+                  from nivelvuelo n inner join usuario u on  n.id = u.idnivelvuelo
+                  where u.id = \"$id\"";
         return $this->database->query($query);
     }
 
