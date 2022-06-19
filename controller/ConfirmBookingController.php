@@ -23,27 +23,37 @@ class ConfirmBookingController
     public function confirm()
     {
         $datos = $this->getDatos();
-
         $userId = SessionManager::getUserId();
         $nivelDeVueloUser = $this->userModel->getNivelDeVueloByUserID($userId);
         $nivelesDeVueloDelEquipo = $this->confirmBookingModel->getNivelVueloDelEquipo($datos["equipoId"]);
 
-        $this->show(["mensajeDeError" => 'Tu nivel de vuelo no aplica para esta reserva']);
+        $valoresDeLosNiveles = [];
+        for($i = 0; $i<sizeof($nivelesDeVueloDelEquipo); $i++) {
+            $values = array_values($nivelesDeVueloDelEquipo[$i]);
+            $valoresDeLosNiveles[$i] = $values[0];
+        }
 
         // Verifica que los niveles de vuelo del equipo contenga el nivel de vuelo del user
-        if (array_key_exists($nivelDeVueloUser, $nivelesDeVueloDelEquipo)) {
+        if (in_array($nivelDeVueloUser[0]["id"], $valoresDeLosNiveles)) {
             $capacidadDeLaCabina = $this->confirmBookingModel->getCapacidadDeCabina($datos["equipoId"], $datos["cabinaId"]);
             $cantidadDeReservasHechas = $this->confirmBookingModel->getReservasByTramoId($datos["tramoIdOrigen"]);
 
+            if (sizeof($cantidadDeReservasHechas) > 0) {
+                $cantidadDeReservasHechas = $cantidadDeReservasHechas[0]["cantidadreservas"];
+            } else {
+                $cantidadDeReservasHechas = 0;
+            }
+
             // Verifica que haya lugar para realizar la reserva
-            if ($cantidadDeReservasHechas < $capacidadDeLaCabina) {
+            if ($cantidadDeReservasHechas < $capacidadDeLaCabina[0]["cantidad"]) {
                 $this->confirmBookingModel->realizarReservas(
-                    $userId, $datos["tramoIdOrigen"],
+                    $userId,
+                    $datos["tramoIdOrigen"],
                     $datos["tramoIdDestino"],
                     $datos["servicioId"],
                     $datos["cabinaId"]
                 );
-                Redirect::to("payment");
+                Redirect::to("/payment");
             } else {
                 $this->show(["mensajeDeError" => "Este vuelo ya está todo reservado"]);
             }
@@ -61,8 +71,8 @@ class ConfirmBookingController
         $cabinaId = isset($_POST["cabinaId"]) ? $_POST["cabinaId"] : "";
         $servicioId = isset($_POST["servicioId"]) ? $_POST["servicioId"] : "";
         $equipoId = isset($_POST["equipoId"]) ? $_POST["equipoId"] : "";
-        $tramoIdOrigen = isset($_POST["tramoIdOrigen"]) ? $_POST["tramoIdOrigen"] : "";
-        $tramoIdDestino = isset($_POST["tramoIdDestino"]) ? $_POST["tramoIdDestino"] : "";
+        $tramoIdOrigen = isset($_POST["origenId"]) ? $_POST["origenId"] : "";
+        $tramoIdDestino = isset($_POST["destinoId"]) ? $_POST["destinoId"] : "";
 
         $nombreDeCabina = $this->confirmBookingModel->getNombreDeCabina($cabinaId);
         $nombreDeServicio = $this->confirmBookingModel->getNombreDeServicio($servicioId);

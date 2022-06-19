@@ -26,13 +26,8 @@ class SearchController
         $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
 
-        /* $preload = [
-           "tipoDeViaje" => $tipoViaje
-        ];*/
-
         if ($origen && $destino && $tipoViaje == "ida") {
             $datos = $this->searchModel->getTramoCompleto($origen, $destino, $fecha);
-            //$datos = $this->searchModel->getDatosPor($origen, $destino);
         }
         if ($origen && $destino && $fecha && $cabina && $servicio && $tipoViaje == "ida") {
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
@@ -45,7 +40,7 @@ class SearchController
         }
 
         if (sizeof($datos) > 0) {
-            $result = ["datos" => $datos]; // $data
+            $result = ["datos" => $datos];
             $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.']);
         } else {
             $data = array_merge(["messageResult" => 'No se encontraron resultados.']);

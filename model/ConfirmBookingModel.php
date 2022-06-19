@@ -49,7 +49,7 @@ class ConfirmBookingModel
     public function getReservasByTramoId($tramoId)
     {
         $query = "select count(*) as cantidadreservas
-        from reserva 
+        from reservatramo 
         where tramoid=${tramoId}";
 
         return $this->database->query($query);
@@ -57,9 +57,19 @@ class ConfirmBookingModel
 
     public function realizarReservas($userId, $tramoIdOrigen, $tramoIdDestino, $servicioId, $cabinaId)
     {
-        $query = "insert into reserva (usuarioid, tramoid, fecha, servicioid, tipocabina) values
-            (${userId}, ${tramoIdOrigen}, curdate(), null, null, ${servicioId}, ${cabinaId})";
+        $query = "insert into reserva (usuarioid, fecha, servicioid, tipocabina)
+            values (${userId}, curdate(), ${servicioId}, ${cabinaId})";
 
-        return $this->database->query($query);
+        $this->database->insertQuery($query);
+        $reservaId = $this->database->lastID();
+
+        $tramoId = intval($tramoIdOrigen);
+        while ($tramoId <= $tramoIdDestino) {
+            $query = "insert into reservatramo (reservaid, tramoid)
+                    values (${reservaId}, ${tramoId})";
+            $this->database->insertQuery($query);
+
+            $tramoId++;
+        }
     }
 }
