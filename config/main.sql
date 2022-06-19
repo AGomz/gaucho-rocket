@@ -544,3 +544,351 @@ insert into servicioabordo (nombre, descripcion, precio) values
 ("Gourmet", "Servicio Gourmet", 500.0),
 ("Spa", "Servicio Spa", 950.70);
 
+
+
+USE gauchorocket;
+
+DROP PROCEDURE IF exists Circuito1BA;
+DROP PROCEDURE IF exists Circuito1AA;
+DROP PROCEDURE IF exists Circuito2BA;
+DROP PROCEDURE IF exists Circuito2AA;
+DROP PROCEDURE IF exists Tour;
+DROP PROCEDURE IF exists Orbital;
+
+DELIMITER $$
+-- Insert Circuito1 completo
+-- CALL Circuito1BA(fecha, equipoID, origenID);
+CREATE PROCEDURE Circuito1BA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaSalida2 DATETIME;
+DECLARE fechaSalida3 DATETIME;
+DECLARE fechaSalida4 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+DECLARE fechaLlegada2 DATETIME;
+DECLARE fechaLlegada3 DATETIME;
+DECLARE fechaLlegada4 DATETIME;
+
+-- IDA
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 4 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 5 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 6 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 7 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 23 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 24 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 50 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- BA / ISS
+(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
+-- ISS / Orbital Hotel
+(equipo, 3, 4, fechaSalida2, fechaLlegada2, 150),
+-- Orbital hotel / luna -
+(equipo, 4, 5, fechaSalida3, fechaLlegada3, 250),
+-- luna / marte- 
+(equipo, 5, 6, fechaSalida4, fechaLlegada4, 300);
+
+-- VUELTA
+SET fechaSalida1 = date_add(fecha, INTERVAL 72 HOUR );
+SET fechaLlegada1 = date_add(fecha, INTERVAL 98 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 99 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 115 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 116 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 117 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 118 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 122 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- marte / luna
+(equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
+-- luna / orbital hotel
+(equipo, 5, 4, fechaSalida2, fechaLlegada2, 250),
+-- orbital hotel / ISS
+(equipo, 4, 3, fechaSalida3, fechaLlegada3, 150),
+-- ISS / BA
+(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
+END$$
+
+DELIMITER $$
+-- Insert Circuito completo
+-- CALL Circuito1AA(fecha, equipoID, origenID);
+CREATE PROCEDURE Circuito1AA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaSalida2 DATETIME;
+DECLARE fechaSalida3 DATETIME;
+DECLARE fechaSalida4 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+DECLARE fechaLlegada2 DATETIME;
+DECLARE fechaLlegada3 DATETIME;
+DECLARE fechaLlegada4 DATETIME;
+
+-- IDA
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 3 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 4 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 5 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 6 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 17 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 18 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 30 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- BA / ISS
+(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
+-- ISS / Orbital Hotel
+(equipo, 3, 4, fechaSalida2, fechaLlegada2, 150),
+-- Orbital hotel / luna -
+(equipo, 4, 5, fechaSalida3, fechaLlegada3, 250),
+-- luna / marte- 
+(equipo, 5, 6, fechaSalida4, fechaLlegada4, 300);
+
+-- VUELTA
+SET fechaSalida1 = date_add(fecha, INTERVAL 48 HOUR );
+SET fechaLlegada1 = date_add(fecha, INTERVAL 70 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 71 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 80 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 81 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 82 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 83 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 86 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- marte / luna
+(equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
+-- luna / orbital hotel
+(equipo, 5, 4, fechaSalida2, fechaLlegada2, 250),
+-- orbital hotel / ISS
+(equipo, 4, 3, fechaSalida3, fechaLlegada3, 150),
+-- ISS / BA
+(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
+END$$
+
+
+
+DELIMITER $$
+-- Insert Circuito1 completo
+-- CALL Circuito1BA(fecha, equipoID, origenID);
+CREATE PROCEDURE Circuito2BA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaSalida2 DATETIME;
+DECLARE fechaSalida3 DATETIME;
+DECLARE fechaSalida4 DATETIME;
+DECLARE fechaSalida5 DATETIME;
+DECLARE fechaSalida6 DATETIME;
+DECLARE fechaSalida7 DATETIME;
+DECLARE fechaSalida8 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+DECLARE fechaLlegada2 DATETIME;
+DECLARE fechaLlegada3 DATETIME;
+DECLARE fechaLlegada4 DATETIME;
+DECLARE fechaLlegada5 DATETIME;
+DECLARE fechaLlegada6 DATETIME;
+DECLARE fechaLlegada7 DATETIME;
+DECLARE fechaLlegada8 DATETIME;
+-- IDA
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 4 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 5 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 19 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 20 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 46 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 47 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 95 HOUR );
+SET fechaSalida5 = date_add(fecha, INTERVAL 96 HOUR );
+SET fechaLlegada5 = date_add(fecha, INTERVAL 146 HOUR );
+SET fechaSalida6 = date_add(fecha, INTERVAL 147 HOUR);
+SET fechaLlegada6 = date_add(fecha, INTERVAL 198 HOUR );
+SET fechaSalida7 = date_add(fecha, INTERVAL 200 HOUR );
+SET fechaLlegada7 = date_add(fecha, INTERVAL 270 HOUR );
+SET fechaSalida8 = date_add(fecha, INTERVAL 272 HOUR );
+SET fechaLlegada8 = date_add(fecha, interval 349 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- origen / ISS
+(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
+-- ISS / luna
+(equipo, 3, 5, fechaSalida2, fechaLlegada2, 150),
+-- luna / marte-
+(equipo, 5, 6, fechaSalida3, fechaLlegada3, 250),
+-- marte / ganimedes
+(equipo, 6, 7, fechaSalida4, fechaLlegada4, 300),
+-- ganimedes / europa
+(equipo, 7, 8, fechaSalida1, fechaLlegada1, 100),
+-- europa / lo
+(equipo, 8, 9, fechaSalida2, fechaLlegada2, 150),
+-- lo / encedalo
+(equipo, 9, 10, fechaSalida3, fechaLlegada3, 250),
+-- encedalo / titan 
+(equipo, 10, 11, fechaSalida4, fechaLlegada4, 300);
+
+-- VUELTA
+SET fechaSalida1 = date_add(fecha, INTERVAL 360 HOUR );
+SET fechaLlegada1 = date_add(fecha, INTERVAL 437 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 438 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 508 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 509 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 560 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 562 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 612 HOUR );
+SET fechaSalida5 = date_add(fecha, INTERVAL 613 HOUR );
+SET fechaLlegada5 = date_add(fecha, INTERVAL 661 HOUR );
+SET fechaSalida6 = date_add(fecha, INTERVAL 662 HOUR);
+SET fechaLlegada6 = date_add(fecha, INTERVAL 687 HOUR );
+SET fechaSalida7 = date_add(fecha, INTERVAL 688 HOUR );
+SET fechaLlegada7 = date_add(fecha, INTERVAL 701 HOUR );
+SET fechaSalida8 = date_add(fecha, INTERVAL 702 HOUR );
+SET fechaLlegada8 = date_add(fecha, INTERVAL 706 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- titan / encedalo
+(equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
+-- encedalo / lo
+(equipo, 10, 9, fechaSalida2, fechaLlegada2, 250),
+-- lo / europa
+(equipo, 9, 8, fechaSalida3, fechaLlegada3, 150),
+-- europa / ganimedes
+(equipo, 8, 7, fechaSalida4, fechaLlegada4, 100),
+-- ganimedes / marte
+(equipo, 7, 6, fechaSalida1, fechaLlegada1, 300),
+-- marte / luna
+(equipo, 6, 5, fechaSalida2, fechaLlegada2, 250),
+-- luna / ISS
+(equipo, 5, 3, fechaSalida3, fechaLlegada3, 150),
+-- ISS / origen
+(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
+END$$
+
+DELIMITER $$
+-- Insert Circuito completo
+-- CALL Circuito1AA(fecha, equipoID, origenID);
+CREATE PROCEDURE Circuito2AA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaSalida2 DATETIME;
+DECLARE fechaSalida3 DATETIME;
+DECLARE fechaSalida4 DATETIME;
+DECLARE fechaSalida5 DATETIME;
+DECLARE fechaSalida6 DATETIME;
+DECLARE fechaSalida7 DATETIME;
+DECLARE fechaSalida8 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+DECLARE fechaLlegada2 DATETIME;
+DECLARE fechaLlegada3 DATETIME;
+DECLARE fechaLlegada4 DATETIME;
+DECLARE fechaLlegada5 DATETIME;
+DECLARE fechaLlegada6 DATETIME;
+DECLARE fechaLlegada7 DATETIME;
+DECLARE fechaLlegada8 DATETIME;
+-- IDA
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 3 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 4 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 14 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 15 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 27 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 28 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 60 HOUR );
+SET fechaSalida5 = date_add(fecha, INTERVAL 61 HOUR );
+SET fechaLlegada5 = date_add(fecha, INTERVAL 94 HOUR );
+SET fechaSalida6 = date_add(fecha, INTERVAL 95 HOUR);
+SET fechaLlegada6 = date_add(fecha, INTERVAL 130 HOUR );
+SET fechaSalida7 = date_add(fecha, INTERVAL 131 HOUR );
+SET fechaLlegada7 = date_add(fecha, INTERVAL 181 HOUR );
+SET fechaSalida8 = date_add(fecha, INTERVAL 182 HOUR );
+SET fechaLlegada8 = date_add(fecha, INTERVAL 232 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- origen / ISS
+(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
+-- ISS / luna
+(equipo, 3, 5, fechaSalida2, fechaLlegada2, 150),
+-- luna / marte-
+(equipo, 5, 6, fechaSalida3, fechaLlegada3, 250),
+-- marte / ganimedes
+(equipo, 6, 7, fechaSalida4, fechaLlegada4, 300),
+-- ganimedes / europa
+(equipo, 7, 8, fechaSalida1, fechaLlegada1, 100),
+-- europa / lo
+(equipo, 8, 9, fechaSalida2, fechaLlegada2, 150),
+-- lo / encedalo
+(equipo, 9, 10, fechaSalida3, fechaLlegada3, 250),
+-- encedalo / titan 
+(equipo, 10, 11, fechaSalida4, fechaLlegada4, 300);
+
+-- VUELTA
+SET fechaSalida1 = date_add(fecha, INTERVAL 240 HOUR );
+SET fechaLlegada1 = date_add(fecha, INTERVAL 292 HOUR );
+SET fechaSalida2 = date_add(fecha, INTERVAL 293 HOUR);
+SET fechaLlegada2 = date_add(fecha, INTERVAL 343 HOUR );
+SET fechaSalida3 = date_add(fecha, INTERVAL 344 HOUR );
+SET fechaLlegada3 = date_add(fecha, INTERVAL 379 HOUR );
+SET fechaSalida4 = date_add(fecha, INTERVAL 380 HOUR );
+SET fechaLlegada4 = date_add(fecha, INTERVAL 411 HOUR );
+SET fechaSalida5 = date_add(fecha, INTERVAL 412 HOUR );
+SET fechaLlegada5 = date_add(fecha, INTERVAL 444 HOUR );
+SET fechaSalida6 = date_add(fecha, INTERVAL 445 HOUR);
+SET fechaLlegada6 = date_add(fecha, INTERVAL 467 HOUR );
+SET fechaSalida7 = date_add(fecha, INTERVAL 468 HOUR );
+SET fechaLlegada7 = date_add(fecha, INTERVAL 478 HOUR );
+SET fechaSalida8 = date_add(fecha, INTERVAL 479 HOUR );
+SET fechaLlegada8 = date_add(fecha, INTERVAL 482 HOUR );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- titan / encedalo
+(equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
+-- encedalo / lo
+(equipo, 10, 9, fechaSalida2, fechaLlegada2, 250),
+-- lo / europa
+(equipo, 9, 8, fechaSalida3, fechaLlegada3, 150),
+-- europa / ganimedes
+(equipo, 8, 7, fechaSalida4, fechaLlegada4, 100),
+-- ganimedes / marte
+(equipo, 7, 6, fechaSalida1, fechaLlegada1, 300),
+-- marte / luna
+(equipo, 6, 5, fechaSalida2, fechaLlegada2, 250),
+-- luna / ISS
+(equipo, 5, 3, fechaSalida3, fechaLlegada3, 150),
+-- ISS / origen
+(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
+END$$
+
+DELIMITER $$
+-- Insert tour
+-- CALL Tour(fecha, equipoID);
+CREATE PROCEDURE Tour(IN fecha DATETIME, IN equipo INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 35 day );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- BA / ISS
+(equipo, 1, 1, fechaSalida1, fechaLlegada1, 500);
+END$$
+
+DELIMITER $$
+-- Insert tour
+-- CALL Orbital(fecha, equipo,  origen );
+CREATE PROCEDURE Orbital(IN fecha DATETIME, IN equipo INTEGER, in origen INTEGER)
+BEGIN
+
+DECLARE fechaSalida1 DATETIME;
+DECLARE fechaLlegada1 DATETIME;
+
+SET fechaSalida1 = fecha;
+SET fechaLlegada1 = date_add(fecha, INTERVAL 8 hour );
+
+INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+-- BA / ISS
+(equipo, origen, origen, fechaSalida1, fechaLlegada1, 80);
+END$$
