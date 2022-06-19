@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row pt-1">
-            <div class="col-4 position-relative">
+            <div class="col-3 position-relative">
                 <select class="form-select" name="origen" required>
                     <option value="">Seleccionar Origen</option>
                     <option value="1">Tierra - Buenos Aires</option>
@@ -39,7 +39,7 @@
                 <div class="invalid-tooltip">Seleccione un origen</div>
             </div>
 
-            <div class="col-4 position-relative">
+            <div class="col-3 position-relative">
                 <select class="form-select select" name="destino" required>
                     <option value="">Seleccionar destino</option>
                     <option value="1">Tierra - Buenos Aires</option>
@@ -63,37 +63,9 @@
                 <div class="valid-tooltip">Fecha seleccionada</div>
                 <div class="invalid-tooltip">Seleccione una fecha</div>
             </div>
-        </div>
-        <div class="row pt-2">
-            <div class="col-4">
-                <select class="form-select select" aria-label="Nivel del pasajero" name="nivelPasajero">
-                    <option disabled selected>Nivel</option>
-                    <option value="1">Nivel 1</option>
-                    <option value="2">Nivel 2</option>
-                    <option value="3">Nivel 3</option>
-                </select>
-            </div>
-
-            <div class="col-4">
-                <select class="form-select select" aria-label="Opciones de cabina" name="cabina">
-                    <option disabled selected>Cabina</option>
-                    <option value="1">Turista</option>
-                    <option value="2">Ejecutiva</option>
-                    <option value="3">Primera</option>
-                </select>
-            </div>
-
-            <div class="col-3">
-                <select class="form-select select" aria-label="Opciones de servicio" name="servicio">
-                    <option disabled selected>Servicio</option>
-                    <option value="1">Standard</option>
-                    <option value="2">Gourmet</option>
-                    <option value="3">Spa</option>
-                </select>
-            </div>
 
             <div class="col">
-                <button type="submit" class="btn btn-secondary fw-bold" name="buscar"><i class="fa fa-search"></i></button>
+                <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
             </div>
         </div>
     </form>

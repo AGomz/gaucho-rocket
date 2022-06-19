@@ -50,6 +50,16 @@ class Configuration
         return new PaymentController($this->createPaymentModel(), $this->createPrinter());
     }
 
+    public function createConfirmBookingController()
+    {
+        require_once("controller/ConfirmBookingController.php");
+        return new ConfirmBookingController(
+            $this->createConfirmBookingModel(),
+            $this->createPrinter(),
+            $this->createUserModel()
+        );
+    }
+
     // Modelos
     private function createUserModel()
     {
@@ -84,6 +94,13 @@ class Configuration
         require_once("model/PaymentModel.php");
         $database = $this->getDatabase();
         return new PaymentModel($database);
+    }
+
+    private function createConfirmBookingModel()
+    {
+        require_once("model/ConfirmBookingModel.php");
+        $database = $this->getDatabase();
+        return new ConfirmBookingModel($database);
     }
 
     // Helpers
