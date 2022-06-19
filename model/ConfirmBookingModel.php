@@ -19,9 +19,9 @@ class ConfirmBookingModel
         return $this->database->query($query);
     }
 
-    public function getNombreDeServicio($servicioId)
+    public function getServicioById($servicioId)
     {
-        $query = "select nombre
+        $query = "select nombre, precio
         from servicioabordo 
         where id=${servicioId}";
 
@@ -71,5 +71,24 @@ class ConfirmBookingModel
 
             $tramoId++;
         }
+    }
+
+    public function getPrecioVuelo($tramoIdOrigen, $tramoIdDestino)
+    {
+        $precioVuelo = 0;
+
+        $tramoId = intval($tramoIdOrigen);
+        while ($tramoId <= $tramoIdDestino) {
+            $query = "select precio from tramo
+                    where id=${tramoId}";
+
+            $tramo = $this->database->query($query);
+
+            $precioVuelo += $tramo[0]["precio"];
+
+            $tramoId++;
+        }
+
+        return $precioVuelo;
     }
 }

@@ -75,7 +75,9 @@ class ConfirmBookingController
         $tramoIdDestino = isset($_POST["destinoId"]) ? $_POST["destinoId"] : "";
 
         $nombreDeCabina = $this->confirmBookingModel->getNombreDeCabina($cabinaId);
-        $nombreDeServicio = $this->confirmBookingModel->getNombreDeServicio($servicioId);
+        $servicio = $this->confirmBookingModel->getServicioById($servicioId);
+        $precioVuelo  = $this->confirmBookingModel->getPrecioVuelo($tramoIdOrigen, $tramoIdDestino);
+        $total = $precioVuelo + $servicio[0]["precio"];
 
         return $preload = [
             "salida" => $salida,
@@ -88,7 +90,10 @@ class ConfirmBookingController
             "tramoIdOrigen" => $tramoIdOrigen,
             "tramoIdDestino" => $tramoIdDestino,
             "cabina" => $nombreDeCabina[0]["nombre"],
-            "servicio" => $nombreDeServicio[0]["nombre"]
+            "servicio" => $servicio[0]["nombre"],
+            "precioVuelo" => $precioVuelo,
+            "precioServicio" => $servicio[0]["precio"],
+            "total" => $total
         ];
     }
 }
