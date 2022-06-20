@@ -66,6 +66,12 @@ class Configuration
         return new CheckInController($this->createCheckInModel(), $this->createPrinter(), $this->getPHPMailer(), $this->getLogger());
     }
 
+    public function createErrorController()
+    {
+        require_once("controller/ErrorController.php");
+        return new ErrorController($this->createPrinter());
+    }
+
     // Modelos
     private function createUserModel()
     {
@@ -178,11 +184,13 @@ class Configuration
                 // Le genera $_SESSION['message'] = 'Login exitoso' y muestra en la proxima pagina
                 // Todos los alert se muestran desde el header por única vez. Luego se 
                 // destruye la variable para que no se vuelva a mostrar. 
-                'message_alert' => fn () => SessionManager::getMessageAlert(),
+                'message_alert' => fn() => SessionManager::getMessageAlert(),
                 // Se le pasa a las plantillas la variable de session para verificar
                 // los datos del usuario
                 'SESSION' => $_SESSION
             )
         );
     }
+
+
 }
