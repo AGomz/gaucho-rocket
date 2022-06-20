@@ -6,14 +6,14 @@ class SessionManager
 {
     public static function checkIfSessionIsNotValid($relativeRoute = "/home")
     {
-        if (!isset($_SESSION['user']["email"]) || $_SESSION['user']["email"] == "" ) {
+        if (!isset($_SESSION['user']["email"]) || $_SESSION['user']["email"] == "") {
             Redirect::to($relativeRoute);
         }
     }
 
     public static function checkIfSessionIsValid($relativeRoute = "/home")
     {
-        if (isset($_SESSION['user']["email"]) && $_SESSION['user']["email"] != "" ) {
+        if (isset($_SESSION['user']["email"]) && $_SESSION['user']["email"] != "") {
             Redirect::to($relativeRoute);
         }
     }
@@ -41,16 +41,23 @@ class SessionManager
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
             unset($_SESSION['message']);
-            return "<div class='alert alert-success m-2' role='alert'>" .
+            return "<div class='alert alert-{$_SESSION['message_level']} m-2' role='alert'>" .
                 $message .
                 "</div>";
         }
         return "";
     }
 
-    public static function setMessageAlert($message)
+    /*
+    * El nivel de error corresponde a las clases de bootstrap del alert
+    * 'info' -> celeste (default)
+    * 'success' -> verde (éxito)
+    * 'danger' -> rojo (errores)
+    */
+    public static function setMessageAlert($message, $level = 'info')
     {
         $_SESSION['message'] = $message;
+        $_SESSION['message_level'] = $level;
     }
 
     public static function logout()
@@ -60,5 +67,4 @@ class SessionManager
 
         Redirect::to("/");
     }
-
 }

@@ -14,7 +14,7 @@ class ReservasController
 
     public function show($data = [])
     {
-        SessionManager::checkIfSessionIsValid();
+        SessionManager::checkIfSessionIsNotValid();
 
         $userId = SessionManager::getUserId();
         $listadDeReservas = $this->reservasModel->getReservas($userId);

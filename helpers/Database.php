@@ -56,11 +56,11 @@ class Database
     public function query($sql)
     {
         $databaseResult = $this->connection->query($sql);
+        $this->checkErrors();
 
         if ($this->connection->affected_rows <= 0)
             return [];
 
-        $this->checkErrors();
         return $databaseResult->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -78,6 +78,14 @@ class Database
         return $lastID;
     }
 
+    /*
+    * Devuelve la cantidad de filas affectadas en la  última operación
+    */
+    public function affected_rows()
+    {
+        return $this->connection->affected_rows;
+    }
+
     /**
      * Verifica errores durante la consulta y los reporta en el log
      */
@@ -85,7 +93,7 @@ class Database
     {
         // TODO si encuentra errores redirigir a pagina error
         if ($this->connection->error) {
-            $this->logger->error($this->connection->errno . ': ' . $this->connection->error);
+            $this->logger->error('(DB ERROR) ' . $this->connection->errno . ': ' . $this->connection->error);
         }
     }
 }
