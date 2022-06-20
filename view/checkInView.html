@@ -1,0 +1,71 @@
+{{>header}}
+
+<div class="container my-5 pt-3">
+    <h3 class="text-center">Check In</h3>
+</div>
+
+<form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
+
+    <div class="p-5 mb-4 mx-5 bg-light rounded-3">
+        <div class="container py-3 mx-auto">
+            <h3 class="fw-bold">Ingresá el código(id) de reserva</h3>
+            <p class="col-md-8 fs-4">
+                <input type="text" class="form-control form-control-lg" name="reservaId" id="reservaId"
+                    style="text-align: right !important;" placeholder="00000000" autofocus>
+            </p>
+            <button class="btn btn-dark" type="submit">Ir al check-in</button>
+        </div>
+    </div>
+
+</form>
+
+<h4 class="fw-bold text-center mt-3 py-3 border-top">Tus próximas reservas aún no confirmadas</h4>
+{{#proxVuelos}}
+<div class=" accordion w-50 mx-auto my-3" id="accordionFlushExample">
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush{{reservaid}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                <i class="fas fa-rocket"></i>
+                {{origen}} -> {{destino}}
+            </button>
+        </h2>
+        <div id="flush{{reservaid}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <p>
+                    Salida desde <span class="fw-bold">{{origen}}</span>: {{fechasalida}} <small
+                        class="text-muted">(UTC-3) Tierra</small>
+                </p>
+                <p>
+                    LLegada a <span class="fw-bold">{{destino}}</span>: {{fechallegada}} <small
+                        class="text-muted">(UTC-3) Tierra</small>
+                </p>
+                <p>
+                <form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
+                    <input type="hidden" name="reservaId" value="{{reservaid}}">
+                    <input type="submit" class="btn btn-sm btn-dark" value="Ir al check-in">
+                </form>
+
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{{/proxVuelos}}
+
+{{^proxVuelos}}
+<div class="container my-5 pt-3">
+    <h3 class="text-center">No tenés vuelos</h3>
+    <p class="text-center">
+        <a href="{{URLS.domain_name}}/home" class="link-primary">
+            Buscar vuelos
+        </a>
+    </p>
+</div>
+{{/proxVuelos}}
+
+{{>footer}}

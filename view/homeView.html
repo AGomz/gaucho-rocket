@@ -14,7 +14,8 @@
                     <label class="form-check-label" for="tourRadio">Tour</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input radio" type="radio" name="tipoDeViaje" id="suborbitalRadio" value="suborbital">
+                    <input class="form-check-input radio" type="radio" name="tipoDeViaje" id="suborbitalRadio"
+                        value="suborbital">
                     <label class="form-check-label" for="suborbitalRadio">Suborbital</label>
                 </div>
             </div>
@@ -59,7 +60,8 @@
             </div>
 
             <div class="col-3">
-                <input class="form-control select" id="fecha" type="date" name="fecha" placeholder="dd/mm/aaaa" min="2022-05-18" max="2030-05-18">
+                <input class="form-control select" id="fecha" type="date" name="fecha" placeholder="dd/mm/aaaa"
+                    min="2022-05-18" max="2030-05-18">
                 <div class="valid-tooltip">Fecha seleccionada</div>
                 <div class="invalid-tooltip">Seleccione una fecha</div>
             </div>
@@ -76,7 +78,10 @@
         <div class="card">
             <img src="{{URLS.img}}/nave.jpg" class="card-img-top h-100" alt="Imagen de nave">
             <div class="card-body">
-                <h5 class="card-title">Viajes</h5>
+                <h5 class="card-title">Próximas salidas</h5>
+                <p>TODO:</p>
+                <p>SELECT * FROM tramo t WHERE t.fechasalida > CURDATE() ORDER BY t.fechasalida LIMIT 5; + Link a la
+                    reserva?</p>
             </div>
         </div>
     </div>
@@ -85,6 +90,8 @@
             <img src="{{URLS.img}}/marte.jpg" class="card-img-top h-100" alt="Imagen de marte">
             <div class="card-body">
                 <h5 class="card-title">Destinos más visitados</h5>
+                <p>TODO:</p>
+                <p>SELECT nombre FROM destino ORDER BY RAND() LIMIT 5;</p>
             </div>
         </div>
     </div>

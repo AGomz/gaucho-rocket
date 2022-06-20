@@ -60,6 +60,12 @@ class Configuration
         );
     }
 
+    public function createCheckInController()
+    {
+        require_once("controller/CheckInController.php");
+        return new CheckInController($this->createCheckInModel(), $this->createPrinter(), $this->getPHPMailer(), $this->getLogger());
+    }
+
     // Modelos
     private function createUserModel()
     {
@@ -101,6 +107,13 @@ class Configuration
         require_once("model/ConfirmBookingModel.php");
         $database = $this->getDatabase();
         return new ConfirmBookingModel($database);
+    }
+
+    private function createCheckInModel()
+    {
+        require_once("model/CheckInModel.php");
+        $database = $this->getDatabase();
+        return new CheckInModel($database);
     }
 
     // Helpers
@@ -165,7 +178,7 @@ class Configuration
                 // Le genera $_SESSION['message'] = 'Login exitoso' y muestra en la proxima pagina
                 // Todos los alert se muestran desde el header por única vez. Luego se 
                 // destruye la variable para que no se vuelva a mostrar. 
-                'message_alert' => SessionManager::getMessageAlert(),
+                'message_alert' => fn () => SessionManager::getMessageAlert(),
                 // Se le pasa a las plantillas la variable de session para verificar
                 // los datos del usuario
                 'SESSION' => $_SESSION
