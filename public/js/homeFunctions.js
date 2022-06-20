@@ -4,11 +4,17 @@ function cambiarEstadoDeSelects(){
     let idaRadio = document.getElementById("idaRadio");
     let selectsDinamicos = document.getElementsByClassName("select");
     let radios = document.querySelectorAll(".radio");
+    let opciones = document.querySelectorAll(".option-dis");
+    let selectOrigen = document.getElementById("select-origen");
 
     /*Habilitar selects usando radio ida*/
     idaRadio.addEventListener('click', function(){
         for (let i = 0; i < selectsDinamicos.length; i++) {
             selectsDinamicos[i].disabled = false;
+
+            opciones.forEach(element => {
+                element.setAttribute("class", "show");
+            })
         }
     })
 
@@ -17,7 +23,11 @@ function cambiarEstadoDeSelects(){
         radios[i].addEventListener('click', function(){
             for (let i = 0; i < selectsDinamicos.length; i++) {
                 selectsDinamicos[i].disabled = true;
-                //fecha.setAttribute("required", "");
+
+                opciones.forEach(element => {
+                   element.setAttribute("class", "hidden");
+                })
+
             }
         })
     }
