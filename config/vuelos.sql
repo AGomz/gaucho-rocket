@@ -1,5 +1,5 @@
 USE gauchorocket;
-
+/*
 -- datos para reservas: usuario
 insert into login (email, password) values 
 ("email1@mail.com", md5("123456")),
@@ -24,6 +24,26 @@ insert into reserva (usuarioid, fecha, servicioid, tipocabina) values
 (2, "2022-09-03 20:00:00", 2, 3);
 
 
+
+insert into reservatramo (reservaid, tramoid) values
+(1, 49);
+insert into reservatramo (reservaid, tramoid) values
+(1, 50);
+insert into reservatramo (reservaid, tramoid) values
+(1, 51);
+insert into reservatramo (reservaid, tramoid) values
+(1, 52);
+insert into reservatramo (reservaid, tramoid) values
+(1, 53);
+insert into reservatramo (reservaid, tramoid) values
+(1, 54);
+insert into reservatramo (reservaid, tramoid) values
+(1, 55);
+insert into reservatramo (reservaid, tramoid) values
+(1, 56);
+insert into reservatramo (reservaid, tramoid) values
+(2, 382);
+*/
 
 -- semana 1/8
 -- lunes
@@ -2704,22 +2724,3 @@ SET	@fecha = "2022-11-27 08:00:00";
 -- Calandria 6
 SET @equipo = 13;
 CALL Orbital(@fecha, @equipo, 1);
-
-insert into reservatramo (reservaid, tramoid) values
-(1, 49);
-insert into reservatramo (reservaid, tramoid) values
-(1, 50);
-insert into reservatramo (reservaid, tramoid) values
-(1, 51);
-insert into reservatramo (reservaid, tramoid) values
-(1, 52);
-insert into reservatramo (reservaid, tramoid) values
-(1, 53);
-insert into reservatramo (reservaid, tramoid) values
-(1, 54);
-insert into reservatramo (reservaid, tramoid) values
-(1, 55);
-insert into reservatramo (reservaid, tramoid) values
-(1, 56);
-insert into reservatramo (reservaid, tramoid) values
-(2, 382);
