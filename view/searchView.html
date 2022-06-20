@@ -11,7 +11,7 @@
     <div class="card-body">
         <h6 class="card-title">Descripción</h6>
 
-        <form action="{{URLS.domain_name}}/confirmBooking/show" method="POST">
+        <form class="needs-validation" action="{{URLS.domain_name}}/confirmBooking/show" method="POST" novalidate>
             <input type="hidden" name="equipoId" value="{{idEquipo}}" />
             <input type="hidden" name="origenId" value="{{tramoIdOrigen}}" />
             <input type="hidden" name="destinoId" value="{{tramoIdDestino}}" />
@@ -25,22 +25,26 @@
             </p>
 
             <div class="row pt-2">
-                <div class="col-4">
-                    <select class="form-select select" aria-label="Opciones de cabina" name="cabinaId">
-                        <option disabled selected>Cabina</option>
+                <div class="col-4 position-relative">
+                    <select class="form-select select" aria-label="Opciones de cabina" name="cabinaId" required>
+                        <option value="">Cabina</option>
                         <option value="1">Turista</option>
                         <option value="2">Ejecutiva</option>
                         <option value="3">Primera</option>
                     </select>
+                    <div class="valid-tooltip">Cabina seleccionada</div>
+                    <div class="invalid-tooltip">Seleccione una cabina</div>
                 </div>
 
-                <div class="col-3">
-                    <select class="form-select select" aria-label="Opciones de servicio" name="servicioId">
-                        <option disabled selected>Servicio</option>
+                <div class="col-4 position-relative">
+                    <select class="form-select select" aria-label="Opciones de servicio" name="servicioId" required>
+                        <option value="">Servicio</option>
                         <option value="1">Standard</option>
                         <option value="2">Gourmet</option>
                         <option value="3">Spa</option>
                     </select>
+                    <div class="valid-tooltip">Servicio seleccionado</div>
+                    <div class="invalid-tooltip">Seleccione un servicio</div>
                 </div>
             </div>
 
@@ -60,3 +64,4 @@
 {{/messageResult}}
 
 {{>footer}}
+<script src="{{URLS.js}}/search.js"></script>
