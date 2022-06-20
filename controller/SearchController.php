@@ -33,10 +33,10 @@ class SearchController
             $datos = $this->searchModel->getDatos($origen, $destino, $fecha, $nivelPasajero, $cabina, $servicio);
         }
         if ($origen && $tipoViaje == "tour") {
-            $datos = $this->searchModel->getDatosTour($origen);
+            $datos = $this->searchModel->getDatosTour($fecha);
         }
         if ($origen && $tipoViaje == "suborbital") {
-            $datos = $this->searchModel->getDatosSuborbital($origen);
+            $datos = $this->searchModel->getDatosSuborbital($origen, $fecha);
         }
 
         if (sizeof($datos) > 0) {
