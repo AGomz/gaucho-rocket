@@ -46,13 +46,14 @@ class ConfirmBookingController
 
             // Verifica que haya lugar para realizar la reserva
             if ($cantidadDeReservasHechas < $capacidadDeLaCabina[0]["cantidad"]) {
-                $this->confirmBookingModel->realizarReservas(
+                $reservaId = $this->confirmBookingModel->realizarReservas(
                     $userId,
                     $datos["tramoIdOrigen"],
                     $datos["tramoIdDestino"],
                     $datos["servicioId"],
                     $datos["cabinaId"]
                 );
+                SessionManager::setDatosDeReserva($reservaId, "", $datos["total"]);
                 Redirect::to("/payment");
             } else {
                 $this->show(["mensajeDeError" => "Este vuelo ya está todo reservado"]);

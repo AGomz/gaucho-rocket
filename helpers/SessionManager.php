@@ -67,4 +67,27 @@ class SessionManager
 
         Redirect::to("/");
     }
+
+    // Guarda datos de la reserva para realizar el pago
+    public static function setDatosDeReserva($reservaId, $transaccion, $importe)
+    {
+        $reserva = [
+            "reservaId" => $reservaId,
+            "transaccion" => $transaccion,
+            "importe" => $importe
+        ];
+
+        $_SESSION['reserva'] = $reserva;
+    }
+
+    public static function getDatosDeReserva()
+    {
+        if (isset($_SESSION['reserva'])) {
+            $reserva = $_SESSION['reserva'];
+            unset($_SESSION['reserva']);
+            return $reserva;
+        }
+
+        return "";
+    }
 }

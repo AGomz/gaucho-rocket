@@ -71,6 +71,8 @@ class ConfirmBookingModel
 
             $tramoId++;
         }
+
+        return $reservaId;
     }
 
     public function getPrecioVuelo($tramoIdOrigen, $tramoIdDestino)
