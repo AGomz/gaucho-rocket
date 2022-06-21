@@ -110,13 +110,13 @@ class CheckInModel
     {
         $validCheckIn = true;
 
-        // Verificar si todavía no hizo el checkin 
-        $query = "SELECT 1 FROM reserva r WHERE r.id = $reservaId AND r.checkinid IS NOT NULL";
-        $this->database->query($query);
+        // // Verificar si todavía no hizo el checkin 
+        // $query = "SELECT 1 FROM reserva r WHERE r.id = $reservaId AND r.checkinid IS NOT NULL";
+        // $this->database->query($query);
 
-        if ($this->database->affected_rows() > 0) {
-            $validCheckIn = false;
-        }
+        // if ($this->database->affected_rows() > 0) {
+        //     $validCheckIn = false;
+        // }
 
         // Verifica que el pago no sea nulo
         $query = "SELECT 1 FROM reserva r WHERE r.id = $reservaId AND r.pagoid IS NULL";
@@ -163,6 +163,25 @@ class CheckInModel
         $codigoReserva = md5($result . $checkInDate);
 
         return $codigoReserva;
+    }
+
+    /*
+    * Devuelve el hash del checkIn o vacío si no ha sido realizado 
+    * todavía
+    */
+    public function getCheckInHashCode($reservaId)
+    {
+        $query = "SELECT c.codigo 
+                    FROM checkin c 
+                    WHERE c.id = (SELECT r.checkinid 
+                        FROM reserva r 
+                        WHERE r.id = $reservaId)";
+
+        $result = $this->database->query($query);
+
+        $result = empty($result) ? "" : $result[0]['codigo'];
+
+        return $result;
     }
 
     // TODO helper?

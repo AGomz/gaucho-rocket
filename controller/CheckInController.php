@@ -40,6 +40,8 @@ class CheckInController
             $this->show();
         }
         $datos = ["checkInData" => $this->checkInModel->getDatosCheckInPendientes([$reservaId])];
+        $datos['checkInData'][0]['asiento'] = rand(0, 100) . chr(rand(65, 70));
+        $datos['checkInData'][0]['qrHashCode'] = $this->checkInModel->getCheckInHashCode($reservaId);
 
         echo $this->printer->render("view/checkInDetailView.html", $datos);
     }
@@ -50,7 +52,7 @@ class CheckInController
         $userId = SessionManager::getUserId();
 
         if (!$this->checkInModel->validateCheckIn($numReserva)) {
-            SessionManager::setMessageAlert('No se pudo validar el check in. Verifique tener el pago realizado o el checkin ya ha sido realizado', 'danger');
+            SessionManager::setMessageAlert('No se pudo validar el check in. Verifique tener el pago realizado', 'danger');
             $this->show();
         }
 
@@ -63,6 +65,9 @@ class CheckInController
         // log success
         $this->logger->info("El usuario con id $userId realizó el checkin para reserva con id $numReserva");
         SessionManager::setMessageAlert('🚀 Check in exitoso. Le deseamos un buen viaje 🚀', 'info');
-        $this->show();
+
+        // TODO ir a la vista del resumen del check in 
+
+        $this->showCheckInDetail();
     }
 }

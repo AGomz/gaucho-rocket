@@ -63,7 +63,19 @@ class Configuration
     public function createCheckInController()
     {
         require_once("controller/CheckInController.php");
-        return new CheckInController($this->createCheckInModel(), $this->createPrinter(), $this->getPHPMailer(), $this->getLogger());
+        return new CheckInController(
+            $this->createCheckInModel(),
+            $this->createPrinter(),
+            $this->getPHPMailer(),
+            $this->getLogger()
+        );
+    }
+
+    public function createQrController()
+    {
+        require_once("third-party/phpqrcode/phpqrcode.php");
+        require_once("controller/QRController.php");
+        return new QRController();
     }
 
     public function createErrorController()
@@ -184,13 +196,11 @@ class Configuration
                 // Le genera $_SESSION['message'] = 'Login exitoso' y muestra en la proxima pagina
                 // Todos los alert se muestran desde el header por única vez. Luego se 
                 // destruye la variable para que no se vuelva a mostrar. 
-                'message_alert' => fn() => SessionManager::getMessageAlert(),
+                'message_alert' => fn () => SessionManager::getMessageAlert(),
                 // Se le pasa a las plantillas la variable de session para verificar
                 // los datos del usuario
                 'SESSION' => $_SESSION
             )
         );
     }
-
-
 }
