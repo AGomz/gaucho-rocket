@@ -90,4 +90,10 @@ class SessionManager
 
         return "";
     }
+
+    public static function finsh()
+    {
+        session_unset();
+        session_destroy();
+    }
 }

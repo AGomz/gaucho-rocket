@@ -22,10 +22,12 @@ class ConfirmBookingController
 
     public function confirm()
     {
-        if(!isset($_SESSION['user']["id"]) or $_SESSION['user']["id"] =="" ){
+        if(!isset($_SESSION['user']["id"]) /*or ]$_SESSION['user']["id" =="" */){
+            SessionManager::finsh();
             $message =  'Debe estar logueado para reservar';
             SessionManager::setMessageAlert($message, 'danger');
             $this->show();
+            //Redirect::to("/login");
             die();
         }
         $datos = $this->getDatos();
