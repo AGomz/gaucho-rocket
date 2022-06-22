@@ -1,6 +1,8 @@
 {{>header}}
 
-<div class="container w-75 mx-auto my-5 py-3">
+<section class="busqueda" style='padding:12% 5%;margin-bottom:2%;'>
+<div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+
     <form class="needs-validation" action="{{URLS.domain_name}}/search/execute" method="POST" novalidate>
         <div class="row">
             <div class="col-14">
@@ -72,7 +74,7 @@
         </div>
     </form>
 </div>
-
+</section>
 <div class="row row-cols-1 row-cols-md-2 g-4 mx-5 py-5">
     <div class="col">
         <div class="card">
