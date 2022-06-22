@@ -22,6 +22,12 @@ class ConfirmBookingController
 
     public function confirm()
     {
+        if(!isset($_SESSION['user']["id"]) or $_SESSION['user']["id"] =="" ){
+            $message =  'Debe estar logueado para reservar';
+            SessionManager::setMessageAlert($message, 'danger');
+            $this->show();
+            die();
+        }
         $datos = $this->getDatos();
         $userId = SessionManager::getUserId();
         $nivelDeVueloUser = $this->userModel->getNivelDeVueloByUserID($userId);
