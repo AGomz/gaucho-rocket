@@ -94,7 +94,7 @@ class RegisterController
             "./public/img/register-mail-image.jpg",
             "img"
         );
-        $this->mailer->agregarBody($this->printer->render("view/registerMailView.html", $mailData));
+        $this->mailer->agregarBody($this->printer->render("view/mail/registerMailView.html", $mailData));
 
         if ($this->mailer->enviar()) {
             SessionManager::setMessageAlert('Registro exitoso, se ha enviado un nuevo correo electrónico');

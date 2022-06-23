@@ -67,7 +67,8 @@ class Configuration
             $this->createCheckInModel(),
             $this->createPrinter(),
             $this->getPHPMailer(),
-            $this->getLogger()
+            $this->getLogger(),
+            $this->getPDFGenerator()
         );
     }
 
@@ -172,6 +173,12 @@ class Configuration
     {
         require_once("helpers/Logger.php");
         return new Logger();
+    }
+
+    private function getPDFGenerator()
+    {
+        require_once("helpers/DomPDF.php");
+        return new PDFGenerator();
     }
 
     public function createRouter($defaultController, $defaultAction)

@@ -5,7 +5,6 @@
 </div>
 
 <form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
-
     <div class="p-5 mb-4 mx-5 bg-light rounded-3">
         <div class="container py-3 mx-auto">
             <h3 class="fw-bold">Ingresá el código(id) de reserva</h3>
@@ -16,46 +15,30 @@
             <button class="btn btn-dark" type="submit">Ir al check-in</button>
         </div>
     </div>
-
 </form>
 
-<h4 class="fw-bold text-center mt-3 py-3 border-top">Tus próximas reservas aún no confirmadas</h4>
-{{#proxVuelos}}
-<div class=" accordion w-50 mx-auto my-3" id="accordionFlushExample">
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush{{reservaid}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                <i class="fas fa-rocket"></i>
+<h4 class="fw-bold text-center mt-3 py-3 border-top">Check In(s) de tus reservas</h4>
+<!-- TODO hacer con tablas -->
+<ul class="list-group w-75 m-auto">
+    {{#proxVuelos}}
+    <form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
+        <button type="submit"
+            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <input type="hidden" name="reservaId" value="{{reservaid}}">
+            <div class="text-primary">
                 {{origen}} -> {{destino}}
-            </button>
-        </h2>
-        <div id="flush{{reservaid}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-            data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                <p>
-                    Salida desde <span class="fw-bold">{{origen}}</span>: {{fechasalida}} <small
-                        class="text-muted">(UTC-3) Tierra</small>
-                </p>
-                <p>
-                    LLegada a <span class="fw-bold">{{destino}}</span>: {{fechallegada}} <small
-                        class="text-muted">(UTC-3) Tierra</small>
-                </p>
-                <p>
-                <form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
-                    <input type="hidden" name="reservaId" value="{{reservaid}}">
-                    <input type="submit" class="btn btn-sm btn-dark" value="Ir al check-in">
-                </form>
-
-                </p>
-
+                {{#qrHashCode}}
+                <div class="badge bg-success">CONFIRMADO</div>
+                {{/qrHashCode}}
+                {{^qrHashCode}}
+                <div class="badge bg-warning">CHECK IN PENDIENTE</div>
+                {{/qrHashCode}}
             </div>
-        </div>
-    </div>
-
-</div>
-{{/proxVuelos}}
+            <div class="text-muted small">Partida: {{fechasalida}}</div>
+        </button>
+    </form>
+    {{/proxVuelos}}
+</ul>
 
 {{^proxVuelos}}
 <div class="container my-5 pt-3">

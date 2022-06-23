@@ -9,7 +9,7 @@ class QRController
 
     public function show()
     {
-        $qrHasCode = $_GET['code'];
-        return QRcode::png($qrHasCode, false, QR_ECLEVEL_M, 10);
+        $qrHashCode = $_GET['code'];
+        return QRcode::png($qrHashCode, false, QR_ECLEVEL_L, 10);
     }
 }

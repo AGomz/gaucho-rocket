@@ -10,40 +10,47 @@
         {{/checkInData}}
     </h3>
 
-    <form action="{{URLS.domain_name}}/checkin/validateCheckIn" method="POST">
-        {{#checkInData}}
-        <div class="container w75 mx-auto py-3">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between mb-3">
-                    <span> <i class="fa-solid fa-plane-departure"></i> Origen: {{origen}} </span>
-                    <span> <i class="fa-solid fa-calendar-day"></i> Partida: {{fechasalida}} </span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between mb-3">
-                    <span> <i class="fa-solid fa-plane-arrival"></i> Destino: {{destino}} </span>
-                    <span> <i class="fa-solid fa-calendar-day"></i> Arribo: {{fechallegada}} </span>
-                </li>
-                <li class="list-group-item mb-3"> <i class="fa-solid fa-hourglass"></i> Duración estimada: {{duracion}}
-                </li>
-                <li class="list-group-item d-flex justify-content-between mb-3">
-                    <span class="font-weight-bold"><i class="fa-solid fa-train"></i> Cabina: {{cabina}}</span>
-                    <span><i class="fa-solid fa-bell-concierge"></i> Servicio: {{servicio}}</span>
-                </li>
-                <li class="list-group-item mb-3"><i class="fa-solid fa-chair"></i> Asiento asignado: {{asiento}}</li>
-                <li class="list-group-item mb-3"> <i class="fa-solid fa-shuttle-space"></i> Nave:
-                    {{nombreequipo}}</li>
-                <li class="list-group-item mb-3"> <i class="fa-solid fa-bolt-lightning"></i> Velocidad:
-                    {{tipovuelo}}
-                    ({{desctipovuelo}})</li>
-                {{#qrHashCode}}
-                <li class="list-group-item text-center mb-3">
-                    <img src="{{URLS.domain_name}}/QR/show/?code={{qrHashCode}}" alt="Código qr del checkin">
-                </li>
-                <li class="list-group-item text-center mb-3">
+    {{#checkInData}}
+    <div class="container w75 mx-auto py-3">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between mb-3">
+                <span> <i class="fa-solid fa-plane-departure"></i> Origen: {{origen}} </span>
+                <span> <i class="fa-solid fa-calendar-day"></i> Partida: {{fechasalida}} </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between mb-3">
+                <span> <i class="fa-solid fa-plane-arrival"></i> Destino: {{destino}} </span>
+                <span> <i class="fa-solid fa-calendar-day"></i> Arribo: {{fechallegada}} </span>
+            </li>
+            <li class="list-group-item mb-3"> <i class="fa-solid fa-hourglass"></i> Duración estimada: {{duracion}}
+            </li>
+            <li class="list-group-item d-flex justify-content-between mb-3">
+                <span class="font-weight-bold"><i class="fa-solid fa-train"></i> Cabina: {{cabina}}</span>
+                <span><i class="fa-solid fa-bell-concierge"></i> Servicio: {{servicio}}</span>
+            </li>
+            <li class="list-group-item mb-3"><i class="fa-solid fa-chair"></i> Asiento asignado: {{asiento}}</li>
+            <li class="list-group-item mb-3"> <i class="fa-solid fa-shuttle-space"></i> Nave:
+                {{nombreequipo}}</li>
+            <li class="list-group-item mb-3"> <i class="fa-solid fa-bolt-lightning"></i> Velocidad:
+                {{tipovuelo}}
+                ({{desctipovuelo}})</li>
+            {{#qrHashCode}}
+            <li class="list-group-item text-center mb-3">
+                <img src="{{URLS.domain_name}}/QR/show?code={{qrHashCode}}" alt="Código qr del checkin">
+            </li>
+            <li class="list-group-item text-center mb-3">
+                <form action="{{URLS.domain_name}}/checkin/generatePDF" method="POST">
+                    <input type="hidden" name="reservaId" value="{{reservaid}}">
+                    <button type="submit" class="btn btn-outline-dark">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Descargar pdf
+                    </button>
                     <a href="{{URLS.domain_name}}/checkin" class="btn btn-outline-dark">Volver</a>
-                </li>
-            </ul>
-            {{/qrHashCode}}
-            {{^qrHashCode}}
+                </form>
+            </li>
+        </ul>
+        {{/qrHashCode}}
+        {{^qrHashCode}}
+        <form action="{{URLS.domain_name}}/checkin/validateCheckIn" method="POST">
             <div class="text-end">
                 <input type="hidden" name="reservaId" value="{{reservaid}}">
                 <button type="submit" class="btn btn-dark">
@@ -52,8 +59,9 @@
                 </button>
                 <a href="{{URLS.domain_name}}/checkin" class="btn btn-outline-dark">Volver</a>
             </div>
-            {{/qrHashCode}}
-    </form>
+        </form>
+        {{/qrHashCode}}
+    </div>
 </div>
 {{/checkInData}}
 

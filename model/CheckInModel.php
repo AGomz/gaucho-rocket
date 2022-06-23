@@ -14,28 +14,33 @@ class CheckInModel
     //  - Extraer algunas funciones/métodos
 
     /*
-    * Muestra el listado de las reservas de las que 
+    * Devuelve todos los datos de las reservas de las que 
     * todavía no se ha realizado el check-in
     */
-    public function getCheckInPendientes($userId)
+    public function getCheckInList($userId)
     {
-        $query = "select r.id from reserva r where r.usuarioid = $userId and r.checkinid is null";
+        $query = "select r.id from reserva r where r.usuarioid = $userId order by r.id";
         $checkInPendientes = $this->database->query($query);
-        $reservasIdPendientes = [];
 
-        foreach ($checkInPendientes as $reservasId) {
-            $reservasIdPendientes[] = $reservasId['id'];
-        }
+        // Devuelve un array de ids de reservas
+        $reservasIdPendientes = array_merge(
+            ...array_map(
+                fn ($value) => array_values($value),
+                $checkInPendientes
+            )
+        );
 
-        return $this->getDatosCheckInPendientes($reservasIdPendientes);
+        return $this->getDatosCheckIn($reservasIdPendientes);
     }
 
     /*
-    * Datos de los checkin pendtientes
+    * Devuelve los datos de las reservas y checkin de la base de datos
+    * Si existe el hash es un checkin confirmado
+    * Admite como parámetro un array de reservasId [1,2,7,9, etc]
     */
-    public function getDatosCheckInPendientes($reservasId)
+    public function getDatosCheckIn($reservasId)
     {
-        $checkInPendientes = [];
+        $datosCheckIn = [];
 
         foreach ($reservasId as $reserva) {
 
@@ -48,13 +53,12 @@ class CheckInModel
                 $tramoInicial = $this->getDatosTramo($tramos[0]['tramoid'], $reserva)[0];
                 $tramoFinal = $this->getDatosTramo($tramos[count($tramos) - 1]['tramoid'], $reserva)[0];
 
-                $checkInPendientes[] = [
+                $datosCheckIn[] = [
                     'origen' => $tramoInicial['origen'],
                     'destino' => $tramoFinal['destino'],
                     'fechasalida' => $tramoInicial['fechasalida'],
                     'fechallegada' => $tramoFinal['fechallegada'],
                     'reservaid' => $tramoInicial['reservaid'],
-                    'duracion' => $this->calcularDuracionAproximada($tramoInicial['fechasalida'], $tramoFinal['fechallegada']),
                     'servicio' => $tramoInicial['servicio'],
                     'cabina' => $tramoInicial['cabina'],
                     'tipovuelo' => $tramoInicial['tipovuelo'],
@@ -62,13 +66,29 @@ class CheckInModel
                     'nombreequipo' => $tramoInicial['nombreequipo'],
                 ];
             } else {
-                $checkInPendientes[] = $this->getDatosTramo($tramos[0]['tramoid'], $reserva)[0];
+                $datosCheckIn[] = $this->getDatosTramo($tramos[0]['tramoid'], $reserva)[0];
+            }
+            $actualCheckIn = count($datosCheckIn) - 1;
+            $checkInHash = $this->getCheckInHashCode($reserva);
+
+            $datosCheckIn[$actualCheckIn]['asiento'] = rand(0, 100) . chr(rand(65, 70));
+            $datosCheckIn[$actualCheckIn]['duracion'] = $this->calcularDuracionAproximada(
+                $datosCheckIn[$actualCheckIn]['fechasalida'],
+                $datosCheckIn[$actualCheckIn]['fechallegada']
+            );
+
+            if ($checkInHash) {
+                $datosCheckIn[$actualCheckIn]['qrHashCode'] = $checkInHash;
             }
         }
 
-        return $checkInPendientes;
+        return $datosCheckIn;
     }
 
+    /*
+    * Devuelve los datos asociados a un tramo de vuelo asociado a una reserva
+    * TODO: Se podría unificar usando los datos del ReservasModel que hizo nico?
+    */
     public function getDatosTramo($tramoId, $reservaId)
     {
         $query = "select o.nombre as origen, d.nombre as destino,
@@ -110,14 +130,6 @@ class CheckInModel
     {
         $validCheckIn = true;
 
-        // // Verificar si todavía no hizo el checkin 
-        // $query = "SELECT 1 FROM reserva r WHERE r.id = $reservaId AND r.checkinid IS NOT NULL";
-        // $this->database->query($query);
-
-        // if ($this->database->affected_rows() > 0) {
-        //     $validCheckIn = false;
-        // }
-
         // Verifica que el pago no sea nulo
         $query = "SELECT 1 FROM reserva r WHERE r.id = $reservaId AND r.pagoid IS NULL";
         $this->database->query($query);
@@ -154,7 +166,7 @@ class CheckInModel
     * Corresponde al hash md5 de la combinación de la fecha en que se
     * hizo la reserva y la fecha actual en que se hace el checkin
     */
-    public function generateCheckInCode($numReserva)
+    private function generateCheckInCode($numReserva)
     {
         $query = "SELECT r.fecha FROM reserva r WHERE id = $numReserva";
         $result = $this->database->query($query)[0]['fecha'];
