@@ -186,8 +186,8 @@ table nivelvuelo
 */
 insert into nivelvuelo (nombre, descripcion) values
 ("Nivel 1", "Viajes de orbitales"),
-("Nivel 2", "Viajes de baja aceleración"),
-("Nivel 3", "Vaijes de alta aceleración");
+("Nivel 2", "Viajes de baja aceleraciï¿½n"),
+("Nivel 3", "Vaijes de alta aceleraciï¿½n");
 
 
 /*table cabina
@@ -229,7 +229,7 @@ table tipovuelo (
 insert into tipovuelo (nombre, descripcion) values
 ("Orbitales", "Vuelvos Orbitales"),
 ("Baja aceleracion", "Vuelos hasta 2G"),
-("Alta aceleracion", "Vuelos de más de 2G");
+("Alta aceleracion", "Vuelos de mï¿½s de 2G");
 
 
 /*
@@ -580,7 +580,7 @@ SET fechaLlegada3 = date_add(fecha, INTERVAL 23 HOUR );
 SET fechaSalida4 = date_add(fecha, INTERVAL 24 HOUR );
 SET fechaLlegada4 = date_add(fecha, INTERVAL 50 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / ISS
 (equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
 -- ISS / Orbital Hotel
@@ -600,7 +600,7 @@ SET fechaLlegada3 = date_add(fecha, INTERVAL 117 HOUR );
 SET fechaSalida4 = date_add(fecha, INTERVAL 118 HOUR );
 SET fechaLlegada4 = date_add(fecha, INTERVAL 122 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- marte / luna
 (equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
 -- luna / orbital hotel
@@ -636,7 +636,7 @@ SET fechaLlegada3 = date_add(fecha, INTERVAL 17 HOUR );
 SET fechaSalida4 = date_add(fecha, INTERVAL 18 HOUR );
 SET fechaLlegada4 = date_add(fecha, INTERVAL 30 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / ISS
 (equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
 -- ISS / Orbital Hotel
@@ -656,7 +656,7 @@ SET fechaLlegada3 = date_add(fecha, INTERVAL 82 HOUR );
 SET fechaSalida4 = date_add(fecha, INTERVAL 83 HOUR );
 SET fechaLlegada4 = date_add(fecha, INTERVAL 86 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- marte / luna
 (equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
 -- luna / orbital hotel
@@ -709,7 +709,7 @@ SET fechaLlegada7 = date_add(fecha, INTERVAL 270 HOUR );
 SET fechaSalida8 = date_add(fecha, INTERVAL 272 HOUR );
 SET fechaLlegada8 = date_add(fecha, interval 349 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- origen / ISS
 (equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
 -- ISS / luna
@@ -745,7 +745,7 @@ SET fechaLlegada7 = date_add(fecha, INTERVAL 701 HOUR );
 SET fechaSalida8 = date_add(fecha, INTERVAL 702 HOUR );
 SET fechaLlegada8 = date_add(fecha, INTERVAL 706 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- titan / encedalo
 (equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
 -- encedalo / lo
@@ -804,7 +804,7 @@ SET fechaLlegada7 = date_add(fecha, INTERVAL 181 HOUR );
 SET fechaSalida8 = date_add(fecha, INTERVAL 182 HOUR );
 SET fechaLlegada8 = date_add(fecha, INTERVAL 232 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- origen / ISS
 (equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
 -- ISS / luna
@@ -840,7 +840,7 @@ SET fechaLlegada7 = date_add(fecha, INTERVAL 478 HOUR );
 SET fechaSalida8 = date_add(fecha, INTERVAL 479 HOUR );
 SET fechaLlegada8 = date_add(fecha, INTERVAL 482 HOUR );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- titan / encedalo
 (equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
 -- encedalo / lo
@@ -871,7 +871,7 @@ DECLARE fechaLlegada1 DATETIME;
 SET fechaSalida1 = fecha;
 SET fechaLlegada1 = date_add(fecha, INTERVAL 35 day );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / ISS
 (equipo, 1, 1, fechaSalida1, fechaLlegada1, 500);
 END$$
@@ -888,7 +888,7 @@ DECLARE fechaLlegada1 DATETIME;
 SET fechaSalida1 = fecha;
 SET fechaLlegada1 = date_add(fecha, INTERVAL 8 hour );
 
-INSERT INTO Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
+INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
 -- BA / ISS
 (equipo, origen, origen, fechaSalida1, fechaLlegada1, 80);
 END$$

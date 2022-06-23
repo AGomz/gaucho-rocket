@@ -1,72 +1,78 @@
 {{>header}}
 
-    <section class="container vh-100 vw-100">
-        <div class="row justify-content-center align-items-center h-100">
+<style>
+    body {
+        background: url("{{URLS.img}}/login-background.jpg") no-repeat center/cover;
+    }
+</style>
 
-            <div class="col-md-6 col-lg-4 offset-md-8 bg-light p-3 rounded-3 shadow bg-opacity-75">
-                <div class="text-center">
-                    <a class="navbar-brand" href="{{URLS.domain_name}}" style="color:black;">
-                        <i class="fa-solid fa-rocket fa-3x"></i>
-                    </a>
-                    <h1 class="pb-2">Gaucho Rocket </h1>
-                    <h4 class="pb-2">Registro</h4>
-                </div>
+<section class="container vh-100 vw-100">
+    <div class="row justify-content-center align-items-center h-100">
 
-                <form action="{{URLS.domain_name}}/register/register" class="p-3" method="POST">
-
-                    <!-- Nombre -->
-                    <div class="input-group mb-3 ">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" name="name" class="form-control {{#nameError}}is-invalid{{/nameError}}"
-                            placeholder="Nombre" aria-label="Nombre"
-                            aria-describedby="basic-addon1" value="{{name}}">
-                        <div class="invalid-feedback">
-                            {{nameError}}
-                        </div>
-                    </div>
-                    <!-- Apellido -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" name="lastname"
-                            class="form-control {{#lastnameError}}is-invalid{{/lastnameError}}" placeholder="Apellido"
-                            aria-label="Apellido"
-                            aria-describedby=" basic-addon1" value="{{lastname}}">
-                        <div class="invalid-feedback">
-                            {{lastnameError}}
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="text" name="email" class="form-control {{#emailError}}is-invalid{{/emailError}}"
-                            placeholder="Email" aria-label="Username" aria-describedby="basic-addon1" value="{{email}}">
-                        <div class="invalid-feedback">
-                            {{emailError}}
-                        </div>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" name="password"
-                            class="form-control {{#passwordError}}is-invalid{{/passwordError}}" placeholder="Contraseña"
-                            aria-label="Username" aria-describedby="basic-addon1" value="{{password}}">
-                        <div class="invalid-feedback">
-                            {{passwordError}}
-                        </div>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
-                    </div>
-
-                </form>
+        <div class="col-md-6 col-lg-4 offset-md-8 bg-light p-3 rounded-3 shadow bg-opacity-75">
+            <div class="text-center">
+                <a class="navbar-brand" href="{{URLS.domain_name}}" style="color:black;">
+                    <i class="fa-solid fa-rocket fa-3x"></i>
+                </a>
+                <h1 class="pb-2">Gaucho Rocket </h1>
+                <h4 class="pb-2">Registro</h4>
             </div>
 
+            <form action="{{URLS.domain_name}}/register/register" class="p-3" method="POST">
 
+                <!-- Nombre -->
+                <div class="input-group mb-3 ">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" name="name" class="form-control {{#nameError}}is-invalid{{/nameError}}"
+                           placeholder="Nombre" aria-label="Nombre"
+                           aria-describedby="basic-addon1" value="{{name}}">
+                    <div class="invalid-feedback">
+                        {{nameError}}
+                    </div>
+                </div>
+                <!-- Apellido -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" name="lastname"
+                           class="form-control {{#lastnameError}}is-invalid{{/lastnameError}}" placeholder="Apellido"
+                           aria-label="Apellido"
+                           aria-describedby=" basic-addon1" value="{{lastname}}">
+                    <div class="invalid-feedback">
+                        {{lastnameError}}
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="text" name="email" class="form-control {{#emailError}}is-invalid{{/emailError}}"
+                           placeholder="Email" aria-label="Username" aria-describedby="basic-addon1" value="{{email}}">
+                    <div class="invalid-feedback">
+                        {{emailError}}
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" name="password"
+                           class="form-control {{#passwordError}}is-invalid{{/passwordError}}" placeholder="Contraseña"
+                           aria-label="Username" aria-describedby="basic-addon1" value="{{password}}">
+                    <div class="invalid-feedback">
+                        {{passwordError}}
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                </div>
+
+            </form>
         </div>
 
-    </section>
 
-    {{>footer}}
+    </div>
+
+</section>
+
+{{>footer}}
