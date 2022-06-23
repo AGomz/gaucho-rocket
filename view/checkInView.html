@@ -1,0 +1,54 @@
+{{>header}}
+
+<div class="container my-5 pt-3">
+    <h3 class="text-center">Check In</h3>
+</div>
+
+<form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
+    <div class="p-5 mb-4 mx-5 bg-light rounded-3">
+        <div class="container py-3 mx-auto">
+            <h3 class="fw-bold">Ingresá el código(id) de reserva</h3>
+            <p class="col-md-8 fs-4">
+                <input type="text" class="form-control form-control-lg" name="reservaId" id="reservaId"
+                    style="text-align: right !important;" placeholder="00000000" autofocus>
+            </p>
+            <button class="btn btn-dark" type="submit">Ir al check-in</button>
+        </div>
+    </div>
+</form>
+
+<h4 class="fw-bold text-center mt-3 py-3 border-top">Check In(s) de tus reservas</h4>
+<!-- TODO hacer con tablas -->
+<ul class="list-group w-75 m-auto">
+    {{#proxVuelos}}
+    <form action="{{URLS.domain_name}}/checkin/showCheckInDetail" method="POST">
+        <button type="submit"
+            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <input type="hidden" name="reservaId" value="{{reservaid}}">
+            <div class="text-primary">
+                {{origen}} -> {{destino}}
+                {{#qrHashCode}}
+                <div class="badge bg-success">CONFIRMADO</div>
+                {{/qrHashCode}}
+                {{^qrHashCode}}
+                <div class="badge bg-warning">CHECK IN PENDIENTE</div>
+                {{/qrHashCode}}
+            </div>
+            <div class="text-muted small">Partida: {{fechasalida}}</div>
+        </button>
+    </form>
+    {{/proxVuelos}}
+</ul>
+
+{{^proxVuelos}}
+<div class="container my-5 pt-3">
+    <h3 class="text-center">No tenés vuelos</h3>
+    <p class="text-center">
+        <a href="{{URLS.domain_name}}/home" class="link-primary">
+            Buscar vuelos
+        </a>
+    </p>
+</div>
+{{/proxVuelos}}
+
+{{>footer}}

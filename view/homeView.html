@@ -1,64 +1,104 @@
 {{>header}}
 
-<form action="">
+<section class="busqueda" style='padding:12% 5%;margin-bottom:2%;'>
+<div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
 
-    <div class="row m-5 py-5">
-        <div class="col-14">
-            <span class="px-2">Viaje</span>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="tipoDeViaje" id="inlineRadio1" value="Ida">
-                <label class="form-check-label" for="inlineRadio1">Ida</label>
+    <form class="needs-validation" action="{{URLS.domain_name}}/search/execute" method="POST" novalidate>
+        <div class="row">
+            <div class="col-14">
+                <span class="px-2">Viaje</span>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipoDeViaje" id="idaRadio" value="ida" checked>
+                    <label class="form-check-label" for="idaRadio">Ida</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input radio" type="radio" name="tipoDeViaje" id="tourRadio" value="tour">
+                    <label class="form-check-label" for="tourRadio">Tour</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input radio" type="radio" name="tipoDeViaje" id="suborbitalRadio"
+                        value="suborbital">
+                    <label class="form-check-label" for="suborbitalRadio">Suborbital</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="tipoDeViaje" id="inlineRadio2" value="Vuelta">
-                <label class="form-check-label" for="inlineRadio2">Tour</label>
+        </div>
+        <div class="row pt-1">
+            <div class="col-3 position-relative">
+                <select class="form-select" id="select-origen" name="origen" required>
+                    <option value="">Seleccionar Origen</option>
+                    <option value="1">Tierra - Buenos Aires</option>
+                    <option value="2">Tierra - Ankara</option>
+                    <option value="3" class="option-dis">ISS</option>
+                    <option value="4" class="option-dis">Orbital Hotel</option>
+                    <option value="5" class="option-dis">Luna</option>
+                    <option value="6" class="option-dis">Marte</option>
+                    <option value="7" class="option-dis">Ganimedes</option>
+                    <option value="8" class="option-dis">Europa</option>
+                    <option value="9" class="option-dis">Io</option>
+                    <option value="10" class="option-dis">Encedalo</option>
+                    <option value="11" class="option-dis">Titan</option>
+                </select>
+                <div class="valid-tooltip">Origen seleccionado</div>
+                <div class="invalid-tooltip">Seleccione un origen</div>
+            </div>
+
+            <div class="col-3 position-relative">
+                <select class="form-select select" name="destino" required>
+                    <option value="">Seleccionar destino</option>
+                    <option value="1">Tierra - Buenos Aires</option>
+                    <option value="2">Tierra - Ankara</option>
+                    <option value="3">ISS</option>
+                    <option value="4">Orbital Hotel</option>
+                    <option value="5">Luna</option>
+                    <option value="6">Marte</option>
+                    <option value="7">Ganimedes</option>
+                    <option value="8">Europa</option>
+                    <option value="9">Io</option>
+                    <option value="10">Encedalo</option>
+                    <option value="11">Titan</option>
+                </select>
+                <div class="valid-tooltip">Destino seleccionado</div>
+                <div class="invalid-tooltip">Seleccione un destino</div>
+            </div>
+
+            <div class="col-3">
+                <input class="form-control select" id="fecha" type="date" name="fecha" placeholder="dd/mm/aaaa"
+                    min="2022-05-18" max="2030-05-18">
+                <div class="valid-tooltip">Fecha seleccionada</div>
+                <div class="invalid-tooltip">Seleccione una fecha</div>
+            </div>
+
+            <div class="col">
+                <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
             </div>
         </div>
-
-        <div class="col-3">
-            <select class="form-select" aria-label="Opciones de origen">
-                <option disabled selected>Seleccionar Origen</option>
-                <option value="1" name="origen">Tierra - Buenos Aires</option>
-                <option value="2" name="origen">Tierra - Ankara</option>
-                <option value="3" name="origen">Luna</option>
-            </select>
-        </div>
-
-        <div class="col-3">
-            <select class="form-select" aria-label="Opciones de destino">
-                <option disabled selected>Seleccionar Destino</option>
-                <option value="1" name="destino">Marte</option>
-                <option value="2" name="destino">Orbiter Hotel</option>
-                <option value="3" name="destino">Titán</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <input class="form-control" type="date" name="fecha" placeholder="dd/mm/aaaa" min="2022-05-18" max="2030-05-18">
-        </div>
-
-        <div class="col">
-            <select class="form-select" aria-label="Opciones de cabina">
-                <option disabled selected>Cabina</option>
-                <option value="1" name="cabina">Turista</option>
-                <option value="2" name="cabina">Ejecutiva</option>
-                <option value="3" name="cabina">Primera</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <select class="form-select" aria-label="Opciones de servicio">
-                <option disabled selected>Servicio</option>
-                <option value="1" name="servicio">Standard</option>
-                <option value="2" name="servicio">Gourmet</option>
-                <option value="3" name="servicio">Spa</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <button type="submit" class="btn btn-secondary" name="buscar"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+</section>
+<div class="row row-cols-1 row-cols-md-2 g-4 mx-5 py-5">
+    <div class="col">
+        <div class="card">
+            <img src="{{URLS.img}}/nave.jpg" class="card-img-top h-100" alt="Imagen de nave">
+            <div class="card-body">
+                <h5 class="card-title">Próximas salidas</h5>
+                <p>TODO:</p>
+                <p>SELECT * FROM tramo t WHERE t.fechasalida > CURDATE() ORDER BY t.fechasalida LIMIT 5; + Link a la
+                    reserva?</p>
+            </div>
         </div>
     </div>
-</form>
+    <div class="col">
+        <div class="card">
+            <img src="{{URLS.img}}/marte.jpg" class="card-img-top h-100" alt="Imagen de marte">
+            <div class="card-body">
+                <h5 class="card-title">Destinos más visitados</h5>
+                <p>TODO:</p>
+                <p>SELECT nombre FROM destino ORDER BY RAND() LIMIT 5;</p>
+            </div>
+        </div>
+    </div>
+    <a href="{{URLS.domain_name}}/error">errorTest</a>
+</div>
 
 {{>footer}}
+<script src="{{URLS.js}}/homeFunctions.js"></script>

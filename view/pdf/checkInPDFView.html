@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaucho Rocket</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            text-align: justify;
+        }
+
+        td {
+            height: 2em;
+        }
+
+        .center {
+            margin: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    {{#checkInData}}
+    <h1>Check in</h1>
+
+    <table class="center">
+        <tr>
+            <td>Origen: {{origen}}</td>
+            <td>Partida: {{fechasalida}}</td>
+        </tr>
+        <tr>
+            <td>Destino: {{destino}}</td>
+            <td>Arribo: {{fechallegada}}</td>
+        </tr>
+        <tr>
+            <td>Duracion estimada: {{duracion}}</td>
+        </tr>
+        <tr>
+            <td>Cabina: {{cabina}}</td>
+            <td>Servicio: {{servicio}}</td>
+        </tr>
+        <tr>
+            <td>Asiento asignado: {{asiento}}</td>
+        </tr>
+        <tr>
+            <td>Nave: {{nombreequipo}}</td>
+        </tr>
+        <tr>
+            <td>Velocidad: {{tipovuelo}} ({{desctipovuelo}})</td>
+        </tr>
+    </table>
+    <br>
+    <h3 class="center">Código de abordaje</h3>
+    <p class="center">
+        <img src="{{URLS.domain_name}}/QR/show?code={{qrHashCode}}" class="center">
+    </p>
+    {{/checkInData}}
+</body>
+
+</html>

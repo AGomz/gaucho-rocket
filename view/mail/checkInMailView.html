@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guachorocket: Check In</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin: .5em;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center">🚀 Reserva confirmada! 🚀</h1>
+    <h3 class="text-center">
+        Tu viaje está confirmado
+    </h3>
+    <h3 class="text-center">
+        Datos del Check In
+    </h3>
+    {{#checkInData}}
+    <div class="text-center">
+        <ul>
+            <li>
+                Origen: <span class="bold">{{origen}}</span>
+                - Fecha Partida: <span class="bold">{{fechasalida}}</span>
+            </li>
+            <li>
+                Destino: <span class="bold">{{destino}}</span>
+                - Fecha Arribo: <span class="bold">{{fechallegada}}</span>
+            </li>
+            <li> Duración estimada: <span class="bold">{{duracion}}</span></li>
+            <li>
+                Cabina: <span class="bold">{{cabina}}</span>
+                - Servicio: <span class="bold">{{servicio}}</span>
+            </li>
+            <li> Asiento asignado: <span class="bold">{{asiento}}</span></li>
+            <li> Nave: <span class="bold">{{nombreequipo}}</span></li>
+            <li> Velocidad: <span class="bold">{{tipovuelo}}</span> ({{desctipovuelo}})</li>
+        </ul>
+    </div>
+    {{/checkInData}}
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+# Denegación del accesso al directorio
+DENY FROM ALL
