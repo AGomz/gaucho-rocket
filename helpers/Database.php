@@ -91,9 +91,9 @@ class Database
      */
     private function checkErrors()
     {
-        // TODO si encuentra errores redirigir a pagina error
         if ($this->connection->error) {
             $this->logger->error('(DB ERROR) ' . $this->connection->errno . ': ' . $this->connection->error);
+            Redirect::to("/error");
         }
     }
 }
