@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="{{URLS.css}}/bootstrap.min.css" rel="stylesheet">
+
+  <link href="{{URLS.css}}/home.css" rel="stylesheet">
+  <!-- Font Awesome (iconos) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="shortcut icon" href="{{URLS.img}}/favicon.ico" type="image/x-icon">
+  <style>
+      .busqueda {
+          background: url("{{URLS.img}}/nave.jpg") no-repeat center/cover;
+        }
+  </style>
+
+  <title>Gaucho Rocket {{ section }}</title>
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top bg-opacity-75 border-bottom shadow-sm"
+    aria-label="Fourth navbar example">
+    <div class="container-fluid">
+      <h4>
+        <i class="fa-solid fa-rocket align-middle"></i>
+        <a class="navbar-brand" href="{{URLS.domain_name}}"> Gaucho Rocket</a>
+      </h4>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu usuario logueado/admin/invitado  -->
+      {{#SESSION}}
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{URLS.domain_name}}/reservas">Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{URLS.domain_name}}/checkin">Check In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{URLS.domain_name}}/reporte/getReport">Reporte</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-md-0">
+          <div>
+            <span class="small text-muted">
+              {{SESSION.user.email}}
+            </span>
+            {{#SESSION.user.isAdmin}}
+            <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-user-gear"></i> Panel</button>
+            {{/SESSION.user.isAdmin}}
+            <a href="{{URLS.domain_name}}/login/logout">
+              <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
+            </a>
+            <!-- Si es el ADMIN se muestra menu especial -->
+          </div>
+        </ul>
+        {{/SESSION}}
+        {{^SESSION}}
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          <li>
+            <a href="{{URLS.domain_name}}/login">
+              <button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-user"></i> Iniciar sesion</button>
+            </a>
+          </li>
+          <li>
+            <a href="{{URLS.domain_name}}/register">
+              <button class="btn btn-primary btn-sm ms-2">Registrarse</button>
+            </a>
+          </li>
+        </ul>
+        {{/SESSION}}
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Muestra si hay algún mensaje en la session -->
+  {{#message_alert}}
+  {{message}}
+  {{/message_alert}}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="{{URLS.css}}/bootstrap.min.css" rel="stylesheet">
+    <link href="{{URLS.css}}/home.css" rel="stylesheet">
+    <!-- Font Awesome (iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="shortcut icon" href="{{URLS.img}}/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top bg-opacity-75 border-bottom shadow-sm"
+     aria-label="Fourth navbar example">
+    <div class="container-fluid">
+        <h4>
+            <i class="fa-solid fa-rocket align-middle"></i>
+            <a class="navbar-brand" href="{{URLS.domain_name}}"> Gaucho Rocket</a>
+        </h4>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu usuario logueado/admin/invitado  -->
+        {{#SESSION}}
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{URLS.domain_name}}/reservas">Reservas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{URLS.domain_name}}/checkin">Check In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{URLS.domain_name}}/reporte">Reporte</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-md-0">
+                <div>
+            <span class="small text-muted">
+              {{SESSION.user.email}}
+            </span>
+                    {{#SESSION.user.isAdmin}}
+                    <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-user-gear"></i> Panel</button>
+                    {{/SESSION.user.isAdmin}}
+                    <a href="{{URLS.domain_name}}/login/logout">
+                        <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
+                    </a>
+                    <!-- Si es el ADMIN se muestra menu especial -->
+                </div>
+            </ul>
+            {{/SESSION}}
+            {{^SESSION}}
+            <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+                <li>
+                    <a href="{{URLS.domain_name}}/login">
+                        <button class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-user"></i> Iniciar sesion</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{URLS.domain_name}}/register">
+                        <button class="btn btn-primary btn-sm ms-2">Registrarse</button>
+                    </a>
+                </li>
+            </ul>
+            {{/SESSION}}
+
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5 pt-3 text-center">
+    <h3 class="text-center">Solicitar reporte</h3>
+    <p>Por favor, seleccione el tipo de reporte a generar.</p>
+</div>
+
+<div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+
+    <form action="{{URLS.domain_name}}/reporte/getReport" method="POST" novalidate>
+        <div class="row">
+            <div class="col-8">
+                <select class="form-select mb-3" aria-label=".form-select-lg example" name="reporte">
+                    <option selected disabled value="">Seleccione el tipo de informe...</option>
+                    <option value="1">Cabina mas vendida</option>
+                    <option value="2">Facturación mensual</option>
+                    <option value="3">Facturación por cliente</option>
+                    <option value="4">Tasa de ocupacion por viaje</option>
+                    <option value="5">Tasa de ocupacion por equipo</option>
+                </select>
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="container w-75 mx-auto py-5 px-4">
+    <h2>GRAFICO</h2>
+    <form action="{{URLS.domain_name}}/reporte/generateReport" method="POST">
+        <input type="hidden" name="info" id="info">
+
+        <div id="chart_div"></div>
+
+        <input type="submit" value="Generar PDF">
+    </form>
+
+    <!-- IMAGEN GENERADA -->
+    <img src="{{URLS.domain_name}}/public/img/imagefile.png">
+</div>
+{{>footer}}
