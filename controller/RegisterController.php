@@ -99,8 +99,7 @@ class RegisterController
         if ($this->mailer->enviar()) {
             SessionManager::setMessageAlert('Registro exitoso, se ha enviado un nuevo correo electrónico');
         } else {
-            // TODO Redirect a la pagina de error
-            echo 'Error al enviar el correo';
+            Redirect::to("/error");
             die();
         };
 

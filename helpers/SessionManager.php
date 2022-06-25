@@ -40,8 +40,10 @@ class SessionManager
     {
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
+            $messageLevel = $_SESSION['message_level'];
             unset($_SESSION['message']);
-            return "<div class='alert alert-{$_SESSION['message_level']} m-2' role='alert'>" .
+            unset($_SESSION['message_level']);
+            return "<div class='alert alert-{$messageLevel} m-2' role='alert'>" .
                 $message .
                 "</div>";
         }
