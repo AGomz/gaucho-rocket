@@ -33,13 +33,12 @@ class LoginController
         ];
 
         $user = $this->userModel->getUserByEmail($email);
+        $userId = $this->userModel->getUserIDByEmail($email);
+        $userRol = $this->userModel->getRolByUserID($userId[0]['id']) == 2;
 
         if (sizeof($user) > 0 && $user[0]['email'] == $email && password_verify($password, $user[0]['password'])) {
             SessionManager::setMessageAlert("Bienvenido nuevamente $email");
-            SessionManager::saveUserData(
-                $this->userModel->getUserIDByEmail($email),
-                $email
-            );
+            SessionManager::saveUserData($userId, $email, $userRol);
         } else {
             $data = array_merge($preload, ["error" => 'Credenciales inválidas']);
             $this->show($data);

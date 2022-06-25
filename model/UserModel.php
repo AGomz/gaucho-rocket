@@ -32,10 +32,10 @@ class UserModel
 
     public function getRolByUserID($id)
     {
-        $query = "select descripcion 
+        $query = "select id 
                   from usuariorol u inner join rol r on u.rolid = r.id 
                   where u.usuarioid = \"$id\"";
-        return $this->database->query($query)[0]['descripcion'];
+        return $this->database->query($query)[0]['id'];
     }
 
     public function esCliente($id)
