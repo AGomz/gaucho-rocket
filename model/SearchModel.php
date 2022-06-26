@@ -56,12 +56,6 @@ class SearchModel
         $salidas = $this->getTramoOrigen($origen, $fecha);
 
         foreach ($salidas as $tramo) {
-            /*var_dump($tramo);
-            echo "<br>";
-            var_dump($destino);
-            echo "<br>";
-            var_dump( $tramo['salida']);
-            echo "<br>";*/
             $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida'], $tramo['tramoIdOrigen']);
             /*
             * No permito las busquedas entre $origen == $destino

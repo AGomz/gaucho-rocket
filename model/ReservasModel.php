@@ -10,8 +10,74 @@ class ReservasModel
         $this->database = $database;
     }
 
-    // TODO: Revisar query
-    public function getReservas($userId)
+    // forma un array de reservas mostrando 1 sola reserva si es multitramo
+    public function gerReservasAMostrar($userId)
+    {
+        $reservas = [];
+        $result = $this->getReservas($userId);
+        if (count($result) > 0) {
+            if (count($result) > 1) {
+                $origen = null;
+                $precio = 0;
+
+                for ($i = 0; $i < count($result); $i++) {
+                    $actual = $result[$i];
+
+                    if ($i+1 == count($result)) {
+                        if ($origen != null) {
+                            $reservas[] = $this->getReservaMultiTramo($origen, $actual, $precio);
+                        } else {
+                            $reservas[] = $actual;
+                        }
+
+                        return $reservas;
+                    }
+
+                    $siguiente = $result[$i+1];
+
+                    // toma 2 registros y compara si tienen el mismo reservaid
+                    // si son iguales significa que es multitramo
+                    if ($actual["reservaId"] != $siguiente["reservaId"]) {
+                        if ($origen != null) {
+                            $reservas[] = $this->getReservaMultiTramo($origen, $actual, $precio);
+                            $origen = null;
+                            $precio = 0;
+                        } else {
+                            $reservas[] = $actual;
+                        }
+                    } else {
+                        $precio += $actual["precio"];
+                        if ($origen == null) {
+                            $origen = $actual;
+                        }
+                    }
+                }
+            } else {
+                return $result;
+            }
+        } else {
+            return [];
+        }
+    }
+
+    // forma 1 solo array a mostrar con el origen, destino y precio total
+    private function getReservaMultiTramo($origen, $destino, $precio)
+    {
+        return [
+            "reservaId" => $origen["reservaId"],
+            "precio" => $precio,
+            "salida" => $origen["salida"],
+            "origen" => $origen["origen"],
+            "llegada" => $destino["llegada"],
+            "destino" => $destino["destino"],
+            "cabina" => $destino["cabina"],
+            "servicio" => $destino["servicio"],
+            "pagoid" => $destino["pagoid"],
+            "tipovuelo" => $destino["tipovuelo"]
+        ];
+    }
+
+    private function getReservas($userId)
     {
         $query = "select distinct r.id as reservaId, dd.nombre as origen, dno.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
         sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo, r.pagoid

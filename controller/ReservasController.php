@@ -17,7 +17,7 @@ class ReservasController
         SessionManager::checkIfSessionIsNotValid();
 
         $userId = SessionManager::getUserId();
-        $listadDeReservas = $this->reservasModel->getReservas($userId);
+        $listadDeReservas = $this->reservasModel->gerReservasAMostrar($userId);
         $datos = ["proxVuelos" => $listadDeReservas];
 
         echo $this->printer->render("view/reservasView.html", $datos);
