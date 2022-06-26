@@ -79,12 +79,19 @@ class SearchModel
                     t.fechasalida as salida,
                     d.nombre as origen, 
                     t.fechallegada as llegada,
-                    d2.nombre  as destino
+                    d2.nombre  as destino,
+                    c.nombre as cabina
                     from tramo t
                     inner join destino d 
                     on d.id = t.origenid
                     left join destino d2 
                     on d2.id = destinoid
+					join equipo e 
+                    on t.equipoid = e.id
+                    join capacidadcabina cb
+                    on e.id = cb.equipoid
+                    join cabina c
+                    on cb.cabinaid = c.id
                     where t.origenid = t.destinoid 
                     and datediff(date(t.fechallegada), date(t.fechasalida)) = 35 
                     and t.fechasalida > \"{$fecha}\"
@@ -100,12 +107,19 @@ class SearchModel
                     t.fechasalida as salida,
                     d.nombre as origen, 
                     t.fechallegada as llegada,
-                    d2.nombre  as destino
+                    d2.nombre  as destino,
+                    c.nombre as cabina
                     from tramo t
                     inner join destino d 
                     on d.id = t.origenid
                     left join destino d2 
                     on d2.id = destinoid
+					join equipo e 
+                    on t.equipoid = e.id
+                    join capacidadcabina cb
+                    on e.id = cb.equipoid
+                    join cabina c
+                    on cb.cabinaid = c.id
                     where t.origenid = t.destinoid
                         and datediff(date(t.fechallegada), date(t.fechasalida)) = 0
                         and t.fechasalida > \"{$fecha}\"
