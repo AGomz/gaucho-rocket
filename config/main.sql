@@ -2,401 +2,298 @@ create database gauchorocket;
 use gauchorocket;
 
 create table login (
-	id integer unique auto_increment primary key,
-	-- nickname varchar(35) not null,
-	email varchar(60) not null,
-	password varchar(61) not null
+                       id integer unique auto_increment primary key,
+    -- nickname varchar(35) not null,
+                       email varchar(60) not null,
+                       pass varchar(61) not null
 );
 
-create table rol (
-	id integer unique auto_increment primary key,
-	descripcion varchar(45)
+create table Rol (
+                     id integer unique auto_increment primary key,
+                     descripcion varchar(45)
 );
 
-create table centromedico (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	direccion varchar(70) not null,
-	turnosdiarios int not null
+create table CentroMedico (
+                              id integer unique auto_increment primary key,
+                              nombre varchar(60) not null,
+                              direccion varchar(70) not null
 );
 
-create table nivelvuelo (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null
+create table NivelVuelo (
+                            id integer unique auto_increment primary key,
+                            nombre varchar(60) not null,
+                            descripcion varchar(70) not null
 );
 
 
-create table usuario (
-	id integer unique auto_increment primary key,
-	nombre varchar(35) not null,
-	apellido varchar(45) not null,
-	idlogin integer not null,
-	activado boolean,
-	idnivelvuelo integer,
-	foreign key (idlogin) references login(id),
-	foreign key (idnivelvuelo) references nivelvuelo(id)
+create table Usuario (
+                         id integer unique primary KEY auto_increment,
+                         nombre varchar(35) not null,
+                         apellido varchar(45) not null,
+                         IDLogin integer not null,
+                         activado boolean,
+                         IDNivelVuelo integer,
+                         foreign key (IDLogin) references Login(id),
+                         foreign key (IDNivelVuelo) references NivelVuelo(id)
 );
 
-create table usuariorol (
-	usuarioid integer,
-	rolid integer,
-	foreign key (usuarioid) references usuario(id),
-	foreign key (rolid) references rol(id),
-	primary key (usuarioid, rolid)
+create table UsuarioRol (
+                            UsuarioID integer,
+                            RolID integer,
+                            foreign key (UsuarioID) references Usuario(id),
+                            foreign key (RolID) references Rol(id),
+                            primary key (UsuarioID, RolID)
 );
 
-create table turnomedico (
-	usuarioid integer,
-	centromedicoid integer,
-	fecha date,
-	primary key (usuarioid, centromedicoid),
-	foreign key (usuarioid) references usuario(id),
-	foreign key (centromedicoid) references centromedico(id)
+create table TurnoMedico (
+                             UsuarioID integer,
+                             CentroMedicoID integer,
+                             fecha date,
+                             primary key (UsuarioID, CentroMedicoID),
+                             foreign key (UsuarioID) references Usuario(id),
+                             foreign key (CentroMedicoID) references CentroMedico(id)
 );
 
-create table cabina (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null
+create table Cabina (
+                        id integer unique auto_increment primary key,
+                        nombre varchar(60) not null,
+                        descripcion varchar(70) not null
 );
 
-create table modelo (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null
+create table Modelo (
+                        id integer unique auto_increment primary key,
+                        nombre varchar(60) not null,
+                        descripcion varchar(70) not null
 );
 
-create table tipovuelo (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null
+create table TipoVuelo (
+                           id integer unique auto_increment primary key,
+                           nombre varchar(60) not null,
+                           descripcion varchar(70) not null
 );
 
-create table equipo (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	modeloid integer not null,
-	matricula varchar(15),
-	tipovueloid integer not null,
-	foreign key (modeloid) references modelo(id),
-	foreign key (tipovueloid) references tipovuelo(id)
+create table Equipo (
+                        id integer unique auto_increment primary key,
+                        nombre varchar(60) not null,
+                        modeloID integer not null,
+                        matricula varchar(15),
+                        TipoVueloID integer not null,
+                        foreign key (modeloID) references modelo(id),
+                        foreign key (TipoVueloID) references TipoVuelo(id)
 );
 
-create table equiponivelvuelo(
-	nivelvueloid integer,
-	equipoid integer,
-	primary key (nivelvueloid, equipoid),
-	foreign key (nivelvueloid) references nivelvuelo(id),
-	foreign key (equipoid) references equipo(id)
+create table NivelVueloTipoVuelo (
+                                     NivelVueloID integer,
+                                     TipoVueloID integer,
+                                     primary key (NivelVueloID, TipoVueloID),
+                                     foreign key (NivelVueloID) references NivelVuelo(id),
+                                     foreign key (TipoVueloID) references TipoVuelo(id)
 );
 
-create table capacidadcabina(
-	equipoid integer,
-	cabinaid integer,
-	cantidad integer,
-	primary key (equipoid, cabinaid),
-	foreign key (equipoid) references equipo(id),
-	foreign key (cabinaid) references cabina(id)
+create table CapacidadCabina(
+                                EquipoID integer,
+                                CabinaID integer,
+                                cantidad integer,
+                                primary key (EquipoID, CabinaID),
+                                foreign key (EquipoID) references Equipo(id),
+                                foreign key (CabinaID) references Cabina(id)
 );
 
-create table servicioabordo (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null,
-	precio float
+create table ServicioABordo (
+                                id integer unique auto_increment primary key,
+                                nombre varchar(60) not null,
+                                descripcion varchar(70) not null,
+                                precio float
 );
 
-create table destino (
-	id integer unique auto_increment primary key,
-	nombre varchar(60) not null,
-	descripcion varchar(70) not null,
-	iata varchar(6) not null
+create table Destino (
+                         id integer unique auto_increment primary key,
+                         nombre varchar(60) not null,
+                         descripcion varchar(70) not null,
+                         IATA varchar(6) not null
 );
 
-create table tramo (
-	id integer unique auto_increment primary key,
-	equipoid integer not null,
-	origenid integer not null,
-	destinoid integer not null,
-	fechasalida datetime not null,
-	fechallegada datetime not null,
-	precio float not null,
-	foreign key (equipoid) references equipo(id),
-	foreign key (origenid) references destino(id),
-	foreign key (destinoid) references destino(id)
+create table Tramo (
+                       id integer unique auto_increment primary key,
+                       EquipoID integer not null,
+                       OrigenID integer not null,
+                       DestinoID integer not null,
+                       FechaSalida datetime not null,
+                       FechaLlegada datetime not null,
+                       Precio float not null,
+                       foreign key (EquipoID) references Equipo(id),
+                       foreign key (OrigenID) references Destino(id),
+                       foreign key (DestinoID) references Destino(id)
 );
 
-create table pago (
-	id integer unique auto_increment primary key,
-	transaccion varchar(51) not null,
-	importe float not null,
-	fecha datetime not null
+create table Pago (
+                      id integer unique auto_increment primary key,
+                      transaccion varchar(51) not null,
+                      importe float not null,
+                      fecha datetime not null
 );
 
-create table checkin (
-	id integer unique auto_increment primary key,
-	codigo varchar(46) not null,
-	fecha datetime not null
+create table CheckIn (
+                         id integer unique auto_increment primary key,
+                         codigo varchar(46) not null,
+                         fecha datetime not null
 );
 
-create table reserva (
-	id integer primary key auto_increment,
-	usuarioid integer not null,
-	fecha datetime not null,
-	pagoid integer,
-	checkinid integer,
-	servicioid integer not null,
-	listaespera boolean,
-	tipocabina integer not null,
-	-- primary key (usuarioid, tramoid),
-	foreign key (usuarioid) references usuario(id),
-	foreign key (servicioid) references servicioabordo(id),
-	foreign key (tipoCabina) references cabina(id)
+create table Reserva (
+                         UsuarioID integer not null,
+                         TramoID integer not null,
+                         fecha datetime not null,
+                         PagoID integer,
+                         CheckInID integer,
+                         ServicioID integer not null,
+                         listaEspera boolean,
+                         TipoCabina integer,
+                         primary key (UsuarioID, TramoID),
+                         foreign key (UsuarioID) references Usuario(id),
+                         foreign key (TramoID) references Tramo(id),
+                         foreign key (ServicioID) references ServicioABordo(id),
+                         FOREIGN KEY (TipoCabina) REFERENCES Cabina(id)
 );
 
-create table reservatramo (
-	reservaid integer not null,
-	tramoid integer not null,
-	primary key (reservaid, tramoid),
-	foreign key (reservaid) references reserva(id),
-	foreign key (tramoid) references tramo(id)
-);
-
-insert into rol (descripcion) values
-("Cliente"),
-("Administrador");
+insert into Rol (descripcion) values
+                                  ("Cliente"),
+                                  ("Administrador");
 
 
-/* centromedico
+/* CentroMedico
 nombre varchar(60) not null,
 	direccion varchar(70)
 */
-insert into centromedico (nombre, direccion, turnosdiarios) values
-("Buenos Aires Medical", "Av. Rivadavia 14241", 300),
-("Shanghai Medical Clinic", "AE M-01, Rawadat Al Wasl Building", 210),
-("Medical Park Ankara Hastanesi", "Kent Koop Mah 1868", 200);
+insert into centromedico (nombre, direccion) values
+                                                 ("Buenos Aires Medical", "Av. Rivadavia 14241"),
+                                                 ("Shanghai Medical Clinic", "AE M-01, Rawadat Al Wasl Building"),
+                                                 ("Medical Park Ankara Hastanesi", "Kent Koop Mah 1868");
 
 
 /*
-table nivelvuelo
+table NivelVuelo
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
 insert into nivelvuelo (nombre, descripcion) values
-("Nivel 1", "Viajes de orbitales"),
-("Nivel 2", "Viajes de baja aceleraci�n"),
-("Nivel 3", "Vaijes de alta aceleraci�n");
+                                                 ("Nivel 1", "Viajes de orbitales"),
+                                                 ("Nivel 2", "Viajes de baja aceleraci�n"),
+                                                 ("Nivel 3", "Vaijes de alta aceleraci�n");
 
 
-/*table cabina
+/*table Cabina
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
-insert into cabina (nombre, descripcion) values
-("Turista", "Cabina de tipo Turista"),
-("Ejecutivo", "Cabina de tipo Ejecutivo"),
-("Primera", "Primera clase.");
+insert into Cabina (nombre, descripcion) values
+                                             ("Turista", "Cabina de tipo Turista"),
+                                             ("Ejecutivo", "Cabina de tipo Ejecutivo"),
+                                             ("Primera", "Primera clase.");
 
 
 
-/*table modelo
+/*table Modelo
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
-insert into modelo (nombre, descripcion) values
-("Aguila", "Clase Aguila"),
-("Aguilucho", "Clase Aguilucho"),
-("Calandria", "Clase Calandria"),
-("Canario", "Clase Canario"),
-("Carancho", "Clase Carancho"),
-("Colibri", "Clase Calabri"),
-("Condor", "Clase Condor"),
-("Guanaco", "Clase Guanaco"),
-("Halcon", "Clase Huanaco"),
-("Zorzal", "Clase Zorzal");
+insert into Modelo (nombre, descripcion) values
+                                             ("Aguila", "Clase Aguila"),
+                                             ("Aguilucho", "Clase Aguilucho"),
+                                             ("Calandria", "Clase Calandria"),
+                                             ("Canario", "Clase Canario"),
+                                             ("Carancho", "Clase Carancho"),
+                                             ("Colibri", "Clase Calabri"),
+                                             ("Condor", "Clase Condor"),
+                                             ("Guanaco", "Clase Guanaco"),
+                                             ("Halcon", "Clase Huanaco"),
+                                             ("Zorzal", "Clase Zorzal");
 
 /*
-table tipovuelo (
+table TipoVuelo (
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
 
-insert into tipovuelo (nombre, descripcion) values
-("Orbitales", "Vuelvos Orbitales"),
-("Baja aceleracion", "Vuelos hasta 2G"),
-("Alta aceleracion", "Vuelos de m�s de 2G");
+insert into TipoVuelo (nombre, descripcion) values
+                                                ("Orbitales", "Vuelvos Orbitales"),
+                                                ("Baja aceleracion", "Vuelos hasta 2G"),
+                                                ("Alta aceleracion", "Vuelos de m�s de 2G");
 
 
 /*
-table equipo
+table Equipo
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
-	modeloid integer not null,
+	modeloID integer not null,
 	matricula varchar(15),
-	tipovueloid integer not null,
-	foreign key (modeloid) references modelo(id),
-	foreign key (tipovueloid) references tipovuelo(id)
+	TipoVueloID integer not null,
+	foreign key (modeloID) references modelo(id),
+	foreign key (TipoVueloID) references TipoVuelo(id)
 );
 */
-insert into equipo(nombre, modeloid, matricula, tipovueloid) values
-("Aguila 1", 1, "AA1", 3),
-("Aguila 5", 1, "AA5", 3),
-("Aguila 9", 1, "AA9", 3),
-("Aguila 13", 1, "AA13", 3),
-("Aguila 17", 1, "AA17", 3),
-("Aguilucho 8", 2, "BA8", 2),
-("Aguilucho 9", 2, "BA9", 2),
-("Aguilucho 10", 2, "BA10", 2),
-("Aguilucho 11", 2, "BA11", 2),
-("Aguilucho 12", 2, "BA12", 2),
-("Calandria 1", 3, "O1", 1),
-("Calandria 2", 3, "O2", 1),
-("Calandria 6", 3, "O6", 1),
-("Calandria 7", 3, "O7", 1),
-("Canario 13", 4, "BA13", 2),
-("Canario 14", 4, "BA14", 2),
-("Canario 15", 4, "BA15", 2),
-("Canario 16", 4, "BA16", 2),
-("Canario 17", 4, "BA17", 2),
-("Carancho 4", 5, "BA4", 2),
-("Carancho 5", 5, "BA5", 2),
-("Carancho 6", 5, "BA6", 2),
-("Carancho 7", 5, "BA7", 2),
-("Colibri 3", 6, "O3", 1),
-("Colibri 4", 6, "O4", 1),
-("Colibri 5", 6, "O5", 1),
-("Colibri 8", 6, "O8", 1),
-("Condor 2", 7, "AA2", 3),
-("Condor 6", 7, "AA6", 3),
-("Condor 10", 7, "AA10", 3),
-("Condor 14", 7, "AA14", 3),
-("Condor 18", 7, "AA18", 3),
-("Guanaco 4", 8, "AA4", 1),
-("Guanaco 8", 8, "AA8", 1),
-("Halcon 2", 9, "AA3", 3),
-("Halcon 7", 9, "AA7", 3),
-("Halcon 11", 9, "AA11", 3),
-("Halcon 15", 9, "AA15", 3),
-("Halcon 19", 9, "AA19", 3),
-("Zorzal 1", 10, "BA1", 2),
-("Zorzal 2", 10, "BA3", 2),
-("Zorzal 3", 10, "BA3", 2);
-/*
-create table equiponivelvuelo(
-	nivelvueloid integer,
-	equipoid integer,
-	primary key (nivelvueloid, equipoid),
-	foreign key (nivelvueloid) references nivelvuelo(id),
-	foreign key (equipoid) references equipo(id)
-*/
-insert into equiponivelvuelo (equipoid, nivelvueloid) values
-(1, 2), 
-(1, 3), 
-(2, 2), 
-(2, 3),  
-(3, 2), 
-(3, 3), 
-(4, 2), 
-(4, 3), 
-(5, 2), 
-(5, 3),
-(6, 2), 
-(6, 3), 
-(7, 2), 
-(7, 3), 
-(8, 2), 
-(8, 3), 
-(9, 2), 
-(9, 3), 
-(10, 2), 
-(10, 3), 
-(11, 1), 
-(11, 2), 
-(11, 3), 
-(12, 1), 
-(12, 2), 
-(12, 3), 
-(13, 1), 
-(13, 2), 
-(13, 3), 
-(14, 1), 
-(14, 2), 
-(14, 3), 
-(15, 2), 
-(15, 3), 
-(16, 2), 
-(16, 3),  
-(17, 2), 
-(17, 3), 
-(18, 2), 
-(18, 3), 
-(19, 2), 
-(19, 3),
-(20, 2), 
-(20, 3),  
-(21, 2), 
-(21, 3), 
-(22, 2), 
-(22, 3), 
-(23, 2), 
-(23, 3),
-(24, 1), 
-(24, 2), 
-(24, 3), 
-(25, 1), 
-(25, 2), 
-(25, 3), 
-(26, 1), 
-(26, 2), 
-(26, 3), 
-(27, 1), 
-(27, 2), 
-(27, 3), 
-(28, 2), 
-(28, 3), 
-(29, 2), 
-(29, 3),  
-(30, 2), 
-(30, 3),
-(31, 2), 
-(31, 3), 
-(32, 2), 
-(32, 3),  
-(33, 3), 
-(34, 3),
-(35, 3),  
-(36, 3), 
-(37, 3),
-(38, 3),  
-(39, 3), 
-(40, 2), 
-(40, 3),
-(41, 2), 
-(41, 3),
-(42, 2), 
-(42, 3);
-
+insert into Equipo(nombre, modeloID, matricula, TipoVueloID) values
+                                                                 ("Aguila 1", 1, "AA1", 3),
+                                                                 ("Aguila 5", 1, "AA5", 3),
+                                                                 ("Aguila 9", 1, "AA9", 3),
+                                                                 ("Aguila 13", 1, "AA13", 3),
+                                                                 ("Aguila 17", 1, "AA17", 3),
+                                                                 ("Aguilucho 8", 2, "BA8", 2),
+                                                                 ("Aguilucho 9", 2, "BA9", 2),
+                                                                 ("Aguilucho 10", 2, "BA10", 2),
+                                                                 ("Aguilucho 11", 2, "BA11", 2),
+                                                                 ("Aguilucho 12", 2, "BA12", 2),
+                                                                 ("Calandria 1", 3, "O1", 1),
+                                                                 ("Calandria 2", 3, "O2", 1),
+                                                                 ("Calandria 6", 3, "O6", 1),
+                                                                 ("Calandria 7", 3, "O7", 1),
+                                                                 ("Canario 13", 4, "BA13", 2),
+                                                                 ("Canario 14", 4, "BA14", 2),
+                                                                 ("Canario 15", 4, "BA15", 2),
+                                                                 ("Canario 16", 4, "BA16", 2),
+                                                                 ("Canario 17", 4, "BA17", 2),
+                                                                 ("Carancho 4", 5, "BA4", 2),
+                                                                 ("Carancho 5", 5, "BA5", 2),
+                                                                 ("Carancho 6", 5, "BA6", 2),
+                                                                 ("Carancho 7", 5, "BA7", 2),
+                                                                 ("Colibri 3", 6, "O3", 1),
+                                                                 ("Colibri 4", 6, "O4", 1),
+                                                                 ("Colibri 5", 6, "O5", 1),
+                                                                 ("Colibri 8", 6, "O8", 1),
+                                                                 ("Condor 2", 7, "AA2", 3),
+                                                                 ("Condor 6", 7, "AA6", 3),
+                                                                 ("Condor 10", 7, "AA10", 3),
+                                                                 ("Condor 14", 7, "AA14", 3),
+                                                                 ("Condor 18", 7, "AA18", 3),
+                                                                 ("Guanaco 4", 8, "AA4", 1),
+                                                                 ("Guanaco 8", 8, "AA8", 1),
+                                                                 ("Halcon 2", 9, "AA3", 3),
+                                                                 ("Halcon 7", 9, "AA7", 3),
+                                                                 ("Halcon 11", 9, "AA11", 3),
+                                                                 ("Halcon 15", 9, "AA15", 3),
+                                                                 ("Halcon 19", 9, "AA19", 3),
+                                                                 ("Zorzal 1", 10, "BA1", 2),
+                                                                 ("Zorzal 2", 10, "BA3", 2),
+                                                                 ("Zorzal 3", 10, "BA3", 2);
 
 
 
 /*
- create table capacidadcabina(
-	equipoid integer,
-	cabinaid integer,
+ create table CapacidadCabina(
+	EquipoID integer,
+	CabinaID integer,
 	cantidad integer,
-	primary key (equipoid, cabinaid),
-	foreign key (equipoid) references equipo(id),
-	foreign key (cabinaid) references cabina(id)
-1 ("turista", "cabina de tipo turista"),
-2 ("ejecutivo", "cabina de tipo ejecutivo"),
-3 ("primera", "primera clase.");
+	primary key (EquipoID, CabinaID),
+	foreign key (EquipoID) references Equipo(id),
+	foreign key (CabinaID) references Cabina(id)
+1 ("Turista", "Cabina de tipo Turista"),
+2 ("Ejecutivo", "Cabina de tipo Ejecutivo"),
+3 ("Primera", "Primera clase.");
 */
-insert into capacidadcabina (equipoid, cabinaid, cantidad) values
+insert into capacidadcabina (EquipoID, CabinaID, cantidad) values
 -- clase aguila
 (1, 1, 200),
 (1, 2, 75),
@@ -448,7 +345,7 @@ insert into capacidadcabina (equipoid, cabinaid, cantidad) values
 (18, 3, 10),
 (19, 2, 70),
 (19, 3, 10),
--- clase carancho
+-- clase Carancho
 (20, 1, 110),
 (21, 1, 110),
 (22, 1, 110),
@@ -509,386 +406,203 @@ insert into capacidadcabina (equipoid, cabinaid, cantidad) values
 (42, 1, 50),
 (42, 2, 80);
 
-
-
 /*
-create table destino (
+create table Destino (
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
-	iata varchar(6) not null
+	IATA varchar(6) not null
 */
-insert into destino (nombre, descripcion, iata) values
-("Buenos Aires", "Aeropuerto Espacial Villa Fiorito", "ARFIO"),
-("Ankara", "Esenboga Space-Port", "TRESB"),
-("ISS", "Estaci�n Internacional", "SSISS"),
-("Orbital Hotel","Hotel orbital Zurich","SSZUR"),
-("Luna", "Luna", "SSMON"),
-("Marte", "Planeta rojo", "SSMAR"),
-("Ganimedes", "Ganimedes Jupiter", "JUGAN"),
-("Europa", "Europa Jupiter", "JUEUP"),
-("Io", "Io Jupiter", "JUIO-"),
-("Encedalo", "Encedalo Saturno", "SAENC"),
-("Titan", "Titan Saturno", "SATIT");
+insert into Destino (nombre, descripcion, IATA) values
+                                                    ("Buenos Aires", "Aeropuerto Espacial Villa Fiorito", "ARFIO"),
+                                                    ("Ankara", "Esenboga Space-Port", "TRESB"),
+                                                    ("ISS", "Estaci�n Internacional", "SSISS"),
+                                                    ("Orbital Hotel","Hotel orbital Zurich","SSZUR"),
+                                                    ("Luna", "Luna", "SSMON"),
+                                                    ("Marte", "Planeta rojo", "SSMAR"),
+                                                    ("Ganimedes", "Ganimedes Jupiter", "JUGAN"),
+                                                    ("Europa", "Europa Jupiter", "JUEUP"),
+                                                    ("Io", "Io Jupiter", "JUIO-"),
+                                                    ("Encedalo", "Encedalo Saturno", "SAENC"),
+                                                    ("Titan", "Titan Saturno", "SATIT");
 
 
 
-/* table servicioabordo
+/* table ServicioABordo
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null,
 	precio float
 */
-insert into servicioabordo (nombre, descripcion, precio) values
-("Standard", "Servicio estandar", 0.0),
-("Gourmet", "Servicio Gourmet", 500.0),
-("Spa", "Servicio Spa", 950.70);
+insert into servicioabordo (nombre, descripcion, precio)
+values ("Standard", "Servicio estandar", 0.0),
+       ("Gourmet", "Servicio Gourmet", 500.0),
+       ("Spa", "Servicio Spa", 950.70);
 
+/*
+create table Tramo (
+	id integer unique auto_increment primary key,
+	EquipoID integer not null,
+	OrigenID integer not null,
+	DestinoID integer not null,
+	FechaSalida date not null,
+	FechaLlegada date not null,
+	ServicioID integer not null,
+	Precio float not null,
+*/
 
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- Tierra / ISS
+(12, 1, 3, "2022-05-18 00:02:00", "2022-05-19 08:10:00", 500),
+(13, 3, 1, "2022-05-18 04:05:00", "2022-05-19 12:10:00", 500),
+(25, 2, 3, "2022-05-18 00:10:00", "2022-05-19 08:10:00", 500),
+(27, 3, 2, "2022-05-18 04:10:00", "2022-05-19 12:20:00", 500),
+(12, 3, 1, "2022-05-18 12:02:00", "2022-05-19 20:10:00", 500),
+(13, 1, 3, "2022-05-18 15:05:00", "2022-05-19 23:10:00", 500),
+(25, 3, 2, "2022-05-18 12:10:00", "2022-05-19 20:10:00", 500),
+(27, 2, 3, "2022-05-18 15:10:00", "2022-05-19 23:20:00", 500),
+-- Tour
+(33, 3, 2, "2022-05-20 12:10:00", "2022-06-25 20:10:00", 500),
+(34, 2, 3, "2022-05-25 15:10:00", "2022-06-30 23:20:00", 500),
+-- ISS / orbital hotel baja aceleracion
+(41, 3, 4, "2022-05-19 06:02:00", "2022-05-19 07:10:00", 500),
+(20, 4, 3, "2022-05-19 06:05:00", "2022-05-19 07:10:00", 500),
+-- ISS / orbital hotel alta aceleracion
+(28, 3, 4, "2022-05-19 07:02:00", "2022-05-19 08:10:00", 500),
+(29, 4, 3, "2022-05-19 08:05:00", "2022-05-19 09:10:00", 500);
 
-USE gauchorocket;
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- Orbital hotel / luna - baja aceleracion
+(41, 4, 5, "2022-05-19 08:00:00", "2022-05-19 23:10:00", 500),
+(20, 5, 4, "2022-05-19 08:00:00", "2022-05-19 23:40:00", 500),
+-- orbital hotel / luna alta aceleracion
+(28, 4, 5, "2022-05-19 08:20:00", "2022-05-19 19:10:00", 500),
+(29, 4, 5, "2022-05-19 08:05:00", "2022-05-19 18:10:00", 500);
 
-DROP PROCEDURE IF exists Circuito1BA;
-DROP PROCEDURE IF exists Circuito1AA;
-DROP PROCEDURE IF exists Circuito2BA;
-DROP PROCEDURE IF exists Circuito2AA;
-DROP PROCEDURE IF exists Tour;
-DROP PROCEDURE IF exists Orbital;
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- luna / marte- baja aceleracion
+(41, 4, 5, "2022-05-20 00:10:00", "2022-05-21 01:10:00", 500),
+(20, 5, 4, "2022-05-20 08:05:00", "2022-05-21 01:40:00", 500),
+-- luna / marte alta aceleracion
+(28, 4, 5, "2022-05-19 20:00:00", "2022-05-20 18:10:00", 500),
+(29, 4, 5, "2022-05-19 19:00:00", "2022-05-20 17:10:00", 500);
 
-DELIMITER $$
--- Insert Circuito1 completo
--- CALL Circuito1BA(fecha, equipoID, origenID);
-CREATE PROCEDURE Circuito1BA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
-BEGIN
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- ISS - luna baja aceleracion
+(41, 3, 5, "2022-05-20 02:00:00", "2022-05-20 16:10:00", 500),
+(22, 5, 3, "2022-05-20 02:00:00", "2022-05-20 16:40:00", 500),
+-- ISS - luna alta aceleracion
+(30, 3, 5, "2022-05-20 08:00:00", "2022-05-20 18:40:00", 500),
+(31, 3, 3, "2022-05-20 08:00:00", "2022-05-20 18:10:00", 500);
 
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaSalida2 DATETIME;
-DECLARE fechaSalida3 DATETIME;
-DECLARE fechaSalida4 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-DECLARE fechaLlegada2 DATETIME;
-DECLARE fechaLlegada3 DATETIME;
-DECLARE fechaLlegada4 DATETIME;
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- luna / marte - baja aceleracion
+(41, 3, 5, "2022-05-20 17:00:00", "2022-05-21 19:10:00", 500),
+(22, 5, 3, "2022-05-20 17:00:00", "2022-05-21 19:40:00", 500),
+-- luna / marte - alta aceleracion
+(30, 3, 5, "2022-05-21 20:00:00", "2022-05-20 18:40:00", 500),
+(31, 3, 3, "2022-05-21 20:00:00", "2022-05-20 18:10:00", 500);
 
--- IDA
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 4 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 5 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 6 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 7 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 23 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 24 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 50 HOUR );
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- marte / ganimedes - baja aceleracion
+(41, 3, 5, "2022-05-21 20:00:00", "2022-05-23 19:10:00", 500),
+(22, 5, 3, "2022-05-21 20:00:00", "2022-05-23 19:40:00", 500),
+-- marte /ganimedes - alta aceleracion
+(30, 3, 5, "2022-05-21 20:00:00", "2022-05-23 04:40:00", 500),
+(31, 3, 3, "2022-05-21 20:00:00", "2022-05-23 04:10:00", 500);
 
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(equipo, 3, 4, fechaSalida2, fechaLlegada2, 150),
--- Orbital hotel / luna -
-(equipo, 4, 5, fechaSalida3, fechaLlegada3, 250),
--- luna / marte- 
-(equipo, 5, 6, fechaSalida4, fechaLlegada4, 300);
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- ganimedes / europa - baja aceleracion
+(41, 3, 5, "2022-05-23 20:00:00", "2022-05-27 19:10:00", 500),
+(22, 5, 3, "2022-05-23 20:00:00", "2022-05-27 19:40:00", 500),
+-- ganimedes / europa - alta aceleracion
+(30, 3, 5, "2022-05-23 20:00:00", "2022-05-25 08:40:00", 500),
+(31, 3, 3, "2022-05-23 20:00:00", "2022-05-25 08:10:00", 500);
 
--- VUELTA
-SET fechaSalida1 = date_add(fecha, INTERVAL 72 HOUR );
-SET fechaLlegada1 = date_add(fecha, INTERVAL 98 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 99 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 115 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 116 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 117 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 118 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 122 HOUR );
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- europa / lo- baja aceleracion
+(41, 3, 5, "2022-05-27 20:00:00", "2022-06-01 19:10:00", 500),
+(22, 5, 3, "2022-05-27 20:00:00", "2022-06-01 19:40:00", 500),
+-- europa / lo - alta aceleracion
+(30, 3, 5, "2022-05-25 09:00:00", "2022-05-27 08:40:00", 500),
+(31, 3, 3, "2022-05-25 09:00:00", "2022-05-27 08:10:00", 500);
 
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- marte / luna
-(equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
--- luna / orbital hotel
-(equipo, 5, 4, fechaSalida2, fechaLlegada2, 250),
--- orbital hotel / ISS
-(equipo, 4, 3, fechaSalida3, fechaLlegada3, 150),
--- ISS / BA
-(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
-END$$
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- lo / encedalo - baja aceleracion
+(41, 3, 5, "2022-06-01 20:00:00", "2022-06-04 19:10:00", 500),
+(22, 5, 3, "2022-06-01 20:00:00", "2022-06-04 19:40:00", 500),
+-- lo / encedalo - alta aceleracion
+(30, 3, 5, "2022-05-27 09:00:00", "2022-05-30 10:40:00", 500),
+(31, 3, 3, "2022-05-27 09:00:00", "2022-05-30 10:10:00", 500);
 
-DELIMITER $$
--- Insert Circuito completo
--- CALL Circuito1AA(fecha, equipoID, origenID);
-CREATE PROCEDURE Circuito1AA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
-BEGIN
+insert into Tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) values
+-- encedalo / titan - baja aceleracion
+(41, 3, 5, "2022-06-04 20:00:00", "2022-06-07 19:10:00", 500),
+(22, 5, 3, "2022-06-04 20:00:00", "2022-06-07 19:40:00", 500),
+-- encedalo / titan - alta aceleracion
+(30, 3, 5, "2022-05-30 09:00:00", "2022-06-02 10:40:00", 500),
+(31, 3, 3, "2022-05-30 09:00:00", "2022-06-02 10:10:00", 500);
 
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaSalida2 DATETIME;
-DECLARE fechaSalida3 DATETIME;
-DECLARE fechaSalida4 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-DECLARE fechaLlegada2 DATETIME;
-DECLARE fechaLlegada3 DATETIME;
-DECLARE fechaLlegada4 DATETIME;
+/*
+table Usuario
+	id integer unique primary key,
+	nombre varchar(35) not null,
+	apellido varchar(45) not null,
+	IDLogin integer not null,
+	activado boolean,
+	IDNivelVuelo integer,
+	foreign key (IDLogin) references Login(id),
+	foreign key (IDNivelVuelo) references NivelVuelo(id)
+*/
 
--- IDA
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 3 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 4 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 5 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 6 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 17 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 18 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 30 HOUR );
+-- datos para probar facturacion
+insert into gauchorocket.login (email, pass) values
+                                                 ("a@a.com", "123"),
+                                                 ("a@a.com", "123"),
+                                                 ("a@a.com", "123");
 
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
--- ISS / Orbital Hotel
-(equipo, 3, 4, fechaSalida2, fechaLlegada2, 150),
--- Orbital hotel / luna -
-(equipo, 4, 5, fechaSalida3, fechaLlegada3, 250),
--- luna / marte- 
-(equipo, 5, 6, fechaSalida4, fechaLlegada4, 300);
+insert into Usuario (id, nombre, apellido, IDLogin, IDNivelVuelo) values
+                                                                      (1, "Usuario Vuelo 1", "Nivel 1", 1, 1),
+                                                                      (2, "Usuario Vuelo 2", "Nivel 2", 1, 2),
+                                                                      (3, "Usuario Vuelo 3", "Nivel 3", 2, 3);
 
--- VUELTA
-SET fechaSalida1 = date_add(fecha, INTERVAL 48 HOUR );
-SET fechaLlegada1 = date_add(fecha, INTERVAL 70 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 71 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 80 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 81 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 82 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 83 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 86 HOUR );
+/*
+create table Reserva
+	UsuarioID integer not null,
+	TramoID integer not null,
+	fecha datetime not null,
+	PagoID integer,
+	CheckInID integer,
+	ServicioID integer not null,
+	primary key (UsuarioID, TramoID),
+	foreign key (UsuarioID) references Usuario(id),
+	foreign key (TramoID) references Tramo(id),
+	foreign key (ServicioID) references ServicioABordo(id)
+ */
+insert into reserva (UsuarioID, TramoID, fecha , ServicioID) values
+                                                                 (1, 1, "2022-06-01 20:00:00", 1),
+                                                                 (1, 5, "2022-06-01 22:00:00", 1),
+                                                                 (2, 11, "2022-06-01 20:00:00", 2),
+                                                                 (3, 50, "2022-06-01 20:00:00", 2);
 
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- marte / luna
-(equipo, 6, 5, fechaSalida1, fechaLlegada1, 300),
--- luna / orbital hotel
-(equipo, 5, 4, fechaSalida2, fechaLlegada2, 250),
--- orbital hotel / ISS
-(equipo, 4, 3, fechaSalida3, fechaLlegada3, 150),
--- ISS / BA
-(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
-END$$
+-- select * from reserva r;
+insert into pago (transaccion, importe, fecha)
+values ("1lvl5000", 5000, "2022-06-01 20:00:00"),
+       ("1lvl4000", 4000, "2022-06-01 20:00:01"),
+       ("2lvl2000", 2000, "2022-06-01 20:00:02"),
+       ("3lvl3000", 3000, "2022-06-01 20:00:03");
 
+update reserva
+set pagoID = 1
+where TramoID = 1;
 
+update reserva
+set pagoID = 2
+where TramoID = 5;
+update reserva
+set pagoID = 3
+where TramoID = 11;
+update reserva
+set pagoID = 4
+where TramoID = 50;
 
-DELIMITER $$
--- Insert Circuito1 completo
--- CALL Circuito1BA(fecha, equipoID, origenID);
-CREATE PROCEDURE Circuito2BA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
-BEGIN
-
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaSalida2 DATETIME;
-DECLARE fechaSalida3 DATETIME;
-DECLARE fechaSalida4 DATETIME;
-DECLARE fechaSalida5 DATETIME;
-DECLARE fechaSalida6 DATETIME;
-DECLARE fechaSalida7 DATETIME;
-DECLARE fechaSalida8 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-DECLARE fechaLlegada2 DATETIME;
-DECLARE fechaLlegada3 DATETIME;
-DECLARE fechaLlegada4 DATETIME;
-DECLARE fechaLlegada5 DATETIME;
-DECLARE fechaLlegada6 DATETIME;
-DECLARE fechaLlegada7 DATETIME;
-DECLARE fechaLlegada8 DATETIME;
--- IDA
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 4 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 5 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 19 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 20 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 46 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 47 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 95 HOUR );
-SET fechaSalida5 = date_add(fecha, INTERVAL 96 HOUR );
-SET fechaLlegada5 = date_add(fecha, INTERVAL 146 HOUR );
-SET fechaSalida6 = date_add(fecha, INTERVAL 147 HOUR);
-SET fechaLlegada6 = date_add(fecha, INTERVAL 198 HOUR );
-SET fechaSalida7 = date_add(fecha, INTERVAL 200 HOUR );
-SET fechaLlegada7 = date_add(fecha, INTERVAL 270 HOUR );
-SET fechaSalida8 = date_add(fecha, INTERVAL 272 HOUR );
-SET fechaLlegada8 = date_add(fecha, interval 349 HOUR );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- origen / ISS
-(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
--- ISS / luna
-(equipo, 3, 5, fechaSalida2, fechaLlegada2, 150),
--- luna / marte-
-(equipo, 5, 6, fechaSalida3, fechaLlegada3, 250),
--- marte / ganimedes
-(equipo, 6, 7, fechaSalida4, fechaLlegada4, 300),
--- ganimedes / europa
-(equipo, 7, 8, fechaSalida1, fechaLlegada1, 100),
--- europa / lo
-(equipo, 8, 9, fechaSalida2, fechaLlegada2, 150),
--- lo / encedalo
-(equipo, 9, 10, fechaSalida3, fechaLlegada3, 250),
--- encedalo / titan 
-(equipo, 10, 11, fechaSalida4, fechaLlegada4, 300);
-
--- VUELTA
-SET fechaSalida1 = date_add(fecha, INTERVAL 360 HOUR );
-SET fechaLlegada1 = date_add(fecha, INTERVAL 437 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 438 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 508 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 509 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 560 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 562 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 612 HOUR );
-SET fechaSalida5 = date_add(fecha, INTERVAL 613 HOUR );
-SET fechaLlegada5 = date_add(fecha, INTERVAL 661 HOUR );
-SET fechaSalida6 = date_add(fecha, INTERVAL 662 HOUR);
-SET fechaLlegada6 = date_add(fecha, INTERVAL 687 HOUR );
-SET fechaSalida7 = date_add(fecha, INTERVAL 688 HOUR );
-SET fechaLlegada7 = date_add(fecha, INTERVAL 701 HOUR );
-SET fechaSalida8 = date_add(fecha, INTERVAL 702 HOUR );
-SET fechaLlegada8 = date_add(fecha, INTERVAL 706 HOUR );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- titan / encedalo
-(equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
--- encedalo / lo
-(equipo, 10, 9, fechaSalida2, fechaLlegada2, 250),
--- lo / europa
-(equipo, 9, 8, fechaSalida3, fechaLlegada3, 150),
--- europa / ganimedes
-(equipo, 8, 7, fechaSalida4, fechaLlegada4, 100),
--- ganimedes / marte
-(equipo, 7, 6, fechaSalida1, fechaLlegada1, 300),
--- marte / luna
-(equipo, 6, 5, fechaSalida2, fechaLlegada2, 250),
--- luna / ISS
-(equipo, 5, 3, fechaSalida3, fechaLlegada3, 150),
--- ISS / origen
-(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
-END$$
-
-DELIMITER $$
--- Insert Circuito completo
--- CALL Circuito1AA(fecha, equipoID, origenID);
-CREATE PROCEDURE Circuito2AA(IN fecha DATETIME, IN equipo INTEGER, IN origen INTEGER)
-BEGIN
-
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaSalida2 DATETIME;
-DECLARE fechaSalida3 DATETIME;
-DECLARE fechaSalida4 DATETIME;
-DECLARE fechaSalida5 DATETIME;
-DECLARE fechaSalida6 DATETIME;
-DECLARE fechaSalida7 DATETIME;
-DECLARE fechaSalida8 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-DECLARE fechaLlegada2 DATETIME;
-DECLARE fechaLlegada3 DATETIME;
-DECLARE fechaLlegada4 DATETIME;
-DECLARE fechaLlegada5 DATETIME;
-DECLARE fechaLlegada6 DATETIME;
-DECLARE fechaLlegada7 DATETIME;
-DECLARE fechaLlegada8 DATETIME;
--- IDA
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 3 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 4 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 14 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 15 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 27 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 28 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 60 HOUR );
-SET fechaSalida5 = date_add(fecha, INTERVAL 61 HOUR );
-SET fechaLlegada5 = date_add(fecha, INTERVAL 94 HOUR );
-SET fechaSalida6 = date_add(fecha, INTERVAL 95 HOUR);
-SET fechaLlegada6 = date_add(fecha, INTERVAL 130 HOUR );
-SET fechaSalida7 = date_add(fecha, INTERVAL 131 HOUR );
-SET fechaLlegada7 = date_add(fecha, INTERVAL 181 HOUR );
-SET fechaSalida8 = date_add(fecha, INTERVAL 182 HOUR );
-SET fechaLlegada8 = date_add(fecha, INTERVAL 232 HOUR );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- origen / ISS
-(equipo, origen, 3, fechaSalida1, fechaLlegada1, 100),
--- ISS / luna
-(equipo, 3, 5, fechaSalida2, fechaLlegada2, 150),
--- luna / marte-
-(equipo, 5, 6, fechaSalida3, fechaLlegada3, 250),
--- marte / ganimedes
-(equipo, 6, 7, fechaSalida4, fechaLlegada4, 300),
--- ganimedes / europa
-(equipo, 7, 8, fechaSalida1, fechaLlegada1, 100),
--- europa / lo
-(equipo, 8, 9, fechaSalida2, fechaLlegada2, 150),
--- lo / encedalo
-(equipo, 9, 10, fechaSalida3, fechaLlegada3, 250),
--- encedalo / titan 
-(equipo, 10, 11, fechaSalida4, fechaLlegada4, 300);
-
--- VUELTA
-SET fechaSalida1 = date_add(fecha, INTERVAL 240 HOUR );
-SET fechaLlegada1 = date_add(fecha, INTERVAL 292 HOUR );
-SET fechaSalida2 = date_add(fecha, INTERVAL 293 HOUR);
-SET fechaLlegada2 = date_add(fecha, INTERVAL 343 HOUR );
-SET fechaSalida3 = date_add(fecha, INTERVAL 344 HOUR );
-SET fechaLlegada3 = date_add(fecha, INTERVAL 379 HOUR );
-SET fechaSalida4 = date_add(fecha, INTERVAL 380 HOUR );
-SET fechaLlegada4 = date_add(fecha, INTERVAL 411 HOUR );
-SET fechaSalida5 = date_add(fecha, INTERVAL 412 HOUR );
-SET fechaLlegada5 = date_add(fecha, INTERVAL 444 HOUR );
-SET fechaSalida6 = date_add(fecha, INTERVAL 445 HOUR);
-SET fechaLlegada6 = date_add(fecha, INTERVAL 467 HOUR );
-SET fechaSalida7 = date_add(fecha, INTERVAL 468 HOUR );
-SET fechaLlegada7 = date_add(fecha, INTERVAL 478 HOUR );
-SET fechaSalida8 = date_add(fecha, INTERVAL 479 HOUR );
-SET fechaLlegada8 = date_add(fecha, INTERVAL 482 HOUR );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- titan / encedalo
-(equipo, 11, 10, fechaSalida1, fechaLlegada1, 300),
--- encedalo / lo
-(equipo, 10, 9, fechaSalida2, fechaLlegada2, 250),
--- lo / europa
-(equipo, 9, 8, fechaSalida3, fechaLlegada3, 150),
--- europa / ganimedes
-(equipo, 8, 7, fechaSalida4, fechaLlegada4, 100),
--- ganimedes / marte
-(equipo, 7, 6, fechaSalida1, fechaLlegada1, 300),
--- marte / luna
-(equipo, 6, 5, fechaSalida2, fechaLlegada2, 250),
--- luna / ISS
-(equipo, 5, 3, fechaSalida3, fechaLlegada3, 150),
--- ISS / origen
-(equipo, 3, origen, fechaSalida4, fechaLlegada4, 100);
-END$$
-
-DELIMITER $$
--- Insert tour
--- CALL Tour(fecha, equipoID);
-CREATE PROCEDURE Tour(IN fecha DATETIME, IN equipo INTEGER)
-BEGIN
-
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 35 day );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(equipo, 1, 1, fechaSalida1, fechaLlegada1, 500);
-END$$
-
-DELIMITER $$
--- Insert tour
--- CALL Orbital(fecha, equipo,  origen );
-CREATE PROCEDURE Orbital(IN fecha DATETIME, IN equipo INTEGER, in origen INTEGER)
-BEGIN
-
-DECLARE fechaSalida1 DATETIME;
-DECLARE fechaLlegada1 DATETIME;
-
-SET fechaSalida1 = fecha;
-SET fechaLlegada1 = date_add(fecha, INTERVAL 8 hour );
-
-INSERT INTO tramo (EquipoID, OrigenID, DestinoID, FechaSalida, FechaLlegada, Precio) VALUES
--- BA / ISS
-(equipo, origen, origen, fechaSalida1, fechaLlegada1, 80);
-END$$
