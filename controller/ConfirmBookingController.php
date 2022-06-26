@@ -22,12 +22,11 @@ class ConfirmBookingController
 
     public function confirm()
     {
-        if(!isset($_SESSION['user']["id"]) /*or ]$_SESSION['user']["id" =="" */){
+        if (!isset($_SESSION['user']["id"])) {
             SessionManager::finsh();
-            $message =  'Debe estar logueado para reservar';
+            $message = 'Debe estar logueado para reservar';
             SessionManager::setMessageAlert($message, 'danger');
             $this->show();
-            //Redirect::to("/login");
             die();
         }
         $datos = $this->getDatos();
@@ -36,7 +35,7 @@ class ConfirmBookingController
         $nivelesDeVueloDelEquipo = $this->confirmBookingModel->getNivelVueloDelEquipo($datos["equipoId"]);
 
         $valoresDeLosNiveles = [];
-        for($i = 0; $i<sizeof($nivelesDeVueloDelEquipo); $i++) {
+        for ($i = 0; $i < sizeof($nivelesDeVueloDelEquipo); $i++) {
             $values = array_values($nivelesDeVueloDelEquipo[$i]);
             $valoresDeLosNiveles[$i] = $values[0];
         }
@@ -83,9 +82,13 @@ class ConfirmBookingController
         $tramoIdOrigen = isset($_POST["origenId"]) ? $_POST["origenId"] : "";
         $tramoIdDestino = isset($_POST["destinoId"]) ? $_POST["destinoId"] : "";
 
+        if (empty($cabinaId) || empty($servicioId) || empty($tramoIdOrigen)) {
+            Redirect::to("/home");
+        }
+
         $nombreDeCabina = $this->confirmBookingModel->getNombreDeCabina($cabinaId);
         $servicio = $this->confirmBookingModel->getServicioById($servicioId);
-        $precioVuelo  = $this->confirmBookingModel->getPrecioVuelo($tramoIdOrigen, $tramoIdDestino);
+        $precioVuelo = $this->confirmBookingModel->getPrecioVuelo($tramoIdOrigen, $tramoIdDestino);
         $total = $precioVuelo + $servicio[0]["precio"];
 
         return $preload = [

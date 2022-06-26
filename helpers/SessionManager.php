@@ -24,13 +24,14 @@ class SessionManager
         return $array[0]['id'];
     }
 
-    public static function saveUserData($userId, $email)
+    public static function saveUserData($userId, $email, $userRol)
     {
         // Se asigna id de usuario a la sesion
         // Luego desde el <<userModel>> con el Id de usuario accedemos a cualquier dato
         $_SESSION['user'] = array(
             "id" => $userId,
-            "email" => $email
+            "email" => $email,
+            "isAdmin" => $userRol
         );
 
         Redirect::to("/");
@@ -40,8 +41,10 @@ class SessionManager
     {
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
+            $messageLevel = $_SESSION['message_level'];
             unset($_SESSION['message']);
-            return "<div class='alert alert-{$_SESSION['message_level']} m-2' role='alert'>" .
+            unset($_SESSION['message_level']);
+            return "<div class='alert alert-{$messageLevel} m-2' role='alert'>" .
                 $message .
                 "</div>";
         }
