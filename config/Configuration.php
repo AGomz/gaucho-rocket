@@ -85,6 +85,14 @@ class Configuration
         return new ErrorController($this->createPrinter());
     }
 
+    public function createReporteController()
+    {
+        require_once("controller/ReporteController.php");
+        return new ReporteController(
+            $this->createReporteModel(),
+            $this->createPrinter());
+    }
+
     // Modelos
     private function createUserModel()
     {
@@ -133,6 +141,13 @@ class Configuration
         require_once("model/CheckInModel.php");
         $database = $this->getDatabase();
         return new CheckInModel($database);
+    }
+
+    private function createReporteModel()
+    {
+        require_once("model/ReporteModel.php");
+        $database = $this->getDatabase();
+        return new ReporteModel($database);
     }
 
     // Helpers
