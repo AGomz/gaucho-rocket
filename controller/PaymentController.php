@@ -20,6 +20,7 @@ class PaymentController
 
     public function confirm()
     {
+        SessionManager::checkIfSessionIsNotValid();
         $numeroDeTarjeta = isset($_POST["numeroDeTarjeta"]) ? $_POST["numeroDeTarjeta"] : "";
         $nombreTitular = isset($_POST["nombreTitular"]) ? $_POST["nombreTitular"] : "";
         $fechaDeExpiracion = isset($_POST["fechaDeExpiracion"]) ? $_POST["fechaDeExpiracion"] : "";
