@@ -12,7 +12,7 @@ class Database
 
         if ($this->connection->connect_error) {
             $this->logger->error('Falló la conexión con db. ' . $this->connection->connect_error);
-            die();
+            Redirect::to("/error");
         }
     }
 

@@ -64,13 +64,13 @@ class ConfirmBookingModel
         $reservaId = $this->database->lastID();
 
         $tramoId = intval($tramoIdOrigen);
-        while ($tramoId <= $tramoIdDestino) {
+        do {
             $query = "insert into reservatramo (reservaid, tramoid)
                     values (${reservaId}, ${tramoId})";
             $this->database->insertQuery($query);
 
             $tramoId++;
-        }
+        } while ($tramoId <= $tramoIdDestino);
 
         return $reservaId;
     }
@@ -80,7 +80,7 @@ class ConfirmBookingModel
         $precioVuelo = 0;
 
         $tramoId = intval($tramoIdOrigen);
-        while ($tramoId <= $tramoIdDestino) {
+        do {
             $query = "select precio from tramo
                     where id=${tramoId}";
 
@@ -89,7 +89,7 @@ class ConfirmBookingModel
             $precioVuelo += $tramo[0]["precio"];
 
             $tramoId++;
-        }
+        } while ($tramoId <= $tramoIdDestino);
 
         return $precioVuelo;
     }
