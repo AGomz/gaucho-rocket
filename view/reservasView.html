@@ -29,15 +29,25 @@
             {{/pagoid}}
         </div>
     </div>
-    <div class="card-body">
-        <h6 class="card-title">Descripción</h6>
-        <p class="card-text">Salida: {{salida}} - {{origen}} <br>
-            Llegada: {{llegada}} - {{destino}}<br>
-        </p>
-        <span class="font-weight-bold">Cabina: {{cabina}}</span> <br>
-        <span>Servicio: {{servicio}}</span><br><br>
-        <h6 class="card-title">Precio: {{precio}} Créditos</h6>
-    </div>
+    <form action="{{URLS.domain_name}}/reservas/irAPagar" method="POST">
+        <input type="hidden" name="reservaId" value="{{reservaId}}" />
+        <input type="hidden" name="precio" value="{{precio}}" />
+
+        <div class="card-body">
+            <h6 class="card-title">Descripción</h6>
+            <p class="card-text">Salida: {{salida}} - {{origen}} <br>
+                Llegada: {{llegada}} - {{destino}}<br>
+            </p>
+            <span class="font-weight-bold">Cabina: {{cabina}}</span> <br>
+            <span>Servicio: {{servicio}}</span><br><br>
+            <h6 class="card-title">Precio: {{precio}} Créditos</h6>
+            {{^pagoid}}
+            <div class="input-buttons text-center">
+                <button type="submit" class="btn btn-primary btn-block">Pagar ahora</button>
+            </div>
+            {{/pagoid}}
+        </div>
+    </form>
 </div>
 {{/proxVuelos}}
 

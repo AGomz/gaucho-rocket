@@ -22,4 +22,15 @@ class ReservasController
 
         echo $this->printer->render("view/reservasView.html", $datos);
     }
+
+    public function irAPagar()
+    {
+        SessionManager::checkIfSessionIsNotValid();
+
+        $precio = isset($_POST["precio"]) ? $_POST["precio"] : "";
+        $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
+
+        SessionManager::setDatosDeReserva($reservaId, "", $precio);
+        Redirect::to("/payment");
+    }
 }
