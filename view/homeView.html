@@ -1,7 +1,7 @@
 {{>header}}
 
 <section class="busqueda" style='padding:12% 5%;margin-bottom:2%;'>
-<div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+<div class="container w-75 mx-auto py-5" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
 
     <form class="needs-validation" action="{{URLS.domain_name}}/search/execute" method="POST" novalidate>
         <div class="row">
@@ -81,9 +81,8 @@
             <img src="{{URLS.img}}/nave.jpg" class="card-img-top h-100" alt="Imagen de nave">
             <div class="card-body">
                 <h5 class="card-title">Próximas salidas</h5>
-                <p>TODO:</p>
-                <p>SELECT * FROM tramo t WHERE t.fechasalida > CURDATE() ORDER BY t.fechasalida LIMIT 5; + Link a la
-                    reserva?</p>
+                <h6>Neptuno</h6>
+                <p>Realizá un tour por distintos lugares hasta pasar por Neptuno</p>
             </div>
         </div>
     </div>
@@ -92,12 +91,11 @@
             <img src="{{URLS.img}}/marte.jpg" class="card-img-top h-100" alt="Imagen de marte">
             <div class="card-body">
                 <h5 class="card-title">Destinos más visitados</h5>
-                <p>TODO:</p>
-                <p>SELECT nombre FROM destino ORDER BY RAND() LIMIT 5;</p>
+                <h6>Marte</h6>
+                <p>Conocé el segundo planeta más pequeño del sistema solar</p>
             </div>
         </div>
     </div>
-    <a href="{{URLS.domain_name}}/error">errorTest</a>
 </div>
 
 {{>footer}}
