@@ -99,4 +99,9 @@ class SessionManager
         session_unset();
         session_destroy();
     }
+
+    public static function userIsAdmin()
+    {
+        return isset($_SESSION['user']["isAdmin"]) && $_SESSION['user']["isAdmin"] == 2;
+    }
 }

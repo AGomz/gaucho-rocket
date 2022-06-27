@@ -12,6 +12,9 @@ class GauchoRocketController
 
     public function show()
     {
-        echo $this->printer->render("view/homeView.html");
+        if (SessionManager::userIsAdmin())
+            echo $this->printer->render("view/homeAdminView.html");
+        else
+            echo $this->printer->render("view/homeView.html");
     }
 }
