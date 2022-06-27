@@ -16,15 +16,22 @@ class SearchModel
         $query = "select t.id as tramoIdOrigen, 
                     t.equipoid as idEquipo, 
                     t.fechasalida as salida, 
-                    dd.nombre as origen
+                    dd.nombre as origen,
+					c.nombre as cabina
                     from tramo t 
                     join destino dd 
                     on dd.id=t.origenid
+					join equipo e 
+                    on t.equipoid = e.id
+                    join capacidadcabina cb
+                    on e.id = cb.equipoid
+                    join cabina c
+                    on cb.cabinaid = c.id
                     where t.origenid = $origen ";
 
 
         if ($fecha != "") {
-            $query = $query . " and t.fechasalida > \"{$fecha};\" ";
+            $query = $query . " and date(t.fechasalida) = \"{$fecha};\" ";
         }
         $query = $query . " order by t.fechasalida asc";
 
@@ -94,7 +101,7 @@ class SearchModel
                     on cb.cabinaid = c.id
                     where t.origenid = t.destinoid 
                     and datediff(date(t.fechallegada), date(t.fechasalida)) = 35 
-                    and t.fechasalida > \"{$fecha}\"
+                    and date(t.fechasalida) = \"{$fecha}\"
                     order by t.fechasalida ;";
 
         return $this->database->query($query);
@@ -122,7 +129,7 @@ class SearchModel
                     on cb.cabinaid = c.id
                     where t.origenid = t.destinoid
                         and datediff(date(t.fechallegada), date(t.fechasalida)) = 0
-                        and t.fechasalida > \"{$fecha}\"
+                        and date(t.fechasalida) = \"{$fecha}\"
                         and t.origenid = {$origen}
                     order by t.fechasalida;";
 
