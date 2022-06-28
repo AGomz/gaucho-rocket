@@ -35,7 +35,13 @@ class SearchModel
         }
         $query = $query . " order by t.fechasalida asc";
 
-        return  $this->database->query($query);
+        $result = $this->database->query($query);
+
+        foreach ($result as &$tramo) {
+            $tramo['cabinas'] = $this->getCabinas($tramo['idEquipo']);
+        }
+
+        return  $result;
     }
 
     public function getTramoDestino($destino, $equipo, $fecha, $tramoIdOrigen)
@@ -86,8 +92,7 @@ class SearchModel
                     t.fechasalida as salida,
                     d.nombre as origen, 
                     t.fechallegada as llegada,
-                    d2.nombre  as destino,
-                    c.nombre as cabina
+                    d2.nombre  as destino
                     from tramo t
                     inner join destino d 
                     on d.id = t.origenid
@@ -95,16 +100,21 @@ class SearchModel
                     on d2.id = destinoid
 					join equipo e 
                     on t.equipoid = e.id
-                    join capacidadcabina cb
-                    on e.id = cb.equipoid
-                    join cabina c
-                    on cb.cabinaid = c.id
                     where t.origenid = t.destinoid 
-                    and datediff(date(t.fechallegada), date(t.fechasalida)) = 35 
-                    and date(t.fechasalida) = \"{$fecha}\"
-                    order by t.fechasalida ;";
+                    and datediff(date(t.fechallegada), date(t.fechasalida)) = 35";
 
-        return $this->database->query($query);
+        if ($fecha != "") {
+            $query = $query . " and date(t.fechasalida) = \"{$fecha};\" ";
+        }
+        $query = $query . " order by t.fechasalida asc;";
+
+        $result = $this->database->query($query);
+
+        foreach ($result as &$tramo) {
+            $tramo['cabinas'] = $this->getCabinas($tramo['idEquipo']);
+        }
+
+        return $result;
     }
 
     public function getDatosSuborbital($origen, $fecha)
@@ -114,8 +124,7 @@ class SearchModel
                     t.fechasalida as salida,
                     d.nombre as origen, 
                     t.fechallegada as llegada,
-                    d2.nombre  as destino,
-                    c.nombre as cabina
+                    d2.nombre  as destino
                     from tramo t
                     inner join destino d 
                     on d.id = t.origenid
@@ -123,15 +132,32 @@ class SearchModel
                     on d2.id = destinoid
 					join equipo e 
                     on t.equipoid = e.id
-                    join capacidadcabina cb
-                    on e.id = cb.equipoid
-                    join cabina c
-                    on cb.cabinaid = c.id
                     where t.origenid = t.destinoid
                         and datediff(date(t.fechallegada), date(t.fechasalida)) = 0
-                        and date(t.fechasalida) = \"{$fecha}\"
-                        and t.origenid = {$origen}
-                    order by t.fechasalida;";
+                        and t.origenid = {$origen}";
+
+        if ($fecha != "") {
+            $query = $query . " and date(t.fechasalida) = \"{$fecha};\" ";
+        }
+        $query = $query . " order by t.fechasalida asc;";
+
+        $result = $this->database->query($query);
+
+        foreach ($result as &$tramo) {
+            $tramo['cabinas'] = $this->getCabinas($tramo['idEquipo']);
+        }
+
+        return $result;
+    }
+
+    private function getCabinas($equipoId)
+    {
+
+        $query = "SELECT c.id, c.nombre 
+                    FROM equipo e
+                    JOIN capacidadcabina cb ON e.id = cb.equipoid
+                    JOIN cabina c ON cb.cabinaid = c.id
+                    WHERE e.id = $equipoId";
 
         return $this->database->query($query);
     }
