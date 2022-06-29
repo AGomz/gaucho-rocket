@@ -28,7 +28,9 @@
                 <div class="col-4 position-relative">
                     <select class="form-select select" aria-label="Opciones de cabina" name="cabinaId" required>
                         <option value="">Cabina</option>
-                        <option value="">{{cabina}}</option>
+                        {{#cabinas}}
+                        <option value="{{id}}">{{nombre}}</option>
+                        {{/cabinas}}
                     </select>
                     <div class="valid-tooltip">Cabina seleccionada</div>
                     <div class="invalid-tooltip">Seleccione una cabina</div>
