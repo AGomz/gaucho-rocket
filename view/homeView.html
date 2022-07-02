@@ -42,8 +42,14 @@
                 <div class="invalid-tooltip">Seleccione un origen</div>
             </div>
 
+            <div class="col-1 position-relative">
+                <button id="toggle" type="button" class="btn btn-primary" title="cambiar">
+                   <i class="fa-solid fa-arrow-right-arrow-left"></i> 
+                </button>
+            </div>
+
             <div class="col-3 position-relative">
-                <select class="form-select select" name="destino" required>
+                <select class="form-select select" id="select-destino" name="destino" required>
                     <option value="">Seleccionar destino</option>
                     <option value="1">Tierra - Buenos Aires</option>
                     <option value="2">Tierra - Ankara</option>

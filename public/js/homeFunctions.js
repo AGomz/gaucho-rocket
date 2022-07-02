@@ -9,8 +9,10 @@ function cambiarEstadoDeSelects(){
     let opciones = document.querySelectorAll(".option-dis");
     let opDis = document.querySelectorAll(".dis");
     let opHab = document.querySelectorAll(".hab");
+    let btnToggleDestinos = document.getElementById('toggle');
 
     let selectOrigen = document.getElementById("select-origen");
+    let selectDestino = document.getElementById("select-destino");
 
     /*Habilitar selects usando radio ida*/
     idaRadio.addEventListener('click', function(){
@@ -20,6 +22,7 @@ function cambiarEstadoDeSelects(){
             opciones.forEach(element => {
                 element.setAttribute("class", "show");
             })
+            btnToggleDestinos.disabled = false;
         }
     })
 
@@ -28,6 +31,8 @@ function cambiarEstadoDeSelects(){
         opciones.forEach(element => {
             element.setAttribute("class", "hidden");
         })
+        btnToggleDestinos.disabled = true;
+        selectOrigen.value = "";
     })
 
     subRadio.addEventListener('click', function(){
@@ -37,6 +42,8 @@ function cambiarEstadoDeSelects(){
         opDis.forEach(element => {
             element.setAttribute("class", "hidden");
         })
+        btnToggleDestinos.disabled = true;
+        selectOrigen.value = "";
     })
 
     /*Deshabilitar select al seleccionar radio tour y suborbital*/
@@ -44,6 +51,7 @@ function cambiarEstadoDeSelects(){
         radios[i].addEventListener('click', function(){
             for (let i = 0; i < selectsDinamicos.length; i++) {
                 selectsDinamicos[i].disabled = true;
+                selectsDinamicos[i].value = "";
             }
         })
     }
@@ -65,9 +73,27 @@ function validarSelects(){
     })
 }
 
+function toggleDestinos() {
+    const btnToggleDestinos = document.getElementById('toggle');
+
+    btnToggleDestinos.addEventListener('click', () => {
+
+        const selectOrigen = document.getElementById('select-origen');
+        const origen = selectOrigen.options[selectOrigen.selectedIndex].value;
+
+        const selectDestino = document.getElementById('select-destino');
+        const destino = selectDestino.options[selectDestino.selectedIndex].value;
+
+        selectOrigen.value = destino;
+        selectDestino.value = origen;
+    });
+
+}
+
 window.onload = function(){
     cambiarEstadoDeSelects();
     validarSelects();
+    toggleDestinos();
 }
 
 

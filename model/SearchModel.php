@@ -11,29 +11,25 @@ class SearchModel
         $this->database = $database;
     }
 
-    public function getTramoOrigen($origen, $fecha)
+    private function getTramoOrigen($origen, $fecha, $tipo)
     {
-        $query = "select t.id as tramoIdOrigen, 
+        $query = "select distinct t.id as tramoIdOrigen, 
                     t.equipoid as idEquipo, 
                     t.fechasalida as salida, 
-                    dd.nombre as origen,
-					c.nombre as cabina
+                    dd.nombre as origen
                     from tramo t 
                     join destino dd 
                     on dd.id=t.origenid
-					join equipo e 
-                    on t.equipoid = e.id
-                    join capacidadcabina cb
-                    on e.id = cb.equipoid
-                    join cabina c
-                    on cb.cabinaid = c.id
-                    where t.origenid = $origen ";
+                    where t.origenid = $origen 
+                    and t.origenid != t.destinoid ";
 
+        // Trae origenes sólo de ida o de vuelta de los circuitos
+        $query = ($tipo === 'IDA') ? ($query . 'and t.destinoid > t.origenid ') : ($query . 'and t.destinoid < t.origenid ');
 
         if ($fecha != "") {
             $query = $query . " and date(t.fechasalida) = \"{$fecha};\" ";
         }
-        $query = $query . " order by t.fechasalida asc";
+        $query = $query . " order by t.fechasalida asc;";
 
         $result = $this->database->query($query);
 
@@ -44,7 +40,7 @@ class SearchModel
         return  $result;
     }
 
-    public function getTramoDestino($destino, $equipo, $fecha, $tramoIdOrigen)
+    private function getTramoDestino($destino, $equipo, $fecha, $tramoIdOrigen)
     {
         $query =    "select t.id as tramoIdDestino, 
                     t.equipoid, 
@@ -56,8 +52,8 @@ class SearchModel
                     where d.id = $destino 
                     and t.equipoid = $equipo 
                     and t.fechallegada >= \"{$fecha}\" 
-                    /* tramos consecutivos deben ser menor al maximo total de tramos del circuito */
-                    and ABS(t.id - $tramoIdOrigen) <= 11
+                    /* LIMITA A 1 RECORRIDO DE IDA SOLO O VUELTA SOLO */
+                    and ABS(t.id - $tramoIdOrigen) < 11
                     order by t.id, t.fechallegada limit 1";
 
         return  $this->database->query($query);
@@ -66,17 +62,12 @@ class SearchModel
     public function getTramoCompleto($origen, $destino, $fecha)
     {
         $resultado = [];
-        $salidas = $this->getTramoOrigen($origen, $fecha);
+        $tipo = ($destino > $origen) ? 'IDA' : 'VUELTA';
+        $salidas = $this->getTramoOrigen($origen, $fecha, $tipo);
 
         foreach ($salidas as $tramo) {
             $llegadas = $this->getTramoDestino($destino, $tramo['idEquipo'], $tramo['salida'], $tramo['tramoIdOrigen']);
-            /*
-            * No permito las busquedas entre $origen == $destino
-            * Así elimina vuelos suborbital y tour y evita que el cliente
-            * compre un vuelo con reccorido completo de ida y vuelta
-            * por todo el circuito
-            */
-            if (count($llegadas) > 0 && $origen != $destino) {
+            if (count($llegadas) > 0) {
                 //asigno
                 $resultado[] = array_merge($tramo, $llegadas[0]);
             }

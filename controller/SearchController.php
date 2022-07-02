@@ -38,9 +38,9 @@ class SearchController
 
         if (sizeof($datos) > 0) {
             $result = ["datos" => $datos];
-            $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.']);
+            $data = array_merge($result, ["messageResult" => 'Realizar otra búsqueda.'], ["cantidadDeVuelos" => count($datos)]);
         } else {
-            $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
+            $data = array_merge(["messageResult" => 'No se encontraron resultados.'], ["cantidadDeVuelos" => count($datos)]);
         }
 
         $this->show($data);
