@@ -1,4 +1,10 @@
-{{>header}}
+{{#SESSION.user.isAdmin}}
+    {{>headerAdmin}}
+{{/SESSION.user.isAdmin}}
+
+{{^SESSION.user.isAdmin}}
+    {{>header}}
+{{/SESSION.user.isAdmin}}
 
 <div class="container">
 

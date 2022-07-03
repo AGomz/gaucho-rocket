@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/SessionManager.php");
+include_once("controller/BaseController.php");
 
 class Configuration
 {

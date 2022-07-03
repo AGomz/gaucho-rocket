@@ -1,7 +1,7 @@
 <?php
 
 
-class ConfirmBookingController
+class ConfirmBookingController extends BaseController
 {
     private $printer;
     private $confirmBookingModel;
@@ -22,13 +22,7 @@ class ConfirmBookingController
 
     public function confirm()
     {
-        if (!isset($_SESSION['user']["id"])) {
-            SessionManager::finsh();
-            $message = 'Debe estar logueado para reservar';
-            SessionManager::setMessageAlert($message, 'danger');
-            $this->show();
-            die();
-        }
+        $this->checkIfSessionIsNotValid("/login");
         $datos = $this->getDatos();
         $userId = SessionManager::getUserId();
         $nivelDeVueloUser = $this->userModel->getNivelDeVueloByUserID($userId);

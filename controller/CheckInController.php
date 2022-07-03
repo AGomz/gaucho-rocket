@@ -1,6 +1,6 @@
 <?php
 
-class CheckInController
+class CheckInController extends BaseController
 {
 
     private $checkInModel;
@@ -20,7 +20,7 @@ class CheckInController
 
     public function show($data = [])
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $userId = SessionManager::getUserId();
         $proximosVuelos = $this->checkInModel->getCheckInList($userId);
@@ -33,7 +33,7 @@ class CheckInController
 
     public function showCheckInDetail()
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $reservaId = $_POST['reservaId'] ?? null;
         $userId = SessionManager::getUserId();
@@ -47,7 +47,7 @@ class CheckInController
 
     public function validateCheckIn()
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $reservaId = $_POST['reservaId'] ?? null;
         $userId = SessionManager::getUserId();
@@ -72,7 +72,7 @@ class CheckInController
 
     public function generatePDF()
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $reservaId = $_POST['reservaId'] ?? null;
         $userId = SessionManager::getUserId();

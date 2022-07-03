@@ -1,7 +1,7 @@
 <?php
 
 
-class ReservasController
+class ReservasController extends BaseController
 {
     private $reservasModel;
     private $printer;
@@ -14,7 +14,7 @@ class ReservasController
 
     public function show($data = [])
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $userId = SessionManager::getUserId();
         $listadDeReservas = $this->reservasModel->gerReservasAMostrar($userId);
@@ -25,7 +25,7 @@ class ReservasController
 
     public function irAPagar()
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $precio = isset($_POST["precio"]) ? $_POST["precio"] : "";
         $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
@@ -36,7 +36,7 @@ class ReservasController
 
     public function cancelarReserva()
     {
-        SessionManager::checkIfSessionIsNotValid();
+        $this->checkIfSessionIsNotValid();
 
         $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
         $this->reservasModel->cancelarReserva($reservaId);
