@@ -188,9 +188,15 @@ class ReporteController extends BaseController
             $datos = $this->reporteModel->getFacturacionPorCliente($id);
             $datos = ["facturacionCliente" => $this->reporteModel->getFacturacionPorCliente($id)];
             $datos = array_merge($datos, ["facturacionClienteActiv" => true]);
-        } else if ($idTramo) {
-            $datos = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
-            $datos = ["ocupacionViaje" => $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo)];
+        } else if($idTramo){
+            $data = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
+            $contador = 0;
+
+            foreach($data as $dato){
+                $data[$contador]["porcentaje"] = (($dato["cantidad"]/$dato["maximo"])*100)."%";
+                $contador++;
+            }
+            $datos = ["ocupacionViaje" => $data];
             $datos = array_merge($datos, ["ocupacionActiv" => true]);
         }
 
