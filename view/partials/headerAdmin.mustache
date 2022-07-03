@@ -8,8 +8,8 @@
 
     <!-- Bootstrap CSS -->
     <link href="{{URLS.css}}/bootstrap.min.css" rel="stylesheet">
-
     <link href="{{URLS.css}}/home.css" rel="stylesheet">
+
     <!-- Font Awesome (iconos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -17,12 +17,15 @@
 
     <link rel="shortcut icon" href="{{URLS.img}}/favicon.ico" type="image/x-icon">
 
+    <style>
+        a{color: #000;text-decoration: none;}
+        i{padding: 0 5px}
+        td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;}
+    </style>
     <title>Gaucho Rocket {{ section }}</title>
-
 </head>
 
 <body>
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top bg-opacity-75 border-bottom shadow-sm"
      aria-label="Fourth navbar example">
@@ -40,20 +43,14 @@
         {{#SESSION}}
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Agregar Vuelo</a>
-                </li>
-                <!--Para probar la funcionalidad-->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{URLS.domain_name}}/reporte">Reportes</a>
-                </li>
+                <li class="nav-item"></li>
             </ul>
             <ul class="navbar-nav mb-2 mb-md-0 ">
                 <div>
             <span class="small text-muted">
                 {{SESSION.user.email}}
             </span>
-                    <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-user-gear"></i> Panel</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-user-gear"></i> Panel</button>
                     <a href="{{URLS.domain_name}}/login/logout">
                         <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out"></i> Logout</button>
                     </a>
@@ -79,6 +76,25 @@
     </div>
     </div>
 </nav>
+
+<!-- Panel lateral-->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel"
+     style="margin-top:55px !important;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title px-3" id="offcanvasScrollingLabel">Menú</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p><a href="{{URLS.domain_name}}/position" class=" px-3 my-1"><i class="fa-solid fa-map-pin"></i></i>Ver posición actual de la nave</a></p>
+        <p class="px-3"><i class="fa-solid fa-chart-column"></i>Consultar y generar reportes</p>
+        <p><a class="dropdown-item px-5" href="{{URLS.domain_name}}/reporte/getCabinaReport">Cabina más vendida</a></p>
+        <p><a class="dropdown-item px-5" href="{{URLS.domain_name}}/reporte/getMesReport">Facturación mensual</a></p>
+        <!-- REVISAR -->
+        <p><a class="dropdown-item px-5" href="{{URLS.domain_name}}/reporte/getClienteReport">Facturación por cliente</a></p>
+
+        <p><a class="dropdown-item px-5" href="{{URLS.domain_name}}/reporte/getOcupacion">Ocupación por viaje y equipo</a></p>
+    </div>
+</div>
 
 <!-- Muestra si hay algún mensaje en la session -->
 {{#message_alert}}

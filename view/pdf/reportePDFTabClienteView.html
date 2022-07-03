@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaucho Rocket - Reporte</title>
+    <style>
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        body {
+             font-family: Arial, Helvetica, sans-serif;
+         }
+        h2{
+            display: inline;
+        }
+        h4{
+            text-align: center;
+        }
+        .center {
+            margin: auto;
+            text-align: center;
+            margin-top: 10px;
+        }
+        header{
+            background-color: lightblue;
+            padding: 1px 10px;
+        }
+        .titulo{
+            padding: 0 10px;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<header><h2>Gaucho Rocket</h2><p class="titulo">Reportes</p></header>
+
+{{#facturacionClienteActiv}}
+<h4>Facturacion por cliente</h4>
+<table class="center">
+    <thead>
+    <tr>
+        <th>Id cliente</th>
+        <th>Importe</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#facturacionCliente}}
+    <tr>
+        <td>{{idusuario}}</td>
+        <td>{{importe}}</td>
+        <td>{{fecha}}</td>
+    </tr>
+    {{/facturacionCliente}}
+    </tbody>
+</table>
+{{/facturacionClienteActiv}}
+
+{{#ocupacionActiv}}
+<h4>Tasa de ocupacion por viaje y equipo</h4>
+<table>
+    <thead>
+    <tr>
+        <th>Cabina</th>
+        <th>Capacidad ocupada</th>
+        <th>Maximo de ocupacion</th>
+        <th>Porcentaje de ocupacion</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#ocupacionViaje}}
+    <tr>
+        <td>{{cabina}} </td>
+        <td>{{cantidad}}</td>
+        <td>{{maximo}}</td>
+        <td>{{porcentaje}}</td>
+    </tr>
+    {{/ocupacionViaje}}
+    </tbody>
+</table>
+{{/ocupacionActiv}}
+
+</body>
+</html>

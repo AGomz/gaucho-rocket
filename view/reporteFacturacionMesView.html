@@ -1,0 +1,53 @@
+{{>headerAdmin}}
+<section style="height: 100vh;margin-bottom: 80px;">
+<div class="container w-75 my-5 pt-3 text-center">
+    <h3 class="text-center">Facturación mensual</h3>
+
+    <form action="{{URLS.domain_name}}/reporte/getMesReport" method="POST" class="needs-validation" novalidate>
+        <div class="row w-50 mx-auto justify-content-center mt-5">
+            <div class="col position-relative">
+               <select class="form-select mb-3 mx-auto" aria-label=".form-select-lg example" name="fecha" required>
+                    <option selected disabled value="">Seleccione mes</option>
+                    <option value="2022-01-01">Enero</option>
+                    <option value="2022-02-01">Febrero</option>
+                    <option value="2022-03-01">Marzo</option>
+                    <option value="2022-04-01">Abril</option>
+                    <option value="2022-05-01">Mayo</option>
+                    <option value="2022-06-01">Junio</option>
+                    <option value="2022-07-01">Julio</option>
+                    <option value="2022-08-01">Agosto</option>
+                    <option value="2022-09-01">Septiembre</option>
+                    <option value="2022-10-01">Octubre</option>
+                    <option value="2022-11-01">Noviembre</option>
+                    <option value="2022-12-01">Diciembre</option>
+                </select>
+                <div class="valid-tooltip">Mes seleccionado</div>
+                <div class="invalid-tooltip">Seleccione un mes</div>
+            </div>
+            <div class="w-25">
+                <input type="submit" value="Buscar" class="btn btn-secondary">
+            </div>
+        </div>
+
+    </form>
+
+    {{#facturacionMesActiv}}
+    <div class="container w-75 mx-auto py-2">
+        <!-- IMAGEN GENERADA -->
+        <img src="{{URLS.domain_name}}/public/img/imagefile.png">
+    </div>
+
+    <form action="{{URLS.domain_name}}/reporte/getPDFReport" method="POST">
+        <input type="hidden" name="fecha" value="{{fecha}}">
+        <input type="submit" value="Generar PDF">
+    </form>
+    {{/facturacionMesActiv}}
+</div>
+
+{{#messageResult}}
+<div class='alert alert-info w-50 mx-auto text-center' role='alert'>
+    {{messageResult}}
+</div>
+{{/messageResult}}
+</section>
+{{>footer}}

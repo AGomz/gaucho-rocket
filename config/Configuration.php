@@ -90,7 +90,16 @@ class Configuration
         require_once("controller/ReporteController.php");
         return new ReporteController(
             $this->createReporteModel(),
-            $this->createPrinter());
+            $this->createPrinter(),
+            $this->getPDFGenerator());
+    }
+
+    public function createPositionController(){
+        require_once("controller/PositionController.php");
+        return new PositionController(
+            $this->createReporteModel(),
+            $this->createPrinter(),
+        );
     }
 
     // Modelos
