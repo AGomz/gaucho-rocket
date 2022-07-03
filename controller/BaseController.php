@@ -11,4 +11,12 @@ class BaseController
         }
     }
 
+    protected function checkIfSessionIsNotValidForCustomer($relativeRoute = "/error")
+    {
+        SessionManager::checkIfSessionIsNotValid($relativeRoute);
+        if (!SessionManager::userIsAdmin()) {
+            Redirect::to($relativeRoute);
+        }
+    }
+
 }

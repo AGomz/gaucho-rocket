@@ -1,8 +1,8 @@
 <?php
-require_once ('./third-party/jpgraph/src/jpgraph.php');
-require_once ('./third-party/jpgraph/src/jpgraph_bar.php');
+require_once('./third-party/jpgraph/src/jpgraph.php');
+require_once('./third-party/jpgraph/src/jpgraph_bar.php');
 
-class ReporteController
+class ReporteController extends BaseController
 {
 
     private $reporteModel;
@@ -18,21 +18,25 @@ class ReporteController
 
     public function show($data = [])
     {
+        $this->checkIfSessionIsNotValidForCustomer();
         echo $this->printer->render("view/reporteView.html", $data);
     }
 
-    public function getCabinaReport(){
+    public function getCabinaReport()
+    {
+        $this->checkIfSessionIsNotValidForCustomer();
+
         $datos = $this->reporteModel->getCabinaMasVendida();
 
-        $data1y=array();
-        $dataName=array();
+        $data1y = array();
+        $dataName = array();
 
-        for($i=0;$i<count($datos);$i++){
+        for ($i = 0; $i < count($datos); $i++) {
             $data1y[] = $datos[$i]["cantidad"];
             $dataName[] = $datos[$i]["nombre"];
         }
         $graph = $this->getGraph();
-        $graph->yaxis->SetTickPositions($data1y, array(15,45,75,105,135));
+        $graph->yaxis->SetTickPositions($data1y, array(15, 45, 75, 105, 135));
         $this->getConfigGraph($graph, $dataName);
 
         $b1plot = $this->getBarPlot($data1y);
@@ -43,15 +47,18 @@ class ReporteController
         echo $this->printer->render("view/reporteCabinaView.html");
     }
 
-    public function getMesReport(){
+    public function getMesReport()
+    {
+        $this->checkIfSessionIsNotValidForCustomer();
+
         $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
         $datos = $this->reporteModel->getFacturacionMensual($fecha);
 
-        if(sizeof($datos) > 0 && $fecha){
-            $data1y=array();
+        if (sizeof($datos) > 0 && $fecha) {
+            $data1y = array();
             $dataName = array();
 
-            for($i=0;$i<count($datos);$i++){
+            for ($i = 0; $i < count($datos); $i++) {
                 $data1y[] = $datos[$i]["importe"];
                 $dataName[] = $datos[$i]["credito"];
             }
@@ -69,16 +76,19 @@ class ReporteController
             $data = array_merge($data, ["facturacionMesActiv" => true]);
 
             echo $this->printer->render("view/reporteFacturacionMesView.html", $data);
-        }else{
-           // $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
+        } else {
+            // $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
             echo $this->printer->render("view/reporteFacturacionMesView.html");
         }
     }
 
-    public function getClienteReport(){
+    public function getClienteReport()
+    {
+        $this->checkIfSessionIsNotValidForCustomer();
+
         $id = isset($_POST["idUsuario"]) ? $_POST["idUsuario"] : "";
 
-        if($id){
+        if ($id) {
             $datos = $this->reporteModel->getFacturacionPorCliente($id);
             $data = ["facturacionCliente" => $datos];
             /*Le paso a la vista el id para poder generar el PDF*/
@@ -86,20 +96,23 @@ class ReporteController
             $data = array_merge($data, ["clienteReportActiv" => true]);
 
             echo $this->printer->render("view/reporteFacturacionClienteView.html", $data);
-        }else{
+        } else {
             echo $this->printer->render("view/reporteFacturacionClienteView.html");
         }
     }
 
-    public function getOcupacion(){
-        $idTramo =  isset($_POST["idTramo"]) ? $_POST["idTramo"] : "";
+    public function getOcupacion()
+    {
+        $this->checkIfSessionIsNotValidForCustomer();
 
-        if($idTramo){
+        $idTramo = isset($_POST["idTramo"]) ? $_POST["idTramo"] : "";
+
+        if ($idTramo) {
             $datos = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
             $contador = 0;
 
-            foreach($datos as $dato){
-                $datos[$contador]["porcentaje"] = (($dato["cantidad"]/$dato["maximo"])*100)."%";
+            foreach ($datos as $dato) {
+                $datos[$contador]["porcentaje"] = (($dato["cantidad"] / $dato["maximo"]) * 100) . "%";
                 $contador++;
             }
             $data = ["ocupacion" => $datos];
@@ -107,22 +120,24 @@ class ReporteController
             $data = array_merge($data, ["ocupacionActiv" => true]);
 
             echo $this->printer->render("view/reporteOcupacionView.html", $data);
-        }else{
+        } else {
             echo $this->printer->render("view/reporteOcupacionView.html");
         }
     }
 
-    public function getGraph(){
-        $graph = new Graph(350,200,'auto');
+    public function getGraph()
+    {
+        $graph = new Graph(350, 200, 'auto');
         $graph->SetScale("textlin");
 
-        $theme_class=new UniversalTheme;
+        $theme_class = new UniversalTheme;
         $graph->SetTheme($theme_class);
 
         return $graph;
     }
 
-    public function getConfigGraph($graph, $dataName){
+    public function getConfigGraph($graph, $dataName)
+    {
         $graph->SetBox(false);
         $graph->ygrid->SetFill(false);
         $graph->xaxis->SetTickLabels($dataName);
@@ -130,7 +145,8 @@ class ReporteController
         return $graph;
     }
 
-    public function getBarPlot($data1y){
+    public function getBarPlot($data1y)
+    {
         $b1plot = new BarPlot($data1y);
 
         $b1plot->SetColor("white");
@@ -139,7 +155,8 @@ class ReporteController
         return $b1plot;
     }
 
-    public function generateImageGraph($graph){
+    public function generateImageGraph($graph)
+    {
         $fileName = "public/img/imagefile.png";
 
         $gdImgHandler = $graph->Stroke(_IMG_HANDLER);
@@ -148,31 +165,30 @@ class ReporteController
         return $image;
     }
 
-    public function getPDFReport(){
+    public function getPDFReport()
+    {
         $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
 
-        if($fecha)
-        {
+        if ($fecha) {
             $datos = $this->reporteModel->getFacturacionMensual($fecha);
             $datos = ["dataReporteMes" => $this->reporteModel->getFacturacionMensual($fecha)];
-        }
-        else{
+        } else {
             $datos = ["dataReporte" => $this->reporteModel->getCabinaMasVendida()];
         }
 
         return $this->PDFGenerator->output($this->printer->render('view/pdf/reportePDFView.html', $datos), 'reporte.pdf');
     }
 
-    public function getPDFReportTable(){
+    public function getPDFReportTable()
+    {
         $id = isset($_POST["idUsuario"]) ? $_POST["idUsuario"] : "";
-        $idTramo =  isset($_POST["idTramo"]) ? $_POST["idTramo"] : "";
+        $idTramo = isset($_POST["idTramo"]) ? $_POST["idTramo"] : "";
 
-        if($id){
+        if ($id) {
             $datos = $this->reporteModel->getFacturacionPorCliente($id);
-            $datos = ["facturacionCliente" =>  $this->reporteModel->getFacturacionPorCliente($id)];
+            $datos = ["facturacionCliente" => $this->reporteModel->getFacturacionPorCliente($id)];
             $datos = array_merge($datos, ["facturacionClienteActiv" => true]);
-        }
-        else if($idTramo){
+        } else if ($idTramo) {
             $datos = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
             $datos = ["ocupacionViaje" => $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo)];
             $datos = array_merge($datos, ["ocupacionActiv" => true]);

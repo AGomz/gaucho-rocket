@@ -1,6 +1,6 @@
 <?php
 
-class PositionController
+class PositionController extends BaseController
 {
 
     private $reporteModel;
@@ -14,10 +14,14 @@ class PositionController
 
     public function show($data = [])
     {
+        $this->checkIfSessionIsNotValidForCustomer();
         echo $this->printer->render("view/positionView.html", $data);
     }
 
-    public function showPosition(){
+    public function showPosition()
+    {
+        $this->checkIfSessionIsNotValidForCustomer();
+
         $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
 
         if($fecha){
