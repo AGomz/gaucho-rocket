@@ -10,7 +10,8 @@ class Configuration
     public function createGauchoRocketController()
     {
         require_once("controller/GauchoRokectController.php");
-        return new GauchoRocketController($this->createPrinter());
+        require_once("model/AdminModel.php");
+        return new GauchoRocketController($this->createPrinter(), $this->createAdminModel());
     }
 
     public function createLoginController()
@@ -99,7 +100,7 @@ class Configuration
         require_once("controller/PositionController.php");
         return new PositionController(
             $this->createReporteModel(),
-            $this->createPrinter(),
+            $this->createPrinter()
         );
     }
 
@@ -158,6 +159,13 @@ class Configuration
         require_once("model/ReporteModel.php");
         $database = $this->getDatabase();
         return new ReporteModel($database);
+    }
+
+    private function createAdminModel()
+    {
+        require_once("model/AdminModel.php");
+        $database = $this->getDatabase();
+        return new AdminModel($database);
     }
 
     // Helpers
