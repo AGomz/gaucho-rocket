@@ -31,25 +31,54 @@
             {{/pagoid}}
         </div>
     </div>
-    <form action="{{URLS.domain_name}}/reservas/irAPagar" method="POST">
-        <input type="hidden" name="reservaId" value="{{reservaId}}" />
-        <input type="hidden" name="precio" value="{{precio}}" />
 
-        <div class="card-body">
-            <h6 class="card-title">Descripción</h6>
-            <p class="card-text">Salida: {{salida}} - {{origen}} <br>
-                Llegada: {{llegada}} - {{destino}}<br>
-            </p>
-            <span class="font-weight-bold">Cabina: {{cabina}}</span> <br>
-            <span>Servicio: {{servicio}}</span><br><br>
-            <h6 class="card-title">Precio: {{precio}} Créditos</h6>
-            {{^pagoid}}
-            <div class="input-buttons text-center">
-                <button type="submit" class="btn btn-primary btn-block">Pagar ahora</button>
+    <div class="card-body">
+        <h6 class="card-title">Descripción</h6>
+        <p class="card-text">Salida: {{salida}} - {{origen}} <br>
+            Llegada: {{llegada}} - {{destino}}<br>
+        </p>
+        <span class="font-weight-bold">Cabina: {{cabina}}</span> <br>
+        <span>Servicio: {{servicio}}</span><br><br>
+        <h6 class="card-title">Precio: {{precio}} Créditos</h6>
+
+        {{^pagoid}}
+        <div class="input-buttons text-center mt-4">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#modal{{reservaId}}">Cancelar
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal{{reservaId}}" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cancelar Reserva</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro de cancelar la reserva?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <form action="{{URLS.domain_name}}/reservas/cancelarReserva" method="POST">
+                                <input type="hidden" name="reservaId" value="{{reservaId}}"/>
+                                <button type="submit" class="btn btn-primary">Si</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {{/pagoid}}
+
+            <form action="{{URLS.domain_name}}/reservas/irAPagar" method="POST" class="d-inline">
+                <input type="hidden" name="reservaId" value="{{reservaId}}"/>
+                <input type="hidden" name="precio" value="{{precio}}"/>
+                <button type="submit" class="btn btn-primary btn-block">Pagar ahora</button>
+            </form>
         </div>
-    </form>
+        {{/pagoid}}
+    </div>
 </div>
 {{/proxVuelos}}
 

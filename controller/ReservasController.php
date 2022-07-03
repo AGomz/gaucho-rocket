@@ -33,4 +33,14 @@ class ReservasController
         SessionManager::setDatosDeReserva($reservaId, "", $precio);
         Redirect::to("/payment");
     }
+
+    public function cancelarReserva()
+    {
+        SessionManager::checkIfSessionIsNotValid();
+
+        $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
+        $this->reservasModel->cancelarReserva($reservaId);
+
+        $this->show();
+    }
 }

@@ -60,6 +60,15 @@ class ReservasModel
         }
     }
 
+    public function cancelarReserva($reservaId)
+    {
+        $query = "delete from reservatramo where reservaid=?";
+        $this->database->preparedQuery($query, [$reservaId], 'i');
+
+        $query = "delete from reserva where id=?";
+        $this->database->preparedQuery($query, [$reservaId], 'i');
+    }
+
     // forma 1 solo array a mostrar con el origen, destino y precio total
     private function getReservaMultiTramo($origen, $destino, $precio)
     {
