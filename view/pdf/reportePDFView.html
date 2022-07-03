@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaucho Rocket - Reporte</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h2{
+            text-align: center;
+            display: inline;
+        }
+        h4{
+            text-align: center;
+        }
+        .center {
+            margin: auto;
+            text-align: center;
+            margin-top: 10px;
+        }
+        header{
+            background-color: lightblue;
+            padding: 1px 10px;
+        }
+        .titulo{
+            padding: 0 10px;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<header><h2>Gaucho Rocket</h2><p class="titulo">Reportes</p></header>
+
+    <p class="center">
+        <img src="{{URLS.domain_name}}/public/img/imagefile.png">
+    </p>
+    <h4 class="center">Descripción</h4>
+
+    {{#dataReporte}}
+        <p class="center">Tipo de cabina: {{nombre}} - Pasajes vendidos: {{cantidad}}</p>
+    {{/dataReporte}}
+
+
+    {{#dataReporteMes}}
+    <p class="center">Importe: {{importe}} - Credito: {{credito}}</p>
+    {{/dataReporteMes}}
+
+</body>
+</html>

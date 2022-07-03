@@ -1,0 +1,59 @@
+{{>headerAdmin}}
+<section style="height: 100vh;margin-bottom: 80px;">
+<div class="container w-75 my-5 pt-3 text-center">
+    <h3 class="text-center">Tasa de ocupación por viaje y equipo</h3>
+
+        <form action="{{URLS.domain_name}}/reporte/getOcupacion" method="POST" class="needs-validation" novalidate>
+
+            <div class="row w-50 mx-auto justify-content-center mt-5">
+                <div class="col position-relative">
+                    <input type="text" name="idTramo" placeholder="Ingrese el id del tramo" class="form-control" required>
+                    <div class="valid-tooltip">Id ingresado</div>
+                    <div class="invalid-tooltip">Ingrese un id</div>
+                </div>
+                <div class="w-25">
+                    <input type="submit" value="Buscar" class="btn btn-secondary">
+                </div>
+            </div>
+        </form>
+</div>
+
+{{#ocupacionActiv}}
+<div class="container w-50 my-3 pt-3 text-center mx-auto">
+    <table>
+        <thead>
+        <tr>
+            <th>Cabina</th>
+            <th>Capacidad ocupada</th>
+            <th>Maximo de ocupacion</th>
+            <th>Porcentaje de ocupacion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#ocupacion}}
+        <tr>
+            <td>{{cabina}} </td>
+            <td>{{cantidad}}</td>
+            <td>{{maximo}}</td>
+            <td>{{porcentaje}}</td>
+        </tr>
+        {{/ocupacion}}
+        </tbody>
+    </table>
+
+    <div class="my-5">
+        <form action="{{URLS.domain_name}}/reporte/getPDFReportTable" method="POST">
+            <input type="hidden" name="idTramo" value="{{idTramo}}">
+            <input type="submit" value="Generar PDF">
+        </form>
+    </div>
+</div>
+{{/ocupacionActiv}}
+
+{{#messageResult}}
+<div class='alert alert-info w-50 mx-auto text-center' role='alert'>
+    {{messageResult}}
+</div>
+{{/messageResult}}
+</section>
+{{>footer}}

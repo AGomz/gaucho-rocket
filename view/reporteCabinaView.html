@@ -1,0 +1,17 @@
+{{>headerAdmin}}
+
+<div class="container w-75 my-5 pt-3 text-center">
+    <h3 class="text-center">Cabina más vendida</h3>
+
+    <div class="container w-75 my-5 pt-3 text-center">
+    <!-- IMAGEN GENERADA -->
+    <img src="{{URLS.domain_name}}/public/img/imagefile.png">
+    </div>
+
+    <form action="{{URLS.domain_name}}/reporte/getPDFReport" method="POST">
+        <input type="hidden" name="fecha" value="{{fecha}}">
+        <input type="submit" value="Generar PDF">
+    </form>
+</div>
+
+{{>footer}}
