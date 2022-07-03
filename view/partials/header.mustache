@@ -17,9 +17,9 @@
 
   <link rel="shortcut icon" href="{{URLS.img}}/favicon.ico" type="image/x-icon">
   <style>
-      .busqueda {
-          background: url("{{URLS.img}}/nave.jpg") no-repeat center/cover;
-        }
+    .busqueda {
+      background: url("{{URLS.img}}/nave.jpg") no-repeat center/cover;
+    }
   </style>
 
   <title>Gaucho Rocket {{ section }}</title>
@@ -43,17 +43,18 @@
 
       <!-- Menu usuario logueado/admin/invitado  -->
       {{#SESSION}}
+      {{#SESSION.user}}
       <div class="collapse navbar-collapse" id="navbarsExample04">
-          {{^SESSION.user.isAdmin}}
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{URLS.domain_name}}/reservas">Mis Reservas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{URLS.domain_name}}/checkin">Check In</a>
-              </li>
-            </ul>
-          {{/SESSION.user.isAdmin}}
+        {{^SESSION.user.isAdmin}}
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{URLS.domain_name}}/reservas">Mis Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{URLS.domain_name}}/checkin">Check In</a>
+          </li>
+        </ul>
+        {{/SESSION.user.isAdmin}}
         <ul class="navbar-nav mb-2 mb-md-0 ">
           <div>
             <span class="small text-muted">
@@ -65,8 +66,9 @@
             <!-- Si es el ADMIN se muestra menu especial -->
           </div>
         </ul>
+        {{/SESSION.user}}
         {{/SESSION}}
-        {{^SESSION}}
+        {{^SESSION.user}}
         <ul class="navbar-nav mr-auto mb-2 mb-md-0">
           <li>
             <a href="{{URLS.domain_name}}/login">
@@ -79,7 +81,7 @@
             </a>
           </li>
         </ul>
-        {{/SESSION}}
+        {{/SESSION.user}}
 
       </div>
     </div>
