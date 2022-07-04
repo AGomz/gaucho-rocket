@@ -61,7 +61,7 @@ class CheckInController extends BaseController
 
         // Envío mail
         $datos = ["checkInData" => $this->checkInModel->getDatosCheckIn([$reservaId])];
-        $this->sendCheckInMail($datos);
+        $this->sendCheckInMail($datos, $datos['checkInData'][0]['qrHashCode']);
 
         // log success
         $this->logger->info("El usuario con id $userId realizó el checkin para reserva con id $reservaId");
@@ -93,11 +93,15 @@ class CheckInController extends BaseController
         }
     }
 
-    private function sendCheckInMail($datos)
+    private function sendCheckInMail($datos, $qrHashCode)
     {
         $this->mailer->agregarDestinatario($_SESSION['user']["email"]);
         $this->mailer->agregarAsunto("Gaucho Rocket: Reserva confirmada");
         $this->mailer->agregarBody($this->printer->render("view/mail/checkInMailView.html", $datos));
+        $this->mailer->agregarImagenRemota(
+            "http://localhost/QR/show/?code=$qrHashCode",
+            "img.png"
+        );
         $this->mailer->enviar();
     }
 }
