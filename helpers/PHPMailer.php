@@ -61,6 +61,10 @@ class Mailer
         );
     }
 
+    public function agregarImagenRemota($url, $nombre) {
+        $this->mail->addStringAttachment(file_get_contents($url), $nombre);
+    }
+
     public function agregarBody($body)
     {
         $this->mail->Body = $body;
