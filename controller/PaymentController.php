@@ -28,6 +28,8 @@ class PaymentController extends BaseController
 
         if ($numeroDeTarjeta == "" || $nombreTitular == "" ||
             $fechaDeExpiracion == "" || $cvv == "") {
+            SessionManager::setMessageAlert("Complete todos los campos", "danger");
+            $this->show();
             return;
         }
 
