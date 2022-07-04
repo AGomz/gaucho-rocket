@@ -10,9 +10,9 @@ class ConfirmBookingModel
         $this->database = $database;
     }
 
-    public function getNombreDeCabina($cabinaId)
+    public function getCabina($cabinaId)
     {
-        $query = "select nombre
+        $query = "select nombre, precio
         from cabina 
         where id=${cabinaId}";
 

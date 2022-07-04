@@ -80,10 +80,10 @@ class ConfirmBookingController extends BaseController
             Redirect::to("/home");
         }
 
-        $nombreDeCabina = $this->confirmBookingModel->getNombreDeCabina($cabinaId);
+        $cabina = $this->confirmBookingModel->getCabina($cabinaId);
         $servicio = $this->confirmBookingModel->getServicioById($servicioId);
         $precioVuelo = $this->confirmBookingModel->getPrecioVuelo($tramoIdOrigen, $tramoIdDestino);
-        $total = $precioVuelo + $servicio[0]["precio"];
+        $total = $precioVuelo + $servicio[0]["precio"] + $cabina[0]["precio"];
 
         return $preload = [
             "salida" => $salida,
@@ -95,7 +95,8 @@ class ConfirmBookingController extends BaseController
             "equipoId" => $equipoId,
             "tramoIdOrigen" => $tramoIdOrigen,
             "tramoIdDestino" => $tramoIdDestino,
-            "cabina" => $nombreDeCabina[0]["nombre"],
+            "cabina" => $cabina[0]["nombre"],
+            "precioCabina" => $cabina[0]["precio"],
             "servicio" => $servicio[0]["nombre"],
             "precioVuelo" => $precioVuelo,
             "precioServicio" => $servicio[0]["precio"],
