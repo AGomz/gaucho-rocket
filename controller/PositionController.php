@@ -43,7 +43,7 @@ class PositionController extends BaseController
         // id, nombre, fechasalida, origen, fechallegada, destino
         require_once('./third-party/jpgraph/src/jpgraph.php');
         require_once('./third-party/jpgraph/src/jpgraph_gantt.php');
-        $graph = new GanttGraph(1200, 500);
+        $graph = new GanttGraph();
 
         $graph->title->Set("Posición de las naves");
         $graph->ShowHeaders(GANTT_HHOUR | GANTT_HDAY | GANTT_HMONTH);
