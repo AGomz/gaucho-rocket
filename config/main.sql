@@ -58,7 +58,8 @@ create table turnomedico (
 create table cabina (
 	id integer unique auto_increment primary key,
 	nombre varchar(60) not null,
-	descripcion varchar(70) not null
+	descripcion varchar(70) not null,
+	precio float
 );
 
 create table modelo (
@@ -195,10 +196,10 @@ insert into nivelvuelo (nombre, descripcion) values
 	nombre varchar(60) not null,
 	descripcion varchar(70) not null
 */
-insert into cabina (nombre, descripcion) values
-("Turista", "Cabina de tipo Turista"),
-("Ejecutivo", "Cabina de tipo Ejecutivo"),
-("Primera", "Primera clase.");
+insert into cabina (nombre, descripcion, precio) values
+("Turista", "Cabina de tipo Turista", 0),
+("Ejecutivo", "Cabina de tipo Ejecutivo", 100),
+("Primera", "Primera clase.", 150);
 
 
 
