@@ -16,10 +16,19 @@ class ReporteController extends BaseController
         $this->PDFGenerator = $PDFGenerator;
     }
 
-    public function show($data = [])
-    {
+    public function showOcupacion($data = []){
         $this->checkIfSessionIsNotValidForCustomer();
-        echo $this->printer->render("view/reporteView.html", $data);
+        echo $this->printer->render("view/reporteOcupacionView.html", $data);
+    }
+
+    public function showClienteReport($data = []){
+        $this->checkIfSessionIsNotValidForCustomer();
+        echo $this->printer->render("view/reporteFacturacionClienteView.html", $data);
+    }
+
+    public function showMesReport($data = []){
+        $this->checkIfSessionIsNotValidForCustomer();
+        echo $this->printer->render("view/reporteFacturacionMesView.html", $data);
     }
 
     public function getCabinaReport()
@@ -56,14 +65,12 @@ class ReporteController extends BaseController
 
         if (sizeof($datos) > 0 && $fecha) {
             $data1y = array();
-            $dataName = array();
 
             for ($i = 0; $i < count($datos); $i++) {
                 $data1y[] = $datos[$i]["importe"];
-                $dataName[] = $datos[$i]["credito"];
             }
             $graph = $this->getGraph();
-            $this->getConfigGraph($graph, $dataName);
+            $this->getConfigGraph($graph, '$');
 
             $b1plot = $this->getBarPlot($data1y);
             $graph->Add($b1plot);
@@ -75,10 +82,9 @@ class ReporteController extends BaseController
             /*Permite ocultar o mostrar la tabla*/
             $data = array_merge($data, ["facturacionMesActiv" => true]);
 
-            echo $this->printer->render("view/reporteFacturacionMesView.html", $data);
+            $this->showMesReport($data);
         } else {
-            // $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
-            echo $this->printer->render("view/reporteFacturacionMesView.html");
+            $this->showMesReport();
         }
     }
 
@@ -90,15 +96,21 @@ class ReporteController extends BaseController
 
         if ($id) {
             $datos = $this->reporteModel->getFacturacionPorCliente($id);
-            $data = ["facturacionCliente" => $datos];
-            /*Le paso a la vista el id para poder generar el PDF*/
-            $data = array_merge($data, ["idUsuario" => $id]);
-            $data = array_merge($data, ["clienteReportActiv" => true]);
 
-            echo $this->printer->render("view/reporteFacturacionClienteView.html", $data);
-        } else {
-            echo $this->printer->render("view/reporteFacturacionClienteView.html");
+            if(sizeof($datos) > 0){
+                $data = ["facturacionCliente" => $datos];
+                /*Le paso a la vista el id para poder generar el PDF*/
+                $data = array_merge($data, ["idUsuario" => $id]);
+                $data = array_merge($data, ["clienteReportActiv" => true]);
+            }else
+            {
+                $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
+            }
+        } else
+        {
+            $this->showClienteReport();
         }
+        $this->showClienteReport($data);
     }
 
     public function getOcupacion()
@@ -107,8 +119,10 @@ class ReporteController extends BaseController
 
         $idTramo = isset($_POST["idTramo"]) ? $_POST["idTramo"] : "";
 
-        if ($idTramo) {
+        if($idTramo) {
             $datos = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
+
+        if (sizeof($datos) > 0) {
             $contador = 0;
 
             foreach ($datos as $dato) {
@@ -118,11 +132,14 @@ class ReporteController extends BaseController
             $data = ["ocupacion" => $datos];
             $data = array_merge($data, ["idTramo" => $idTramo]);
             $data = array_merge($data, ["ocupacionActiv" => true]);
-
-            echo $this->printer->render("view/reporteOcupacionView.html", $data);
-        } else {
-            echo $this->printer->render("view/reporteOcupacionView.html");
+        } else
+        {
+            $data = array_merge(["messageResult" => 'No se encontraron resultados.']);
+        }} else
+        {
+            $this->showOcupacion();
         }
+        $this->showOcupacion($data);
     }
 
     public function getGraph()
@@ -148,7 +165,6 @@ class ReporteController extends BaseController
     public function getBarPlot($data1y)
     {
         $b1plot = new BarPlot($data1y);
-
         $b1plot->SetColor("white");
         $b1plot->SetFillColor("#cc1111");
 
@@ -171,11 +187,11 @@ class ReporteController extends BaseController
 
         if ($fecha) {
             $datos = $this->reporteModel->getFacturacionMensual($fecha);
-            $datos = ["dataReporteMes" => $this->reporteModel->getFacturacionMensual($fecha)];
+            $datos = ["fecha" => $fecha];
+            $datos = array_merge($datos, ["dataReporteMes" => $this->reporteModel->getFacturacionMensual($fecha)]);
         } else {
             $datos = ["dataReporte" => $this->reporteModel->getCabinaMasVendida()];
         }
-
         return $this->PDFGenerator->output($this->printer->render('view/pdf/reportePDFView.html', $datos), 'reporte.pdf');
     }
 
@@ -199,7 +215,6 @@ class ReporteController extends BaseController
             $datos = ["ocupacionViaje" => $data];
             $datos = array_merge($datos, ["ocupacionActiv" => true]);
         }
-
         return $this->PDFGenerator->output($this->printer->render('view/pdf/reportePDFTabClienteView.html', $datos), 'reporte.pdf');
     }
 }
