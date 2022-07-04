@@ -15,6 +15,12 @@ class PaymentController extends BaseController
     public function show($data = [])
     {
         $this->checkIfSessionIsNotValid();
+        $reserva = SessionManager::getDatosDeReserva();
+        $data = [
+            "total" => $reserva["importe"],
+            "reservaId" => $reserva["reservaId"],
+            "transaccion" => $reserva["transaccion"]
+        ];
         echo $this->paymentPrinter->render("view/paymentView.html", $data);
     }
 
@@ -26,6 +32,10 @@ class PaymentController extends BaseController
         $fechaDeExpiracion = isset($_POST["fechaDeExpiracion"]) ? $_POST["fechaDeExpiracion"] : "";
         $cvv = isset($_POST["cvv"]) ? $_POST["cvv"] : "";
 
+        $reservaId = isset($_POST["total"]) ? $_POST["total"] : "";
+        $total = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
+        $transaccion = isset($_POST["transaccion"]) ? $_POST["transaccion"] : "";
+
         if ($numeroDeTarjeta == "" || $nombreTitular == "" ||
             $fechaDeExpiracion == "" || $cvv == "") {
             SessionManager::setMessageAlert("Complete todos los campos", "danger");
@@ -33,7 +43,7 @@ class PaymentController extends BaseController
             return;
         }
 
-        $this->paymentModel->realizarPago(SessionManager::getDatosDeReserva());
+        $this->paymentModel->realizarPago($reservaId, $total, $transaccion);
         SessionManager::setMessageAlert("¡Pago realizado exitosamente!", "success");
         Redirect::to("/home");
     }

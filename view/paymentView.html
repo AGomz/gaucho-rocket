@@ -11,6 +11,10 @@
     <div class="wrapper border border-secondary rounded">
         <div class="outer-card">
             <form action="{{URLS.domain_name}}/payment/confirm" class="p-3" method="POST">
+                <input type="hidden" name="reservaId" value="{{reservaId}}"/>
+                <input type="hidden" name="total" value="{{total}}"/>
+                <input type="hidden" name="transaccion" value="{{transaccion}}"/>
+
                 <div class="forms">
                     <div class="input-items">
                         <span>Número de Tarjeta</span>
@@ -31,6 +35,7 @@
                             <input placeholder="000" data-slots="0" data-accept="\d" size="3" name="cvv" required>
                         </div>
                     </div>
+                    <h6 class="card-title text-center">Total: {{total}} Créditos</h6>
                     <div class="input-buttons text-center">
                         <button type="submit" class="btn btn-primary btn-block">Pagar ahora</button>
                     </div>
