@@ -5,7 +5,7 @@
 
     <form class="needs-validation" action="{{URLS.domain_name}}/search/execute" method="POST" novalidate>
         <div class="row">
-            <div class="col-14">
+            <div class="col">
                 <span class="px-2">Viaje</span>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="tipoDeViaje" id="idaRadio" value="ida" checked>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="row pt-1">
-            <div class="col-3 position-relative">
+            <div class="col-md-3 col-sm-12 position-relative">
                 <select class="form-select" id="select-origen" name="origen" required>
                     <option value="">Seleccionar Origen</option>
                     <option value="1" class="hab">Tierra - Buenos Aires</option>
@@ -42,13 +42,13 @@
                 <div class="invalid-tooltip">Seleccione un origen</div>
             </div>
 
-            <div class="col-1 position-relative">
+            <div class="col-md-1 col-sm-12 position-relative">
                 <button id="toggle" type="button" class="btn btn-primary" title="cambiar">
                    <i class="fa-solid fa-arrow-right-arrow-left"></i> 
                 </button>
             </div>
 
-            <div class="col-3 position-relative">
+            <div class="col-md-3 col-sm-12 position-relative">
                 <select class="form-select select" id="select-destino" name="destino" required>
                     <option value="">Seleccionar destino</option>
                     <option value="1">Tierra - Buenos Aires</option>
@@ -67,14 +67,14 @@
                 <div class="invalid-tooltip">Seleccione un destino</div>
             </div>
 
-            <div class="col-3">
+            <div class="col-md-3 col-sm-12">
                 <input class="form-control" id="fecha" type="date" name="fecha" placeholder="dd/mm/aaaa"
                     min="2022-05-18" max="2030-05-18">
                 <div class="valid-tooltip">Fecha seleccionada</div>
                 <div class="invalid-tooltip">Seleccione una fecha</div>
             </div>
 
-            <div class="col">
+            <div class="col-md-2 col-sm-12">
                 <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
             </div>
         </div>

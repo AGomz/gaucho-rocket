@@ -23,12 +23,11 @@ class CheckInModel
         $checkInPendientes = $this->database->query($query);
 
         // Devuelve un array de ids de reservas
-        $reservasIdPendientes = array_merge(
-            ...array_map(
-                fn ($value) => array_values($value),
-                $checkInPendientes
-            )
-        );
+        $reservasIdPendientes = [];
+
+        foreach ($checkInPendientes as $reservasId) {
+            $reservasIdPendientes[] = $reservasId['id'];
+        }
 
         return $this->getDatosCheckIn($reservasIdPendientes);
     }
