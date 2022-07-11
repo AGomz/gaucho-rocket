@@ -32,8 +32,8 @@ class PaymentController extends BaseController
         $fechaDeExpiracion = isset($_POST["fechaDeExpiracion"]) ? $_POST["fechaDeExpiracion"] : "";
         $cvv = isset($_POST["cvv"]) ? $_POST["cvv"] : "";
 
-        $reservaId = isset($_POST["total"]) ? $_POST["total"] : "";
-        $total = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
+        $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
+        $total = isset($_POST["total"]) ? $_POST["total"] : "";
         $transaccion = isset($_POST["transaccion"]) ? $_POST["transaccion"] : "";
 
         if ($numeroDeTarjeta == "" || $nombreTitular == "" ||

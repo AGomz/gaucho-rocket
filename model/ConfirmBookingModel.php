@@ -55,10 +55,10 @@ class ConfirmBookingModel
         return $this->database->query($query);
     }
 
-    public function realizarReservas($userId, $tramoIdOrigen, $tramoIdDestino, $servicioId, $cabinaId)
+    public function realizarReservas($userId, $tramoIdOrigen, $tramoIdDestino, $servicioId, $cabinaId, $precio)
     {
-        $query = "insert into reserva (usuarioid, fecha, servicioid, tipocabina)
-            values (${userId}, curdate(), ${servicioId}, ${cabinaId})";
+        $query = "insert into reserva (usuarioid, fecha, servicioid, tipocabina, precio)
+            values (${userId}, curdate(), ${servicioId}, ${cabinaId}, ${precio})";
 
         $this->database->insertQuery($query);
         $reservaId = $this->database->lastID();

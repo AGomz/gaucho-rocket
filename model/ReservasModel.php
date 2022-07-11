@@ -75,6 +75,7 @@ class ReservasModel
         return [
             "reservaId" => $origen["reservaId"],
             "precio" => $precio,
+            "precioTotal" => $destino["precioTotal"],
             "salida" => $origen["salida"],
             "origen" => $origen["origen"],
             "llegada" => $destino["llegada"],
@@ -89,7 +90,7 @@ class ReservasModel
     private function getReservas($userId)
     {
         $query = "select distinct r.id as reservaId, dd.nombre as origen, dno.nombre as destino, t.fechasalida as salida, t.fechallegada as llegada,
-        sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo, r.pagoid
+        sb.nombre as servicio, c.nombre as cabina, t.precio as precio, tv.nombre as tipovuelo, nv.nombre as nivelvuelo, r.pagoid, r.precio as precioTotal
         from reserva r join
         reservatramo rt on rt.reservaid=r.id join
         tramo t on rt.tramoid=t.id join

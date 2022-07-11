@@ -150,6 +150,7 @@ create table reserva (
 	servicioid integer not null,
 	listaespera boolean,
 	tipocabina integer not null,
+	precio float not null,
 	-- primary key (usuarioid, tramoid),
 	foreign key (usuarioid) references usuario(id),
 	foreign key (servicioid) references servicioabordo(id),

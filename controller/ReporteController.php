@@ -45,7 +45,6 @@ class ReporteController extends BaseController
             $dataName[] = $datos[$i]["nombre"];
         }
         $graph = $this->getGraph();
-        $graph->yaxis->SetTickPositions($data1y, array(15, 45, 75, 105, 135));
         $this->getConfigGraph($graph, $dataName);
 
         $b1plot = $this->getBarPlot($data1y);
@@ -121,7 +120,7 @@ class ReporteController extends BaseController
 
         if($idTramo) {
             $datos = $this->reporteModel->getOcupacionPorViajeYEquipo($idTramo);
-
+            
         if (sizeof($datos) > 0) {
             $contador = 0;
 

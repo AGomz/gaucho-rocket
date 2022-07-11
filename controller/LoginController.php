@@ -34,9 +34,9 @@ class LoginController
 
         $user = $this->userModel->getUserByEmail($email);
         $userId = $this->userModel->getUserIDByEmail($email);
-        $userRol = $this->userModel->getRolByUserID($userId[0]['id']) == 2;
-
+        
         if (sizeof($user) > 0 && $user[0]['email'] == $email && password_verify($password, $user[0]['password'])) {
+            $userRol = $this->userModel->getRolByUserID($userId[0]['id']) == 2;
             SessionManager::setMessageAlert("Bienvenido nuevamente $email");
             SessionManager::saveUserData($userId, $email, $userRol);
         } else {

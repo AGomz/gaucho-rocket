@@ -52,7 +52,8 @@ class ConfirmBookingController extends BaseController
                     $datos["tramoIdOrigen"],
                     $datos["tramoIdDestino"],
                     $datos["servicioId"],
-                    $datos["cabinaId"]
+                    $datos["cabinaId"],
+                    $datos["total"]
                 );
                 SessionManager::setDatosDeReserva($reservaId, "", $datos["total"]);
                 Redirect::to("/payment");

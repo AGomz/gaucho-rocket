@@ -46,7 +46,7 @@ class ReporteModel
     }
 
     public function getOcupacionPorViajeYEquipo($id){
-        $query = "select count(*) as cantidad,
+        $query = "select count(DISTINCT r.id) as cantidad,
                     c2.cantidad as maximo,
                     c.nombre as cabina
                     from reserva r 

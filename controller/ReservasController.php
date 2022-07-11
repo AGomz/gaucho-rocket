@@ -27,7 +27,7 @@ class ReservasController extends BaseController
     {
         $this->checkIfSessionIsNotValid();
 
-        $precio = isset($_POST["precio"]) ? $_POST["precio"] : "";
+        $precio = isset($_POST["precioTotal"]) ? $_POST["precioTotal"] : "";
         $reservaId = isset($_POST["reservaId"]) ? $_POST["reservaId"] : "";
 
         SessionManager::setDatosDeReserva($reservaId, "", $precio);
